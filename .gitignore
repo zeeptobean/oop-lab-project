@@ -1,0 +1,14 @@
+*.*
+*
+
+# List all files and folders you want to include down here, each entries begin with exclamation mark(!)  
+!data
+!data/**
+!imgui-sfml
+!imgui-sfml/**
+# imgui-sfml/build      //already ignored by another .gitignore located inside
+# imgui-sfml/lib
+!nlohmann/
+!nlohmann/**
+!.gitignore
+!gui3.cpp

@@ -1,0 +1,34 @@
+{
+    "books": [
+        {
+            "id": 1,
+            "imagePath": "data/book/book1.png",
+            "title": "C++ Concurrency In Action, Practical Multithreading",
+            "authors": ["Anthony Williams"],
+            "publicationYear": 2012,
+            "ageRating": 0,
+            "isbn": 9781933988771,
+            "tags": ["c++", "concurrency", "thread", "mutex", "lock", "parallel", "atomic", "synchronizing", "intermediate level"]
+        },
+        {
+            "id": 14,
+            "imagePath": "data/book/book14.png",
+            "title": "Tập tô số 1",
+            "authors": ["Thiện Lộc", "Minh Nguyệt"],
+            "publicationYear": 2016,
+            "ageRating": 3,
+            "isbn": 8936036307764,
+            "tags": ["tập viết", "viết số", "tiểu học", "lớp 1", "mẫu giáo", "tô số", "đồ số"]
+        },
+        {
+            "id": 20,
+            "imagePath": "data/book/book20.png",
+            "title": "デート・ア・ライブ１０ 鳶一エンジェル",
+            "authors": ["橘公司"],
+            "publicationYear": 2014,
+            "ageRating": 18,
+            "isbn": 9784040700663,
+            "tags": ["datealive", "date-a-live", "デート・ア・ライブ", "10", ""]
+        }
+    ]
+}
