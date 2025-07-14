@@ -1,4 +1,13 @@
-#include "gui3.h"
+#include <SFML/Graphics.hpp>
+#include <SFML/Main.hpp>
+#include "imgui-SFML.h"
+#include "imgui.h"
+#include "nlohmann/json.hpp"
+#include <bits/stdc++.h>
+using namespace std;
+using json = nlohmann::json;
+
+#define UNREFERENCED_PARAMETER(x) ((x) = (x))
 
 sf::RenderWindow window;
 ImVec2 windowSize(800, 600);
