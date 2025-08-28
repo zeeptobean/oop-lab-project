@@ -8,7 +8,21 @@
             "publicationYear": 2012,
             "ageRating": 0,
             "isbn": 9781933988771,
-            "tags": ["c++", "concurrency", "thread", "mutex", "lock", "parallel", "atomic", "synchronizing", "intermediate level"]
+            "tags": ["c++", "concurrency", "thread", "mutex", "lock", "parallel", "atomic", "synchronizing", "intermediate level"],
+            "addedTimestamp": "2023-10-02T12-00",
+            "departmentRestriction": ["IT", "Math"]
+        },
+        {
+            "id": 7,
+            "imagePath": "data/book/book7.png",
+            "title": "Computer Systems: A Programmer's Perspective",
+            "authors": ["Randal E. Bryant", "David R. O'Hallaron"],
+            "publicationYear": 2016,
+            "ageRating": 0,
+            "isbn": 9780134092669,
+            "tags": ["computer systems", "programming", "hardware architecture", "operating system", "systems software", "x86-64", "C", "C++", "intermediate level"],
+            "addedTimestamp": "2023-07-06T12-00",
+            "departmentRestriction": []
         },
         {
             "id": 14,
@@ -18,7 +32,9 @@
             "publicationYear": 2016,
             "ageRating": 3,
             "isbn": 8936036307764,
-            "tags": ["tập viết", "viết số", "tiểu học", "lớp 1", "mẫu giáo", "tô số", "đồ số"]
+            "tags": ["tập viết", "viết số", "tiểu học", "lớp 1", "mẫu giáo", "tô số", "đồ số"],
+            "addedTimestamp": "2025-08-15T12-00",
+            "departmentRestriction": []
         },
         {
             "id": 20,
@@ -28,7 +44,9 @@
             "publicationYear": 2014,
             "ageRating": 18,
             "isbn": 9784040700663,
-            "tags": ["datealive", "date-a-live", "デート・ア・ライブ", "10", ""]
+            "tags": ["datealive", "date-a-live", "デート・ア・ライブ", "10", ""],
+            "addedTimestamp": "2024-12-25T18-30",
+            "departmentRestriction": []
         }
     ]
 }

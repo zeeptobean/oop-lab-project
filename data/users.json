@@ -1,0 +1,38 @@
+{
+    "users": [
+        {
+            "id": 1,
+            "passwordHash": "a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3",
+            "name": "admin",
+            "dob": "1990-01-01T05-00",
+            "nid": "079206000001",
+            "email": "admin@example.com",
+            "address": "Choquan, HCMC",
+            "phone": "0123456789",
+            "image": "admin.png",
+            "type": "premium",
+            "favoriteBookId": [1, 2, 3],
+            "recentBookId": [1],
+            "isSuspended": false,
+            "suspendUntil": null
+        },
+        {
+            "id": 2,
+            "passwordHash": "a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3",
+            "name": "NVT",
+            "dob": "1970-01-01T05-00",
+            "nid": "012070000001",
+            "email": "NVT@hcmus.edu.vn",
+            "address": "Choquan, HCMC",
+            "phone": "0123456789",
+            "image": "NVT.png",
+            "type": "teacher",
+            "favoriteBookId": [2, 3],
+            "recentBookId": [1],
+            "department": "Math",
+            "workId": "GV001",
+            "isSuspended": true,
+            "suspendUntil": "2025-08-03T00-00"
+        }
+    ]
+}
