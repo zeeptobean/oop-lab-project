@@ -55,6 +55,14 @@ class Timestamp {
     }
     ~Timestamp() {}
 
+    uint64_t yearDiff(const Timestamp& rhs) const {
+        int diff = year - rhs.year;
+        if (month < rhs.month || (month == rhs.month && day < rhs.day)) {
+            diff--;
+        }
+        return std::abs(diff);
+    }
+
     bool operator<(const Timestamp& rhs) const {
         return compare(rhs) < 0;
     }

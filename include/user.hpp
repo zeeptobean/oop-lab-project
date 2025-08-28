@@ -10,13 +10,13 @@
 #include <nlohmann/json.hpp>
 #include "borrowing_policy.hpp"
 #include "timestamp.hpp"
-#include "../sha256.hpp"
+#include "sha256.hpp"
 
 using json = nlohmann::json;
 
 class User {
     private:
-    IBorrowingPolicy *borrowingPolicy;
+    const IBorrowingPolicy *borrowingPolicy = nullptr;
     std::set<uint64_t> favoriteBookId;
     std::deque<uint64_t> recentBookId;
     uint64_t internalId;
@@ -31,6 +31,14 @@ class User {
     std::string image;
 
     friend class UserDatabase;
+
+    User() = default;
+    User(const User& other) = default;
+
+    virtual std::unique_ptr<User> clone() const {
+        return std::make_unique<User>(*this);
+    }
+    virtual ~User() {}
 };
 
 enum class UniversityUserType {
@@ -41,10 +49,17 @@ enum class UniversityUserType {
 };
 
 class UniversityUser : public User {
-    private:
+    public:
     std::string workId;
     std::string department;
     UniversityUserType userType;
+
+    UniversityUser() = default;
+    UniversityUser(const UniversityUser& other) = default;
+
+    virtual std::unique_ptr<User> clone() const override {
+        return std::make_unique<UniversityUser>(*this);
+    }
 };
 
 class UserDatabase {
@@ -52,61 +67,81 @@ class UserDatabase {
     UserDatabase() = default;
     ~UserDatabase() = default;
 
-    std::map<uint64_t, User> userMap;
-    std::map<std::string, uint64_t> tokenToUserIdMap;
+    std::map<uint64_t, std::unique_ptr<User>> userMap;
 
-    std::string generateAccessToken() {
-        const char alphanum[] = "abcdefghijklmnopqrstuvwxyz";
-        std::string token(32, ' ');
-
-        for(int i = 0; i < 32; i++) {
-            token[i] = alphanum[rand() % (sizeof(alphanum) - 1)];
+    User* initUserJson(const json& jsonData) {
+        if(!jsonData.contains("type")) {
+            return nullptr;
         }
-        return token;
-    }
-
-    void internalUpdateUserJson(User& user, const json& jsonData) {
-        user.internalId = jsonData.at("internalId");
-        user.name = jsonData.at("name");
-        std::string dobString = jsonData.at("dob");
-        user.dob = Timestamp(dobString);
-        user.nid = jsonData.at("nid");
-        user.email = jsonData.at("email");
-        user.address = jsonData.at("address");
-        user.phone = jsonData.at("phone");
-        user.image = jsonData.at("image");
-        user.passwordHash = jsonData.at("passwordHash");
-
-        std::vector<uint64_t> favoriteBookVec = jsonData.at("favoriteBookId");
-        std::vector<uint64_t> recentBookVec = jsonData.at("recentBookId");
+        User *user = nullptr;
         std::string userType = jsonData.at("type");
-        user.favoriteBookId.clear();
-        user.recentBookId.clear();
-        for(auto& bookId : favoriteBookVec) {
-            user.favoriteBookId.insert(bookId);
-        }
-        for(auto& bookId : recentBookVec) {
-            user.recentBookId.push_back(bookId);
-        }
-        if(userType == "undergraduate") {
-            user.borrowingPolicy = const_cast<IBorrowingPolicy*>(BorrowingPolicyFactory::getUndergraduatePolicy());
-        } else if(userType == "postgraduate") {
-            user.borrowingPolicy = const_cast<IBorrowingPolicy*>(BorrowingPolicyFactory::getPostgraduatePolicy());
-        } else if(userType == "teacher" || userType == "premium") {
-            user.borrowingPolicy = const_cast<IBorrowingPolicy*>(BorrowingPolicyFactory::getPremiumPolicy());
-        } else if(userType == "staff") {
-            user.borrowingPolicy = const_cast<IBorrowingPolicy*>(BorrowingPolicyFactory::getNormalPolicy());
+        UniversityUserType uuserType;
+        if(userType == "undergraduate" || userType == "postgraduate" || userType == "teacher" || userType == "staff") {
+            user = new UniversityUser();
+            if(userType == "undergraduate") {
+                uuserType = UniversityUserType::UNDERGRADUATE;
+                user->borrowingPolicy = BorrowingPolicyFactory::getUndergraduatePolicy();
+            } else if(userType == "postgraduate") {
+                uuserType = UniversityUserType::POSTGRADUATE;
+                user->borrowingPolicy = BorrowingPolicyFactory::getPostgraduatePolicy();
+            } else if(userType == "teacher") {
+                uuserType = UniversityUserType::TEACHER;
+                user->borrowingPolicy = BorrowingPolicyFactory::getPremiumPolicy();
+            } else {
+                uuserType = UniversityUserType::STAFF;
+                user->borrowingPolicy = BorrowingPolicyFactory::getNormalPolicy();
+            }
         } else {
-            user.borrowingPolicy = const_cast<IBorrowingPolicy*>(BorrowingPolicyFactory::getNormalPolicy());
+            user = new User();
+            if(userType == "premium") {
+                user->borrowingPolicy = BorrowingPolicyFactory::getPremiumPolicy();
+            } else {
+                user->borrowingPolicy = BorrowingPolicyFactory::getNormalPolicy();
+            }
         }
-    }
-    
-    void internalUpdateUser(const User& user) {
-        if(userMap.find(user.internalId) != userMap.end()) {
-            userMap[user.internalId] = user;
+
+        try {
+            user->internalId = jsonData.at("id");
+            user->name = jsonData.at("name");
+            user->dob = Timestamp((std::string) jsonData.at("dob"));
+            user->nid = jsonData.at("nid");
+            user->email = jsonData.at("email");
+            user->address = jsonData.at("address");
+            user->phone = jsonData.at("phone");
+            user->image = jsonData.at("image");
+            user->passwordHash = jsonData.at("passwordHash");
+
+            std::vector<uint64_t> favoriteBookVec = jsonData.at("favoriteBookId");
+            std::vector<uint64_t> recentBookVec = jsonData.at("recentBookId");
+            user->favoriteBookId.clear();
+            user->recentBookId.clear();
+            for(auto& bookId : favoriteBookVec) {
+                user->favoriteBookId.insert(bookId);
+            }
+            for(auto& bookId : recentBookVec) {
+                user->recentBookId.push_back(bookId);
+            }
+
+            UniversityUser* uuser = dynamic_cast<UniversityUser*>(user);
+            if(uuser) {
+                uuser->workId = jsonData.at("workId");
+                uuser->department = jsonData.at("department");
+                uuser->userType = uuserType;
+            }
+        } catch(...) {
+            delete user;
+            return nullptr;
+        }
+
+        if(userMap.find(user->internalId) == userMap.end()) {
+            userMap[user->internalId] = std::unique_ptr<User>(user);
         } else {
-            std::cerr << "User ID " << user.internalId << " duplicated. Do not update" << std::endl;
+            std::cerr << "User ID " << user->internalId << " duplicated. Do not add" << std::endl;
+            delete user;
+            return nullptr;
         }
+
+        return user;
     }
 
     public:
@@ -117,74 +152,29 @@ class UserDatabase {
     UserDatabase(const UserDatabase&) = delete;
     UserDatabase& operator=(const UserDatabase&) = delete;
 
-    bool commitUser(User tuser, const std::string& accessToken) {
-        auto userIdIter = tokenToUserIdMap.find(accessToken);
-        if (userIdIter != tokenToUserIdMap.end()) {
-            auto userId = userIdIter->second;
-            tuser.internalId = userId;
-            internalUpdateUser(tuser);
-            return true;
-        }
-        return false;
-    }
-
-    bool login(const std::string& email, const std::string& password, std::string& outToken) {
-        for(auto& [userId, user] : userMap) {
-            if(user.email == email && user.passwordHash == sha256(password)) {
-                outToken = generateAccessToken();
-                tokenToUserIdMap[outToken] = userId;
-                return true;
-            }
-        }
-        return false;
-    }
-    bool logout(uint64_t accessToken) {
-        for(auto& [token, userId] : tokenToUserIdMap) {
-            if(userId == accessToken) {
-                tokenToUserIdMap.erase(token);
-                return true;
-            }
-        }
-        return false;
-    }
-
-    User* getUserByToken(const std::string& accessToken) {
-        for(auto& [token, userId] : tokenToUserIdMap) {
-            if(token == accessToken) {
-                auto it = userMap.find(userId);
-                if (it != userMap.end()) {
-                    return &it->second;
-                }
-                return nullptr;
+    User* login(const std::string& email, const std::string& password) {
+        std::string passwordHash = sha256(password);
+        for(auto const& [userId, userPtr] : userMap) {
+            if(userPtr->email == email && userPtr->passwordHash == passwordHash) {
+                return userPtr.get();
             }
         }
         return nullptr;
     }
 
     bool loadFile(const std::string& filename) {
-        std::ifstream jsonFile (filename, std::ios::in | std::ios::out | std::ios::app);
-        if(!jsonFile) {
-            return false;
-        }
+        std::ifstream jsonFile(filename);
+        if (!jsonFile) return false;
 
         json jsonData;
         try {
             jsonFile >> jsonData;
             for(auto& item : jsonData.at("users")) {
-                User tuser;
-                internalUpdateUserJson(tuser, item);
-                internalUpdateUser(tuser);
+                User *newUser = initUserJson(item);
             }
-        } catch(std::exception& e) {
+        } catch (const std::exception& e) {
             return false;
         }
-    }
-
-    User* getUserById(const uint64_t& userId) {
-        auto it = userMap.find(userId);
-        if (it != userMap.end()) {
-            return &it->second;
-        }
-        return nullptr;
+        return true;
     }
 };

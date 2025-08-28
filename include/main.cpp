@@ -10,6 +10,7 @@
 #include "gui_abstract.hpp"
 #include "book.hpp"
 #include "app_context.hpp"
+#include "user.hpp"
 
 ImVec2 windowSize;
 SDL_Renderer *renderer;
@@ -176,13 +177,21 @@ class UIBookView : public IUIAbstract {
     private:
     SDL_Texture *imageTexture;
     Book book;
+    AppContext& appContext;
+    bool ageRestrictionActivate = false;
+
+    bool checkEligibleAge() {
+        if (!appContext.currentUser) return false;
+        return appContext.currentUser->dob.yearDiff(Timestamp()) >= book.ageRating;
+    }
 
     public:
-    UIBookView(const Book& tbook) : book(tbook) {
+    UIBookView(AppContext& ctx, const Book& tbook) : book(tbook), appContext(ctx) {
         imageTexture = TextureCache::get().book_get_texture(book.internalId);
+        ageRestrictionActivate = !checkEligibleAge();
     }
-    
-    void draw() override {
+
+    void drawImpl() {
         ImGui::PushID(book.internalId);
         ImGui::BeginGroup();
         ImGui::Image(imageTexture, ImVec2(480, 640));
@@ -220,9 +229,19 @@ class UIBookView : public IUIAbstract {
         ImGui::EndGroup();
         ImGui::PopID();
     }
+    
+    void draw() override {
+        if(ageRestrictionActivate) {
+            ImGui::PushStyleColor(ImGuiCol_Text, IM_COL32(250, 0, 0, 255)); //red color
+            ImGui::Text("You are not eligible to view this book due to age restriction.");
+            ImGui::PopStyleColor();
+        } else {
+            drawImpl();
+        }
+    }
 };
 
-class UiBookCard {
+class UIBookCard {
     private:
     AppContext& appContext;
     SDL_Texture *texture = nullptr;
@@ -239,9 +258,9 @@ class UiBookCard {
     // }
 
     public:
-    UiBookCard(AppContext& context) : appContext(context), book(nullptr) {
+    UIBookCard(AppContext& context) : appContext(context), book(nullptr) {
     }
-    UiBookCard(AppContext& context, Book* tbook) : appContext(context), book(tbook) {
+    UIBookCard(AppContext& context, Book* tbook) : appContext(context), book(tbook) {
         texture = TextureCache::get().book_get_texture(book->internalId);
     }
     void draw() {
@@ -264,24 +283,24 @@ class UiBookCard {
         ImGui::PopFont();
         ImGui::Text("Author(s): %s", book->getAuthorsString().c_str());
         if(ImGui::Button("View Details")) {
-            appContext.requestNewTab(std::make_unique<UIBookView>(*book), "Viewing " + book->title);
+            appContext.requestNewTab(std::make_unique<UIBookView>(appContext, *book), "Viewing " + book->title);
         }
         ImGui::EndChild();
         ImGui::EndChild();
         ImGui::PopID();
     }
 
-    virtual ~UiBookCard() {}
+    virtual ~UIBookCard() {}
 };
 
-class UiBookCatalogue : public IUIAbstract {
+class UIBookCatalogue : public IUIAbstract {
     private:
     AppContext& appContext;
-    std::vector<std::unique_ptr<UiBookCard>> bookCards;
+    std::vector<std::unique_ptr<UIBookCard>> bookCards;
     public:
-    UiBookCatalogue(AppContext& context, const std::vector<Book*>& tbooks) : appContext(context) {
+    UIBookCatalogue(AppContext& context, const std::vector<Book*>& tbooks) : appContext(context) {
         for(Book* book : tbooks) {
-            bookCards.emplace_back(std::make_unique<UiBookCard>(context, book));
+            bookCards.emplace_back(std::make_unique<UIBookCard>(context, book));
         }
     }
     void draw() override {
@@ -291,23 +310,86 @@ class UiBookCatalogue : public IUIAbstract {
     }
 };
 
-class UITabPage : public IUIAbstract {
+class UIUserProfile : public IUIAbstract {
     private:
-    bool *state = nullptr;
-    public:
-    std::string title;
-    std::unique_ptr<IUIAbstract> content;
+    User *user;
+    AppContext& appContext;
+    SDL_Texture *imageTexture = nullptr;
 
-    UITabPage(std::unique_ptr<IUIAbstract> tcontent, const std::string& ttitle, bool isClosable = true) 
-    : content(std::move(tcontent)), title(ttitle) {
-        if(isClosable) {
-            state = new bool(true);
+    public:
+    UIUserProfile(AppContext& context, User* tuser) : appContext(context), user(tuser) {
+        if(user) {
+            SDL_Surface* surface = loadImage("../" + user->image);
+            if(surface) {
+                imageTexture = SDL_CreateTextureFromSurface(renderer, surface);
+                SDL_DestroySurface(surface);
+            } else {
+                surface = loadImage("../data/user/default.png");
+                if(surface) {
+                    imageTexture = SDL_CreateTextureFromSurface(renderer, surface);
+                    SDL_DestroySurface(surface);
+                }
+            }
         }
     }
 
     void draw() override {
         ImGui::PushID(this);
-        if(ImGui::BeginTabItem(title.c_str(), state)) {
+        ImGui::BeginChild("UserProfile", ImVec2(-1, -1));
+        ImGui::Image((void*)imageTexture, ImVec2(100, 100));
+        ImGui::SameLine();
+        ImGui::BeginGroup();
+        ImGui::Text("User: %s", user->name.c_str());
+        ImGui::Text("Email: %s", user->email.c_str());
+        ImGui::EndGroup();
+        ImGui::EndChild();
+        ImGui::PopID();
+    }
+};
+
+class UITabPage : public IUIAbstract {
+    private:
+    bool closable = true;
+    bool active = true;
+    bool *ptr = nullptr;
+    std::string title;
+    public:
+    std::unique_ptr<IUIAbstract> content;
+
+    UITabPage(std::unique_ptr<IUIAbstract> tcontent, const std::string& ttitle, bool isClosable = true) 
+    : content(std::move(tcontent)), title(ttitle), closable(isClosable) {
+        if(closable) ptr = &active;
+    }
+
+    UITabPage(UITabPage&& other)
+        : content(std::move(other.content)),
+          title(std::move(other.title)),
+          closable(other.closable),
+          active(other.active)
+    {
+        other.content = nullptr;
+    }
+
+    // Move Assignment Operator
+    UITabPage& operator=(UITabPage&& other) noexcept {
+        if (this != &other) {
+            content = std::move(other.content);
+            title = std::move(other.title);
+            closable = other.closable;
+            active = other.active;
+
+            // Steal the pointer from the other object
+            other.content = nullptr;
+        }
+        return *this;
+    }
+
+    UITabPage(const UITabPage&) = delete;
+    UITabPage& operator=(const UITabPage&) = delete;
+
+    void draw() override {
+        ImGui::PushID(this);
+        if(ImGui::BeginTabItem(title.c_str(), ptr)) {
             ImGui::BeginChild("TabPageContent", ImVec2(-1, -1));
             content->draw();
             ImGui::EndChild();  
@@ -317,29 +399,66 @@ class UITabPage : public IUIAbstract {
     }
 
     bool isActive() const {
-        return state ? *state : true;
+        return closable ? active : true;
     }
-    virtual ~UITabPage() {
-        delete state;
-    };
+    virtual ~UITabPage() {};
+};
+
+class UILoginView : public IUIAbstract {
+    private:
+    bool isLoginOpen = true;
+    User *user = nullptr;
+    std::string email, password, accessToken;
+    unsigned int wrongAttempts = 0;
+    public:
+
+    std::string getAccessToken() const {
+        return accessToken;
+    }
+
+    void draw() override {
+        if(isLoginOpen) {
+            ImGui::OpenPopup("Login");
+            isLoginOpen = false;
+        }
+        if (ImGui::BeginPopupModal("Login", NULL, ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoMove)) {
+            ImGui::SetNextWindowPos(ImVec2(windowSize.x / 2, windowSize.y / 2), ImGuiCond_Always, ImVec2(0.5f, 0.5f));
+            ImGui::PushID("LoginPopup");
+            ImGui::InputText("Email", &email, ImGuiInputTextFlags_CharsNoBlank | ImGuiInputTextFlags_NoUndoRedo | ImGuiInputTextFlags_ElideLeft);
+            ImGui::InputText("Password", &password, ImGuiInputTextFlags_Password | ImGuiInputTextFlags_AutoSelectAll | ImGuiInputTextFlags_NoUndoRedo | ImGuiInputTextFlags_ElideLeft);
+            ImGui::Spacing();
+            if(ImGui::Button("Login")) {
+                user = UserDatabase::get().login(email, password);
+                if(user) {
+                    ImGui::CloseCurrentPopup();
+                } else {
+                    wrongAttempts++;
+                    password = "";
+                }
+            }
+            if(wrongAttempts > 0) {
+                ImGui::Text("Login failed. You have failed %u time(s).", wrongAttempts);
+            }
+            ImGui::PopID();
+            ImGui::EndPopup();
+        }
+    }
+
+    User* getLoggedUser() const {
+        return user;
+    }
 };
 
 class Application : public IUIAbstract {
     private:
     AppContext appContext;
-    std::vector<std::unique_ptr<UITabPage>> uiPages; 
+    std::vector<std::unique_ptr<UITabPage>> uiPages, incomingUiPages; 
+    std::function<void(void)> currentDrawContext;
 
-    public:
-    Application(SDL_Renderer* mainRenderer) 
-        : appContext(mainRenderer, [this](std::unique_ptr<IUIAbstract> content, const std::string& title) {
-            this->uiPages.emplace_back(std::make_unique<UITabPage>(std::move(content), title));
-        })      //init const appContext member
-    {
+    UILoginView loginView;
+    std::string accessToken = "";
 
-        uiPages.push_back(std::make_unique<UITabPage>(std::make_unique<UiBookCatalogue>(appContext, BookDatabase::get().getLatestBooks(3)), "Latest Books", false));
-    }
-
-    void draw() override {
+    void drawBrowser() {
         ImGui::SetNextWindowPos(ImVec2(0, 0), ImGuiCond_Always);
         ImGui::SetNextWindowSize(windowSize, ImGuiCond_Always);
         ImGui::Begin("Hello, world!", nullptr, ImGuiWindowFlags_HorizontalScrollbar | ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoScrollWithMouse | ImGuiWindowFlags_NoMove);
@@ -359,6 +478,34 @@ class Application : public IUIAbstract {
                 it++;
             }
         }
+
+        for(auto& newPage : incomingUiPages) {
+            uiPages.push_back(std::move(newPage));
+        }
+        incomingUiPages.clear();
+    }
+
+    void drawLogin() {
+        loginView.draw();
+        appContext.currentUser = loginView.getLoggedUser();
+        if(appContext.currentUser) {
+            uiPages.push_back(std::make_unique<UITabPage>(std::make_unique<UIUserProfile>(appContext, appContext.currentUser), "Profile", false));
+            currentDrawContext = std::bind(&Application::drawBrowser, this);
+        }
+    }
+
+    public:
+    Application(SDL_Renderer* mainRenderer) 
+        : appContext(mainRenderer, [this](std::unique_ptr<IUIAbstract> content, const std::string& title) {
+            this->incomingUiPages.emplace_back(std::make_unique<UITabPage>(std::move(content), title));
+        })      //init const appContext member
+    {
+        currentDrawContext = std::bind(&Application::drawLogin, this);
+        uiPages.push_back(std::make_unique<UITabPage>(std::make_unique<UIBookCatalogue>(appContext, BookDatabase::get().getLatestBooks(3)), "Latest Books", false));
+    }
+
+    void draw() override {
+        currentDrawContext();
     }
     ~Application() override = default;
 };
@@ -402,6 +549,7 @@ int main(int, char**) {
     SDL_SetWindowPosition(window, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
     SDL_ShowWindow(window);
 
+    UserDatabase::get().loadFile("../data/user/user.json");
     BookDatabase::get().loadFile("../data/book/book.json");
     TextureCache::get().book_recache_all();
     Application app (renderer);
