@@ -86,18 +86,17 @@ class UIBookView : public IUIAbstract {
         {
             ImGui::BeginChild("##child", ImVec2(400, 200), true, ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove);
             ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(10,10));
-            ImGui::Text("Are you sure to borrow %s ?", book.title.c_str());
+            ImGui::TextWrapped("Are you sure to borrow %s ?", book.title.c_str());
             ImGui::Checkbox("I agreed to the borrowing policy and the library's terms of service", &borrowConfirmationTick);
             ImGui::BeginDisabled(!borrowConfirmationTick);
             if(ImGui::Button("Borrow")) {
-                if(BorrowingService::get().borrowBook(appContext.currentUser->getInternalId(), book.internalId)) {
+                if(BorrowingService::get().borrowBook(appContext.currentUser->getInternalId(), book.internalId) > 0) {
                     ImGui::CloseCurrentPopup(); 
                     borrowConfirmationTick = false;
                 } else {
                     ImGui::PushStyleColor(ImGuiCol_Text, IM_COL32(250, 0, 0, 255));
                     ImGui::Text("Failed to borrow book. Please try again later.");
                     ImGui::PopStyleColor();
-                    borrowConfirmationTick = false;
                 }
             }
             ImGui::EndDisabled();

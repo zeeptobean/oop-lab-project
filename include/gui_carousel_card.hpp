@@ -13,16 +13,16 @@
 class UICarouselCard : public IUIAbstract {
 private:
     AppContext& appContext;
-    Book book;
+    Book *book;
     SDL_Texture *imageTexture;
     int cardHeight = 400;
 
 public:
     // The constructor is now cleaner and takes the book data.
-    explicit UICarouselCard(AppContext& ctx, const Book& tbook, int height)
+    explicit UICarouselCard(AppContext& ctx, Book *tbook, int height)
         : appContext(ctx),
           book(tbook),
-          imageTexture(TextureCache::get().book_get_texture(tbook.internalId)),
+          imageTexture(TextureCache::get().book_get_texture(tbook->internalId)),
           cardHeight(height)
     {}
 
@@ -31,11 +31,10 @@ public:
 };
 
 void UICarouselCard::draw() {
-    ImGui::PushID(book.internalId);
+    ImGui::PushID(book->internalId);
 
     const ImVec2 cardSize(250, cardHeight);
     const float rounding = 6.0f;
-    const float shadowOffset = 5.0f;
     const float cardPadding = 12.0f;
     const float textPadding = 16.0f;
 
@@ -43,7 +42,6 @@ void UICarouselCard::draw() {
         ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(cardPadding, cardPadding));
         bool isHovered = ImGui::IsWindowHovered();
         ImDrawList* drawList = ImGui::GetWindowDrawList();
-        ImVec2 windowPos = ImGui::GetWindowPos();
 
         ImVec2 cardTopLeft = ImGui::GetWindowPos();
         ImVec2 cardBottomRight = ImVec2(cardTopLeft.x + cardSize.x, cardTopLeft.y + cardSize.y);
@@ -77,11 +75,11 @@ void UICarouselCard::draw() {
         ImGui::PushTextWrapPos(ImGui::GetCursorPosX() + textContentWidth);
 
         ImGui::PushFont(appContext.boldfont, 18.0f);
-        ImGui::TextEllipsisLines(book.title, 2);
+        ImGui::TextEllipsisLines(book->title, 2);
         ImGui::PopFont();
         ImGui::SetCursorPosX(textPadding);
         ImGui::PushStyleColor(ImGuiCol_Text, authorColor);
-        ImGui::TextEllipsisLines(book.getAuthorsString(), 1);
+        ImGui::TextEllipsisLines(book->getAuthorsString(), 1);
         ImGui::PopStyleColor();
         ImGui::PopTextWrapPos();
 
@@ -89,7 +87,7 @@ void UICarouselCard::draw() {
         const float buttonHeight = 30.0f;
         ImGui::SetCursorPos(ImVec2(textPadding, cardSize.y - buttonHeight - textPadding));
         if(ImGui::Button(buttonText, ImVec2(textContentWidth, buttonHeight))) {
-            appContext.requestNewTab(std::make_unique<UIBookView>(appContext, book), "Viewing " + book.title);
+            appContext.requestNewTab(std::make_unique<UIBookView>(appContext, *book), "Viewing " + book->title);
         }
 
         ImGui::PopStyleVar();

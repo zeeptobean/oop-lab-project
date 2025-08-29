@@ -14,7 +14,7 @@ using json = nlohmann::json;
 
 class Book {
     public:
-    uint64_t internalId;
+    uint64_t internalId = 0;
     std::string imagePath;
     std::string title;
     std::vector<std::string> authors;
@@ -71,15 +71,14 @@ class BookDatabase {
     BookDatabase(const BookDatabase&) = delete;
     BookDatabase& operator=(const BookDatabase&) = delete;
 
-    bool query(uint64_t bookId, Book& retBook) {
+    Book* query(uint64_t bookId) {
         auto it = std::find_if(bookVec.begin(), bookVec.end(), [&](const Book& book) {
             return book.internalId == bookId;
         });
         if (it != bookVec.end()) {
-            retBook = *it;
-            return true;
+            return &(*it);
         }
-        return false;
+        return &bookVec[0]; //return default book
     }
 
     bool loadFile(const std::string& filename) {
@@ -139,7 +138,12 @@ class BookDatabase {
     }
 
     private:
-    BookDatabase() = default;
+    BookDatabase() {
+        Book defaultBook;
+        defaultBook.internalId = 0;
+        uniqueIdSet.insert(0);
+        bookVec.emplace_back(defaultBook);
+    };
     ~BookDatabase() = default;
 
     std::vector<Book> bookVec;

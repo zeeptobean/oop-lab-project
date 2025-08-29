@@ -36,9 +36,8 @@ UICarouselView::UICarouselView(AppContext& ctx, const json& carouselConfigFilena
         bookCards.reserve(bookIdList.size());
 
         for (uint64_t id : bookIdList) {
-            Book tbook;
-            if (BookDatabase::get().query(id, tbook)) {
-                // Create cards directly in the vector
+            Book *tbook = BookDatabase::get().query(id);
+            if(tbook) {
                 bookCards.emplace_back(appContext, tbook, cardHeight);
             }
         }

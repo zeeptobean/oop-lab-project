@@ -8,8 +8,14 @@
 #include "book.hpp"
 #include "borrowing_policy.hpp"
 #include "user.hpp"
+#include "event_dispatcher.hpp"
 #include "nlohmann/json.hpp"
 using json = nlohmann::json;
+
+class BorrowingHistoryRefreshEvent : public Event {
+    public:
+    BorrowingHistoryRefreshEvent() {}
+};
 
 class BorrowingService {
     private:
@@ -17,46 +23,10 @@ class BorrowingService {
     std::map<uint64_t, int> userCurrentBorrowedCountMap;
     std::map<uint64_t, int> bookCountMap;
     std::string bookStockFile, borrowingHistoryFile;
-    BorrowingService() = default;
-    ~BorrowingService() {
-        writeBorrowingHistory();
-        writeBookStock();
-    };
+    std::unique_ptr<BorrowingHistoryRefreshEvent> refreshEvent = std::make_unique<BorrowingHistoryRefreshEvent>();
 
-    void writeBookStock() {
-        //write book stock
-        std::ofstream outfile(bookStockFile);
-        if(!outfile.is_open()) return;
-        json j;
-        j["book_stock"] = json::array();
-        for(const auto& [bookId, count] : bookCountMap) {
-            j["book_stock"].push_back({
-                {std::to_string(bookId), count}
-            });
-        }
-        outfile << j.dump(4);
-        outfile.close();
-    }
-    
-    void writeBorrowingHistory() {
-        //write borrowing history
-        std::ofstream outfile(borrowingHistoryFile);
-        if(!outfile.is_open()) return;
-        json j;
-        j["borrowing_history"] = json::array();
-        for(const auto& [userId, histories] : userBorrowingHistoryMap) {
-            for(const auto& history : histories) {
-                j["borrowing_history"].push_back({
-                    {"user_id", history.userId},
-                    {"book_id", history.bookId},
-                    {"timestamp", history.time.toString()},
-                    {"action", history.action}
-                });
-            }
-        }
-        outfile << j.dump(4);
-        outfile.close();
-    }
+    BorrowingService() = default;
+    ~BorrowingService() {};
 
     void initCurrentCountMap() {
         userCurrentBorrowedCountMap.clear();
@@ -99,12 +69,14 @@ class BorrowingService {
         userCurrentBorrowedCountMap[userId]++;
         bookCountMap[bookId]--;
         userBorrowingHistoryMap[userId].emplace_back("borrow", bookId, userId, Timestamp::now());
-
+        EventDispatcher::get().dispatchEvent(refreshEvent.get());
         return 1;
     }
     bool returnBook(uint64_t userId, uint64_t bookId) {
         if(!queryUserBorrowingBook(userId, bookId)) return false;
+        bookCountMap[bookId]++;
         userBorrowingHistoryMap[userId].emplace_back("return", bookId, userId, Timestamp::now());
+        EventDispatcher::get().dispatchEvent(refreshEvent.get());
         return true;
     }
     bool loadBorrowingHistory(const std::string& filename) {
@@ -139,11 +111,13 @@ class BorrowingService {
 
         try {
             infile >> j;
-            j = j.at("book_stock");
-            for (const auto& [idString, cnt] : j.items()) {
+            const auto& stockArray = j.at("book_stock");
+            for (const auto& item : stockArray) {
+            for (const auto& [idString, count] : item.items()) {
                 uint64_t bookId = std::stoull(idString);
-                bookCountMap[bookId] = cnt;
+                bookCountMap[bookId] = count.get<int>();
             }
+        }
         } catch(const std::exception& e) {
             return false;
         }
@@ -162,12 +136,17 @@ class BorrowingService {
     bool queryUserBorrowingBook(uint64_t userId, uint64_t bookId) {
         auto it = userBorrowingHistoryMap.find(userId);
         if(it != userBorrowingHistoryMap.end()) {
-            for(int i=it->second.size()-1; i >= 0; i--) {
-                const auto& history = it->second[i];
-                if(history.bookId == bookId && history.action == "borrow" && history.time < Timestamp::now()) {
-                    return true;
+            std::set<uint64_t> tempSet;
+            for(const auto& history : it->second) {
+                if(history.action == "borrow") {
+                    tempSet.insert(history.bookId);
+                } else if(history.action == "return") {
+                    if(tempSet.find(history.bookId) != tempSet.end()) {
+                        tempSet.erase(history.bookId);
+                    }
                 }
             }
+            return tempSet.find(bookId) != tempSet.end();
         }
         return false;
     }
@@ -178,5 +157,48 @@ class BorrowingService {
             return it->second;
         }
         return 0;
+    }
+
+    std::vector<BorrowingHistory> queryUserBorrowingHistory(uint64_t userId) {
+        auto it = userBorrowingHistoryMap.find(userId);
+        if(it != userBorrowingHistoryMap.end()) {
+            return it->second;
+        }
+        return {};
+    }
+
+    void writeBookStock() {
+        //write book stock
+        std::ofstream outfile(bookStockFile);
+        if(!outfile.is_open()) return;
+        json j;
+        j["book_stock"] = json::array();
+        for(const auto& [bookId, count] : bookCountMap) {
+            j["book_stock"].push_back({
+                {std::to_string(bookId), count}
+            });
+        }
+        outfile << j.dump(4);
+        outfile.close();
+    }
+    
+    void writeBorrowingHistory() {
+        //write borrowing history
+        std::ofstream outfile(borrowingHistoryFile);
+        if(!outfile.is_open()) return;
+        json j;
+        j["borrowing_history"] = json::array();
+        for(const auto& [userId, histories] : userBorrowingHistoryMap) {
+            for(const auto& history : histories) {
+                j["borrowing_history"].push_back({
+                    {"user_id", history.userId},
+                    {"book_id", history.bookId},
+                    {"timestamp", history.time.toString()},
+                    {"action", history.action}
+                });
+            }
+        }
+        outfile << j.dump(4);
+        outfile.close();
     }
 };

@@ -29,6 +29,7 @@ class User {
     std::string address;
     std::string phone;
     std::string image;
+    std::string type;
     bool isSuspended = false;
     Timestamp suspensionEnd;
 
@@ -51,18 +52,10 @@ class User {
     virtual ~User() {}
 };
 
-enum class UniversityUserType {
-    UNDERGRADUATE,
-    POSTGRADUATE,
-    TEACHER,
-    STAFF
-};
-
 class UniversityUser : public User {
     public:
     std::string workId;
     std::string department;
-    UniversityUserType userType;
 
     UniversityUser() = default;
     UniversityUser(const UniversityUser& other) = default;
@@ -85,30 +78,26 @@ class UserDatabase {
         }
         User *user = nullptr;
         std::string userType = jsonData.at("type");
-        UniversityUserType uuserType;
-        if(userType == "undergraduate" || userType == "postgraduate" || userType == "teacher" || userType == "staff") {
+        if(userType == "undergraduate") {
             user = new UniversityUser();
-            if(userType == "undergraduate") {
-                uuserType = UniversityUserType::UNDERGRADUATE;
-                user->borrowingPolicy = BorrowingPolicyFactory::getUndergraduatePolicy();
-            } else if(userType == "postgraduate") {
-                uuserType = UniversityUserType::POSTGRADUATE;
-                user->borrowingPolicy = BorrowingPolicyFactory::getPostgraduatePolicy();
-            } else if(userType == "teacher") {
-                uuserType = UniversityUserType::TEACHER;
-                user->borrowingPolicy = BorrowingPolicyFactory::getPremiumPolicy();
-            } else {
-                uuserType = UniversityUserType::STAFF;
-                user->borrowingPolicy = BorrowingPolicyFactory::getNormalPolicy();
-            }
+            user->borrowingPolicy = BorrowingPolicyFactory::getUndergraduatePolicy();
+        } else if(userType == "postgraduate") {
+            user = new UniversityUser();
+            user->borrowingPolicy = BorrowingPolicyFactory::getPostgraduatePolicy();
+        } else if(userType == "teacher") {
+            user = new UniversityUser();
+            user->borrowingPolicy = BorrowingPolicyFactory::getPremiumPolicy();
+        } else if(userType == "staff") {
+            user = new UniversityUser();
+            user->borrowingPolicy = BorrowingPolicyFactory::getNormalPolicy();
+        } else if(userType == "premium") {
+            user = new User();
+            user->borrowingPolicy = BorrowingPolicyFactory::getPremiumPolicy();
         } else {
             user = new User();
-            if(userType == "premium") {
-                user->borrowingPolicy = BorrowingPolicyFactory::getPremiumPolicy();
-            } else {
-                user->borrowingPolicy = BorrowingPolicyFactory::getNormalPolicy();
-            }
+            user->borrowingPolicy = BorrowingPolicyFactory::getNormalPolicy();
         }
+        user->type = userType;
 
         try {
             user->internalId = jsonData.at("id");
@@ -138,7 +127,6 @@ class UserDatabase {
             if(uuser) {
                 uuser->workId = jsonData.at("workId");
                 uuser->department = jsonData.at("department");
-                uuser->userType = uuserType;
             }
         } catch(...) {
             delete user;

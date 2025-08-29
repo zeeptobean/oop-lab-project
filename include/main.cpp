@@ -15,6 +15,7 @@
 #include "custom_imgui_widget.hpp"
 #include "gui_bookview.hpp"
 #include "borrowing_service.hpp"
+#include "event_dispatcher.hpp"
 
 ImVec2 windowSize;
 
@@ -87,15 +88,162 @@ class UIBookCatalogue : public IUIAbstract {
     }
 };
 
+class UIBorrowingStatusFrame : public IUIAbstract, Observer {
+    private:
+    AppContext& appContext;
+    uint64_t userId;
+    const IBorrowingPolicy *policy;
+
+    struct PreparedData {
+        SDL_Texture *imageTexture = nullptr;
+        std::string bookTitle;
+        uint64_t bookId;
+        Timestamp start, endExpected, endActual;
+        bool isOverdue = false;
+        bool isReturned = false;
+        float fine = 0.0f;
+    };
+    
+    std::vector<PreparedData> dataVec, incomingDataVec;
+
+    void refreshData() {
+        incomingDataVec.clear();
+        std::map<uint64_t, Timestamp> borrowTimeMap;
+        const auto& userBorrowingHistory = BorrowingService::get().queryUserBorrowingHistory(userId);
+        for(auto ite=userBorrowingHistory.begin(); ite != userBorrowingHistory.end(); ite++) {
+            const auto& history = *ite;
+            if(history.action == "return" && borrowTimeMap.find(history.bookId) != borrowTimeMap.end()) {
+                PreparedData pdata;
+                pdata.imageTexture = (SDL_Texture*) TextureCache::get().book_get_texture(history.bookId);
+                pdata.bookTitle = BookDatabase::get().query(history.bookId)->title;
+                pdata.bookId = history.bookId;
+                pdata.start = borrowTimeMap[history.bookId];
+                pdata.endActual = history.time;
+                pdata.endExpected = pdata.start.advanceDay(policy->getLoanDuration());
+                pdata.isReturned = true;
+                if (pdata.endActual > pdata.endExpected) {
+                    pdata.isOverdue = true;
+                    int overdueDays = pdata.endActual.dayDiff(pdata.endExpected);
+                    pdata.fine = policy->calculateFine(overdueDays);
+                }
+                incomingDataVec.push_back(pdata);
+                borrowTimeMap.erase(history.bookId);
+            } else if (history.action == "borrow" && borrowTimeMap.find(history.bookId) == borrowTimeMap.end()) {
+                borrowTimeMap[history.bookId] = history.time;
+            }
+        }
+        for(const auto& [bookId, startTime] : borrowTimeMap) {
+            PreparedData pdata;
+            pdata.imageTexture = (SDL_Texture*) TextureCache::get().book_get_texture(bookId);
+            pdata.bookTitle = BookDatabase::get().query(bookId)->title;
+            pdata.bookId = bookId;
+            pdata.start = startTime;
+            pdata.endExpected = pdata.start.advanceDay(policy->getLoanDuration());
+            pdata.isReturned = false;
+            if (Timestamp::now() > pdata.endExpected) {
+                pdata.isOverdue = true;
+                int overdueDays = Timestamp::now().dayDiff(pdata.endExpected);
+                pdata.fine = policy->calculateFine(overdueDays);
+            }
+            incomingDataVec.push_back(pdata);
+        }
+    }
+
+    public:
+    UIBorrowingStatusFrame(AppContext& context, uint64_t tuserId, const IBorrowingPolicy *tpolicy) : appContext(context), policy(tpolicy), userId(tuserId) {
+        EventDispatcher::get().registerObserver(this);
+        refreshData();
+    }
+
+    ~UIBorrowingStatusFrame() {
+        EventDispatcher::get().unregisterObserver(this);
+    }
+
+    void onEvent(const Event *event) override {
+        if(dynamic_cast<const BorrowingHistoryRefreshEvent*>(event)) {
+            refreshData();
+        }
+    }
+
+    void draw() override {
+        const float padding = 20.0f;
+        const float imageSize = 100.0f;
+
+        if(incomingDataVec.size() > 0) {
+            std::swap(dataVec, incomingDataVec);
+            incomingDataVec.clear();
+        }
+
+        ImGui::PushID(this);
+        for(int i=0; i < (int) dataVec.size(); i++) {
+            auto& prepared = dataVec[i];
+            ImGui::PushID(i);
+            if(ImGui::BeginChild("BorrowingStatusCard", ImVec2(-1, 150), true, ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse)) {
+                ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(padding, padding));
+                if (ImGui::BeginTable("##Alignment", 3)) {
+                    ImGui::TableNextColumn();
+                    ImGui::SetCursorPos(ImVec2(padding, padding));
+                    ImGui::Image((void*) prepared.imageTexture, ImVec2(imageSize, imageSize));
+                    ImGui::TableNextColumn();
+                    ImGui::PushFont(appContext.boldfont);
+                    ImGui::Text("%s", prepared.bookTitle.c_str());
+                    ImGui::PopFont();
+                    if(!prepared.isReturned) {
+                        ImGui::Text("Borrow date: %s", prepared.start.toLangString().c_str());
+                        ImGui::Text("Expected return date: %s", prepared.endExpected.toLangString().c_str());
+                        if(prepared.isOverdue) {
+                            ImGui::PushFont(appContext.boldfont);
+                            ImGui::TextColored(ImVec4(250, 0, 0, 1), "OVERDUE");
+                            ImGui::PopFont();
+                            ImGui::TextColored(ImVec4(250, 0, 0, 1), "Fine: $%.2f", prepared.fine);
+                        } else {
+                            ImGui::PushFont(appContext.boldfont);
+                            ImGui::TextColored(ImVec4(250, 250, 0, 1), "BORROWING");
+                            ImGui::PopFont();
+                        }
+                    } else {
+                        ImGui::Text("Borrow date: %s", prepared.start.toLangString().c_str());
+                        ImGui::Text("Return date: %s", prepared.endActual.toLangString().c_str());
+                        if(prepared.isOverdue) {
+                            ImGui::PushFont(appContext.boldfont);
+                            ImGui::TextColored(ImVec4(0, 0, 250, 1), "RETURNED (OVERDUE)");
+                            ImGui::PopFont();
+                            ImGui::Text("Fine paid: $%.2f", prepared.fine);
+                        } else {
+                            ImGui::PushFont(appContext.boldfont);
+                            ImGui::TextColored(ImVec4(0, 250, 0, 1), "RETURNED");
+                            ImGui::PopFont();
+                        }
+                    }
+                    ImGui::TableNextColumn();
+                    if(!prepared.isReturned) {
+                        if(ImGui::Button("Return")) {
+                            if(BorrowingService::get().returnBook(userId, prepared.bookId)) {
+                                refreshData();
+                            }
+                        }
+                    }
+                    ImGui::EndTable();
+                }
+                ImGui::PopStyleVar();
+            }
+            ImGui::EndChild();
+            ImGui::PopID();
+        }
+        ImGui::PopID();
+    }
+};
+
 class UIUserProfile : public IUIAbstract {
     private:
     User *user;
     UniversityUser *uuser = nullptr;
     AppContext& appContext;
     SDL_Texture *imageTexture = nullptr;
+    std::unique_ptr<UIBorrowingStatusFrame> borrowingStatusFrame;
 
     public:
-    UIUserProfile(AppContext& context, User* tuser) : appContext(context), user(tuser) {
+    UIUserProfile(AppContext& context) : appContext(context), user(context.currentUser) {
         if(user) {
             SDL_Surface* surface = loadImage("../" + user->image);
             if(surface) {
@@ -110,6 +258,7 @@ class UIUserProfile : public IUIAbstract {
             }
 
             uuser = dynamic_cast<UniversityUser*>(user);
+            borrowingStatusFrame = std::make_unique<UIBorrowingStatusFrame>(appContext, user->getInternalId(), user->getBorrowingPolicy());
         }
     }
 
@@ -130,31 +279,26 @@ class UIUserProfile : public IUIAbstract {
         }
         if(uuser) {
             ImGui::SeparatorText("University specific information");
-            std::string userTypeStr;
-            switch(uuser->userType) {
-                case UniversityUserType::UNDERGRADUATE:
-                userTypeStr = "Undergraduate";
-                break;
-                case UniversityUserType::POSTGRADUATE:
-                userTypeStr = "Postgraduate";
-                break;
-                case UniversityUserType::TEACHER:
-                userTypeStr = "Teacher";
-                break;
-                case UniversityUserType::STAFF:
-                userTypeStr = "Staff";
-                break;
-                default:
-                    userTypeStr = "Unknown";
-                    break;
-                }
-            ImGui::Text("%d ID: %s", userTypeStr, uuser->workId.c_str());
+            ImGui::Text("%s ID: %s", user->type.c_str(), uuser->workId.c_str());
             ImGui::Text("Department: %s", uuser->department.c_str());
+        } else {
+            if(user->type == "premium") {
+                ImGui::Text("User type: premium");
+            } else {
+                ImGui::Text("User type: regular");
+            }
         }
 
         if(ImGui::CollapsingHeader("Borrowing", ImGuiTreeNodeFlags_DefaultOpen)) {
             ImGui::SeparatorText("Information");
-
+            ImGui::Text("Loan duration: %d days", user->getBorrowingPolicy()->getLoanDuration());
+            ImGui::Text("Max books allowed: %d", user->getBorrowingPolicy()->getMaxLoanAllowed());
+            ImGui::Text("Currently borrowed: %d", BorrowingService::get().queryUserCurrentBorrowedCount(user->getInternalId()));
+            if(user->isSuspended) {
+                ImGui::TextColored(ImVec4(250, 0, 0, 1), "Account is suspended until %s", user->suspensionEnd.toLangString().c_str());
+            }
+            ImGui::SeparatorText("Transaction list");
+            borrowingStatusFrame->draw();
         }
         if(ImGui::Button("Logout")) {
             appContext.requestLogout();
@@ -193,19 +337,22 @@ class UITabPage : public IUIAbstract {
     bool active = true;
     bool *ptr = nullptr;
     std::string title;
+    std::string unique_title;
     public:
     std::unique_ptr<IUIAbstract> content;
 
     UITabPage(std::unique_ptr<IUIAbstract> tcontent, const std::string& ttitle, bool isClosable = true) 
     : content(std::move(tcontent)), title(ttitle), closable(isClosable) {
         if(closable) ptr = &active;
+        unique_title = title + "##" + std::to_string(reinterpret_cast<uintptr_t>(this));
     }
 
     UITabPage(UITabPage&& other)
         : content(std::move(other.content)),
           title(std::move(other.title)),
           closable(other.closable),
-          active(other.active)
+          active(other.active),
+          unique_title(std::move(other.unique_title))
     {
         other.content = nullptr;
     }
@@ -304,6 +451,8 @@ class Application : public IUIAbstract {
     UILoginView loginView;
     std::string accessToken = "";
 
+    bool doLogout = false;
+
     void setupFont() {
         const char* regularFontPath = "../data/font/bank/Noto_Sans_Display/static/NotoSansDisplay-Medium.ttf";
         const char* boldFontPath = "../data/font/bank/Noto_Sans_Display/static/NotoSansDisplay-Bold.ttf";
@@ -351,6 +500,15 @@ class Application : public IUIAbstract {
         ImGui::EndTabBar();
         ImGui::End();
 
+        if(doLogout) {
+            doLogout = false;
+            appContext.currentUser = nullptr;
+            uiPages.clear();
+            loginView.reset();
+            currentDrawContext = std::bind(&Application::drawLogin, this);
+            return;
+        }
+
         for(auto it = uiPages.begin(); it != uiPages.end(); ) {
             if(!(*it)->isActive()) {
                 it = uiPages.erase(it);
@@ -375,7 +533,7 @@ class Application : public IUIAbstract {
 
     void addDefaultPage() {
         uiPages.push_back(std::make_unique<UITabPage>(std::make_unique<UICarouselView>(appContext, "../data/book/carousel.json"), "Homepage", false));
-        uiPages.push_back(std::make_unique<UITabPage>(std::make_unique<UIUserProfile>(appContext, appContext.currentUser), "Profile", false));
+        uiPages.push_back(std::make_unique<UITabPage>(std::make_unique<UIUserProfile>(appContext), "Profile", false));
     }
 
     public:
@@ -385,10 +543,7 @@ class Application : public IUIAbstract {
                 this->incomingUiPages.emplace_back(std::make_unique<UITabPage>(std::move(content), title));
             },
             [this]() {
-                this->appContext.currentUser = nullptr;
-                this->loginView.reset();
-                this->uiPages.clear();
-                this->currentDrawContext = std::bind(&Application::drawLogin, this);
+                this->doLogout = true;
             }
         )   //init const appContext member
         , loginView(appContext)
@@ -452,7 +607,7 @@ int main(int, char**) {
     UserDatabase::get().loadFile("../data/user/user.json");
     BookDatabase::get().loadFile("../data/book/book.json");
     BorrowingService::get().loadBookStock("../data/book/book_stock.json");
-    BorrowingService::get().loadBorrowingHistory("../data/book/borrowing_history.json");
+    BorrowingService::get().loadBorrowingHistory("../data/borrowing_history.json");
     TextureCache::get().init(renderer);
     Application app (renderer);
 
@@ -504,5 +659,10 @@ int main(int, char**) {
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     SDL_Quit();
+
+    //write back data at the end for a successful exit, avoid data corruption
+    BorrowingService::get().writeBorrowingHistory();
+    BorrowingService::get().writeBookStock();
+
     return 0;
 }
