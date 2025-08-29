@@ -17,11 +17,11 @@ using json = nlohmann::json;
 class User {
     private:
     const IBorrowingPolicy *borrowingPolicy = nullptr;
-    std::set<uint64_t> favoriteBookId;
-    std::deque<uint64_t> recentBookId;
     uint64_t internalId;
     std::string passwordHash;
     public:
+    std::set<uint64_t> favoriteBookId;
+    std::deque<uint64_t> recentBookId;
     std::string name;
     Timestamp dob;
     std::string nid;
@@ -29,11 +29,21 @@ class User {
     std::string address;
     std::string phone;
     std::string image;
+    bool isSuspended = false;
+    Timestamp suspensionEnd;
 
     friend class UserDatabase;
 
     User() = default;
     User(const User& other) = default;
+
+    const IBorrowingPolicy* getBorrowingPolicy() const {
+        return borrowingPolicy;
+    }
+
+    uint64_t getInternalId() const {
+        return internalId;
+    }
 
     virtual std::unique_ptr<User> clone() const {
         return std::make_unique<User>(*this);
@@ -110,6 +120,8 @@ class UserDatabase {
             user->phone = jsonData.at("phone");
             user->image = jsonData.at("image");
             user->passwordHash = jsonData.at("passwordHash");
+            user->isSuspended = jsonData.value("isSuspended", false);
+            if(user->isSuspended) user->suspensionEnd = Timestamp((std::string) jsonData.at("suspendEnd"));
 
             std::vector<uint64_t> favoriteBookVec = jsonData.at("favoriteBookId");
             std::vector<uint64_t> recentBookVec = jsonData.at("recentBookId");
@@ -158,6 +170,14 @@ class UserDatabase {
             if(userPtr->email == email && userPtr->passwordHash == passwordHash) {
                 return userPtr.get();
             }
+        }
+        return nullptr;
+    }
+
+    User* query(uint64_t userId) {
+        auto it = userMap.find(userId);
+        if(it != userMap.end()) {
+            return it->second.get();
         }
         return nullptr;
     }

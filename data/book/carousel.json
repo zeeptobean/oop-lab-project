@@ -2,8 +2,7 @@
     "carousel": [
         {
             "header": "Nieu book",
-            "body": "lorem ipsum sample text 🔥😂💦💦🤣",
-            "bookId": [1, 20, 7]
+            "bookId": [1, 20, 7, 8]
         }
     ]
 }

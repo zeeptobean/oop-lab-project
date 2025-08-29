@@ -1,7 +1,6 @@
 #include <bits/stdc++.h>
 
 #include "imgui.h"
-#include "imstb_truetype.h"
 #include "imgui_stdlib.h"
 #include "imgui_impl_sdl3.h"
 #include "imgui_impl_sdlrenderer3.h"
@@ -11,235 +10,13 @@
 #include "book.hpp"
 #include "app_context.hpp"
 #include "user.hpp"
+#include "texture_cache.hpp"
+#include "gui_carousel_view.hpp"
+#include "custom_imgui_widget.hpp"
+#include "gui_bookview.hpp"
+#include "borrowing_service.hpp"
 
 ImVec2 windowSize;
-SDL_Renderer *renderer;
-
-SDL_Surface* loadImage(const std::string& filename) {
-    SDL_Surface* surface = IMG_Load(filename.c_str());
-    if(!surface) {
-        return nullptr;
-    }
-    return surface;
-}
-
-/*
-SDL_Texture* getImageTexture(SDL_Surface *surface, float requestW, float requestH) {
-    if(!surface) {
-        return nullptr;
-    }
-    int original_width = surface->w;
-    int original_height = surface->h;
-    int new_width, new_height;
-    float requestAspect = requestW / requestH;
-    float imageAspect = (float) surface->w / (float) surface->h;
-    if (requestAspect > imageAspect) {
-        new_width = (int) requestW;
-        new_height = (int)(requestW / imageAspect);
-    } else {
-        new_height = (int) requestH;
-        new_width = (int) (requestH * imageAspect);
-    }
-
-    SDL_ScaleSurface(surface, new_width, new_height, SDL_SCALEMODE_NEAREST);
-    SDL_Texture *texture = SDL_CreateTextureFromSurface(renderer, surface);
-    return texture;
-}
-*/
-
-namespace ImGui {
-void TextEllipsisLines(const std::string& str, int maxLines = 2) {
-    if (maxLines <= 0) return;
-
-    const float lineHeight = ImGui::GetTextLineHeight();
-    const float maxHeight = lineHeight * maxLines;
-    const float availableWidth = ImGui::GetContentRegionAvail().x;
-
-    // Measure full wrapped text
-    ImVec2 fullTextSize = ImGui::CalcTextSize(str.c_str(), nullptr, true, availableWidth);
-
-    if (fullTextSize.y <= maxHeight + 0.5f) {
-        // Text fits fully
-        ImGui::TextWrapped("%s", str.c_str());
-        return;
-    }
-
-    // Needs truncation
-    const std::string ellipsis = "...";
-    int left = 0, right = (int)str.size();
-    int bestFit = 0;
-
-    while (left <= right) {
-        int mid = (left + right) / 2;
-        std::string candidate = str.substr(0, mid) + ellipsis;
-
-        ImVec2 size = ImGui::CalcTextSize(candidate.c_str(), nullptr, true, availableWidth);
-
-        if (size.y <= maxHeight + 0.5f) {
-            bestFit = mid;
-            left = mid + 1; // try longer
-        } else {
-            right = mid - 1; // try shorter
-        }
-    }
-
-    std::string truncated = str.substr(0, bestFit) + ellipsis;
-    ImGui::TextWrapped("%s", truncated.c_str());
-}
-}
-
-ImFont* font, *boldfont;
-void setupFont() {
-    const char* regularFontPath = "../data/font/bank/Noto_Sans_Display/static/NotoSansDisplay-Medium.ttf";
-    const char* boldFontPath = "../data/font/bank/Noto_Sans_Display/static/NotoSansDisplay-Bold.ttf";
-    const char* jpFontPath = "../data/font/bank/Noto_Sans_JP/static/NotoSansJP-Medium.ttf";
-    const char* jpBoldFontPath = "../data/font/bank/Noto_Sans_JP/static/NotoSansJP-Bold.ttf";
-    const char* emojiFontPath = "../data/font/bank/Noto_Emoji/static/NotoEmoji-Medium.ttf";
-
-    //manual emoji range as imgui 1.92+ can't autodetect properly
-    const ImWchar emojiGlyphRange[9] = {
-        0x00a9, 0x00ae,     //copyright & registered trademark
-        0x203c, 0x329f,     //basic emoji
-        0x1f000, 0x1faff,   //emoji
-        0x1F3FB, 0x1F3FF,   //emoji modifier
-        0
-    };
-
-    ImFontConfig fontConfigMerge;
-    fontConfigMerge.MergeMode = true;
-    fontConfigMerge.PixelSnapH = true;
-    fontConfigMerge.OversampleH = 2;
-    ImFontConfig fontConfigMergeBold;
-    fontConfigMergeBold.MergeMode = true;
-    fontConfigMergeBold.PixelSnapH = true;
-    fontConfigMergeBold.OversampleH = 2;
-
-    ImGuiIO& io = ImGui::GetIO();
-    io.Fonts->Clear();
-    font = io.Fonts->AddFontFromFileTTF(regularFontPath, 16.0f);
-    io.Fonts->AddFontFromFileTTF(jpFontPath, 0.0f, &fontConfigMerge);
-    io.Fonts->AddFontFromFileTTF(emojiFontPath, 0.0f, &fontConfigMerge, emojiGlyphRange);
-    boldfont = io.Fonts->AddFontFromFileTTF(boldFontPath, 16.0f);
-    io.Fonts->AddFontFromFileTTF(jpBoldFontPath, 0.0f, &fontConfigMergeBold);
-}
-
-class TextureCache {
-    public:
-    static TextureCache& get() {
-        static TextureCache instance;
-        return instance;
-    }
-
-    void book_recache_all() {
-        book_destroy_all();
-        const std::vector<Book>& bookVec = BookDatabase::get().getAllBooks();
-        for(auto& book : bookVec) {
-            SDL_Surface* surface = loadImage("../" + book.imagePath);
-            if(!surface) {
-                bookTextureMap[book.internalId] = nullptr;
-                continue;
-            }
-            SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
-            SDL_DestroySurface(surface);
-            bookTextureMap[book.internalId] = texture;
-        }
-    }
-
-    SDL_Texture* book_get_texture(uint64_t bookId) {
-        auto it = bookTextureMap.find(bookId);
-        if(it != bookTextureMap.end()) {
-            return it->second;
-        }
-        return nullptr;
-    }
-
-    private:
-    std::map<uint64_t, SDL_Texture*> bookTextureMap;
-
-    void book_destroy_all() {
-        for(auto& [id, texture] : bookTextureMap) {
-            if(texture) {
-                SDL_DestroyTexture(texture);
-            }
-        }
-        bookTextureMap.clear();
-    }
-
-    TextureCache() {}
-    ~TextureCache() {
-        book_destroy_all();
-    }
-    TextureCache(const TextureCache&) = delete;
-    TextureCache& operator=(const TextureCache&) = delete;
-};
-
-class UIBookView : public IUIAbstract {
-    private:
-    SDL_Texture *imageTexture;
-    Book book;
-    AppContext& appContext;
-    bool ageRestrictionActivate = false;
-
-    bool checkEligibleAge() {
-        if (!appContext.currentUser) return false;
-        return appContext.currentUser->dob.yearDiff(Timestamp()) >= book.ageRating;
-    }
-
-    public:
-    UIBookView(AppContext& ctx, const Book& tbook) : book(tbook), appContext(ctx) {
-        imageTexture = TextureCache::get().book_get_texture(book.internalId);
-        ageRestrictionActivate = !checkEligibleAge();
-    }
-
-    void drawImpl() {
-        ImGui::PushID(book.internalId);
-        ImGui::BeginGroup();
-        ImGui::Image(imageTexture, ImVec2(480, 640));
-        ImGui::EndGroup();
-        ImGui::SameLine();
-        ImGui::BeginGroup();
-        ImGui::PushFont(boldfont, 24.0f);
-        ImGui::PushTextWrapPos(ImGui::GetCursorPos().x + ImGui::GetWindowWidth());
-        ImGui::TextWrapped(book.title.c_str());
-        ImGui::PopFont();
-        ImGui::Text("ISBN: %llu", book.isbn);
-        ImGui::Text("Author(s): %s", book.getAuthorsString().c_str());
-        ImGui::Text("Publication year: %u", book.publicationYear);
-        if(book.ageRating == 0) {
-            ImGui::Text("Age rating: EVERYONE");
-        } else {
-            ImGui::Text("Age rating: %u+", book.ageRating);
-        }
-        if(ImGui::Button(std::string("Borrow").c_str())) {
-            ImGui::OpenPopup("NotImplemented");
-        }
-        ImGui::PushFont(font, 14.0f);
-        ImGui::PushStyleColor(ImGuiCol_Text, IM_COL32(128, 128, 128, 255)); //gray color
-        ImGui::TextWrapped(book.getTagsString().c_str());
-        ImGui::PopStyleColor();
-        ImGui::PopFont();
-        if (ImGui::BeginPopupModal("NotImplemented", NULL, ImGuiWindowFlags_AlwaysAutoResize))
-        {
-            ImGui::PushStyleColor(ImGuiCol_Text, IM_COL32(250, 0, 0, 255)); //red color
-            ImGui::Text("Not implemented");
-            ImGui::PopStyleColor();
-            if(ImGui::Button("Ok")) { ImGui::CloseCurrentPopup(); }
-            ImGui::EndPopup();
-        }
-        ImGui::EndGroup();
-        ImGui::PopID();
-    }
-    
-    void draw() override {
-        if(ageRestrictionActivate) {
-            ImGui::PushStyleColor(ImGuiCol_Text, IM_COL32(250, 0, 0, 255)); //red color
-            ImGui::Text("You are not eligible to view this book due to age restriction.");
-            ImGui::PopStyleColor();
-        } else {
-            drawImpl();
-        }
-    }
-};
 
 class UIBookCard {
     private:
@@ -278,7 +55,7 @@ class UIBookCard {
         ImGui::Image((void*)texture, ImVec2(image_width, image_height));
         ImGui::SameLine();
         ImGui::BeginChild("BookCardText", ImVec2(-1, -1), false, ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse);
-        ImGui::PushFont(boldfont, 20.0f);
+        ImGui::PushFont(appContext.boldfont, 20.0f);
         ImGui::TextEllipsisLines(book->title, 2);
         ImGui::PopFont();
         ImGui::Text("Author(s): %s", book->getAuthorsString().c_str());
@@ -313,6 +90,7 @@ class UIBookCatalogue : public IUIAbstract {
 class UIUserProfile : public IUIAbstract {
     private:
     User *user;
+    UniversityUser *uuser = nullptr;
     AppContext& appContext;
     SDL_Texture *imageTexture = nullptr;
 
@@ -321,15 +99,17 @@ class UIUserProfile : public IUIAbstract {
         if(user) {
             SDL_Surface* surface = loadImage("../" + user->image);
             if(surface) {
-                imageTexture = SDL_CreateTextureFromSurface(renderer, surface);
+                imageTexture = SDL_CreateTextureFromSurface(appContext.renderer, surface);
                 SDL_DestroySurface(surface);
             } else {
                 surface = loadImage("../data/user/default.png");
                 if(surface) {
-                    imageTexture = SDL_CreateTextureFromSurface(renderer, surface);
+                    imageTexture = SDL_CreateTextureFromSurface(appContext.renderer, surface);
                     SDL_DestroySurface(surface);
                 }
             }
+
+            uuser = dynamic_cast<UniversityUser*>(user);
         }
     }
 
@@ -339,11 +119,71 @@ class UIUserProfile : public IUIAbstract {
         ImGui::Image((void*)imageTexture, ImVec2(100, 100));
         ImGui::SameLine();
         ImGui::BeginGroup();
-        ImGui::Text("User: %s", user->name.c_str());
-        ImGui::Text("Email: %s", user->email.c_str());
+        if(ImGui::CollapsingHeader("User information", ImGuiTreeNodeFlags_DefaultOpen)) {
+            ImGui::SeparatorText("Basic information");
+            ImGui::Text("Name: %s", user->name.c_str());
+            ImGui::Text("National ID: %s", user->nid.c_str());
+            ImGui::Text("Date of Birth: %s", user->dob.toLangString().c_str());
+            ImGui::Text("Address: %s", user->address.c_str());
+            ImGui::Text("Phone: %s", user->phone.c_str());
+            ImGui::Text("Email: %s", user->email.c_str());
+        }
+        if(uuser) {
+            ImGui::SeparatorText("University specific information");
+            std::string userTypeStr;
+            switch(uuser->userType) {
+                case UniversityUserType::UNDERGRADUATE:
+                userTypeStr = "Undergraduate";
+                break;
+                case UniversityUserType::POSTGRADUATE:
+                userTypeStr = "Postgraduate";
+                break;
+                case UniversityUserType::TEACHER:
+                userTypeStr = "Teacher";
+                break;
+                case UniversityUserType::STAFF:
+                userTypeStr = "Staff";
+                break;
+                default:
+                    userTypeStr = "Unknown";
+                    break;
+                }
+            ImGui::Text("%d ID: %s", userTypeStr, uuser->workId.c_str());
+            ImGui::Text("Department: %s", uuser->department.c_str());
+        }
+
+        if(ImGui::CollapsingHeader("Borrowing", ImGuiTreeNodeFlags_DefaultOpen)) {
+            ImGui::SeparatorText("Information");
+
+        }
+        if(ImGui::Button("Logout")) {
+            appContext.requestLogout();
+        }
         ImGui::EndGroup();
         ImGui::EndChild();
         ImGui::PopID();
+    }
+};
+
+class UIComposedView : public IUIAbstract {
+    private:
+    std::vector<std::unique_ptr<IUIAbstract>> views;
+    AppContext& appContext;
+
+    void defaultDrawFunc() {
+        for(auto& view : views) {
+            view->draw();
+        }
+    }
+
+    public:
+    std::function<void(void)> customDrawFunc = nullptr;
+    UIComposedView(AppContext& context) : appContext(context), customDrawFunc(std::bind(&UIComposedView::defaultDrawFunc, this)) {}
+    void addView(std::unique_ptr<IUIAbstract> view) {
+        views.emplace_back(std::move(view));
+    }
+    void draw() override {
+        customDrawFunc();
     }
 };
 
@@ -390,7 +230,7 @@ class UITabPage : public IUIAbstract {
     void draw() override {
         ImGui::PushID(this);
         if(ImGui::BeginTabItem(title.c_str(), ptr)) {
-            ImGui::BeginChild("TabPageContent", ImVec2(-1, -1));
+            ImGui::BeginChild("TabPageContent", ImVec2(-1, -1) , false, ImGuiWindowFlags_HorizontalScrollbar);
             content->draw();
             ImGui::EndChild();  
             ImGui::EndTabItem();
@@ -407,13 +247,23 @@ class UITabPage : public IUIAbstract {
 class UILoginView : public IUIAbstract {
     private:
     bool isLoginOpen = true;
-    User *user = nullptr;
+    AppContext& appContext;
     std::string email, password, accessToken;
     unsigned int wrongAttempts = 0;
     public:
 
+    UILoginView() = default;
+    UILoginView(AppContext& ctx) : appContext(ctx) {  }
+
     std::string getAccessToken() const {
         return accessToken;
+    }
+
+    void reset() {
+        email = "";
+        password = "";
+        wrongAttempts = 0;
+        isLoginOpen = true;
     }
 
     void draw() override {
@@ -428,8 +278,8 @@ class UILoginView : public IUIAbstract {
             ImGui::InputText("Password", &password, ImGuiInputTextFlags_Password | ImGuiInputTextFlags_AutoSelectAll | ImGuiInputTextFlags_NoUndoRedo | ImGuiInputTextFlags_ElideLeft);
             ImGui::Spacing();
             if(ImGui::Button("Login")) {
-                user = UserDatabase::get().login(email, password);
-                if(user) {
+                appContext.currentUser = UserDatabase::get().login(email, password);
+                if(appContext.currentUser) {
                     ImGui::CloseCurrentPopup();
                 } else {
                     wrongAttempts++;
@@ -443,10 +293,6 @@ class UILoginView : public IUIAbstract {
             ImGui::EndPopup();
         }
     }
-
-    User* getLoggedUser() const {
-        return user;
-    }
 };
 
 class Application : public IUIAbstract {
@@ -457,6 +303,40 @@ class Application : public IUIAbstract {
 
     UILoginView loginView;
     std::string accessToken = "";
+
+    void setupFont() {
+        const char* regularFontPath = "../data/font/bank/Noto_Sans_Display/static/NotoSansDisplay-Medium.ttf";
+        const char* boldFontPath = "../data/font/bank/Noto_Sans_Display/static/NotoSansDisplay-Bold.ttf";
+        const char* jpFontPath = "../data/font/bank/Noto_Sans_JP/static/NotoSansJP-Medium.ttf";
+        const char* jpBoldFontPath = "../data/font/bank/Noto_Sans_JP/static/NotoSansJP-Bold.ttf";
+        const char* emojiFontPath = "../data/font/bank/Noto_Emoji/static/NotoEmoji-Medium.ttf";
+
+        //manual emoji range as imgui 1.92+ can't autodetect properly
+        const ImWchar emojiGlyphRange[9] = {
+            0x00a9, 0x00ae,     //copyright & registered trademark
+            0x203c, 0x329f,     //basic emoji
+            0x1f000, 0x1faff,   //emoji
+            0x1F3FB, 0x1F3FF,   //emoji modifier
+            0
+        };
+
+        ImFontConfig fontConfigMerge;
+        fontConfigMerge.MergeMode = true;
+        fontConfigMerge.PixelSnapH = true;
+        fontConfigMerge.OversampleH = 2;
+        ImFontConfig fontConfigMergeBold;
+        fontConfigMergeBold.MergeMode = true;
+        fontConfigMergeBold.PixelSnapH = true;
+        fontConfigMergeBold.OversampleH = 2;
+
+        ImGuiIO& io = ImGui::GetIO();
+        io.Fonts->Clear();
+        appContext.font = io.Fonts->AddFontFromFileTTF(regularFontPath, 16.0f);
+        io.Fonts->AddFontFromFileTTF(jpFontPath, 0.0f, &fontConfigMerge);
+        io.Fonts->AddFontFromFileTTF(emojiFontPath, 0.0f, &fontConfigMerge, emojiGlyphRange);
+        appContext.boldfont = io.Fonts->AddFontFromFileTTF(boldFontPath, 16.0f);
+        io.Fonts->AddFontFromFileTTF(jpBoldFontPath, 0.0f, &fontConfigMergeBold);
+    }
 
     void drawBrowser() {
         ImGui::SetNextWindowPos(ImVec2(0, 0), ImGuiCond_Always);
@@ -487,21 +367,42 @@ class Application : public IUIAbstract {
 
     void drawLogin() {
         loginView.draw();
-        appContext.currentUser = loginView.getLoggedUser();
         if(appContext.currentUser) {
-            uiPages.push_back(std::make_unique<UITabPage>(std::make_unique<UIUserProfile>(appContext, appContext.currentUser), "Profile", false));
+            addDefaultPage();
             currentDrawContext = std::bind(&Application::drawBrowser, this);
         }
     }
 
+    void addDefaultPage() {
+        uiPages.push_back(std::make_unique<UITabPage>(std::make_unique<UICarouselView>(appContext, "../data/book/carousel.json"), "Homepage", false));
+        uiPages.push_back(std::make_unique<UITabPage>(std::make_unique<UIUserProfile>(appContext, appContext.currentUser), "Profile", false));
+    }
+
     public:
     Application(SDL_Renderer* mainRenderer) 
-        : appContext(mainRenderer, [this](std::unique_ptr<IUIAbstract> content, const std::string& title) {
-            this->incomingUiPages.emplace_back(std::make_unique<UITabPage>(std::move(content), title));
-        })      //init const appContext member
+        : appContext(mainRenderer, 
+            [this](std::unique_ptr<IUIAbstract> content, const std::string& title) {
+                this->incomingUiPages.emplace_back(std::make_unique<UITabPage>(std::move(content), title));
+            },
+            [this]() {
+                this->appContext.currentUser = nullptr;
+                this->loginView.reset();
+                this->uiPages.clear();
+                this->currentDrawContext = std::bind(&Application::drawLogin, this);
+            }
+        )   //init const appContext member
+        , loginView(appContext)
     {
+        setupFont();
+        if(SDL_GetSystemTheme() == SDL_SYSTEM_THEME_DARK) {     //require sdl 3.2.0
+            appContext.darkMode = true;
+            ImGui::StyleColorsDark();
+        } else {
+            appContext.darkMode = false;
+            ImGui::StyleColorsLight();
+        }
         currentDrawContext = std::bind(&Application::drawLogin, this);
-        uiPages.push_back(std::make_unique<UITabPage>(std::make_unique<UIBookCatalogue>(appContext, BookDatabase::get().getLatestBooks(3)), "Latest Books", false));
+        
     }
 
     void draw() override {
@@ -528,7 +429,7 @@ int main(int, char**) {
         printf("Error: SDL_CreateWindow(): %s\n", SDL_GetError());
         return -1;
     }
-    renderer = SDL_CreateRenderer(window, nullptr);
+    SDL_Renderer *renderer = SDL_CreateRenderer(window, nullptr);
     SDL_SetRenderVSync(renderer, 1);
     if (renderer == nullptr)
     {
@@ -541,7 +442,6 @@ int main(int, char**) {
     ImGuiIO& io = ImGui::GetIO(); (void)io;
     io.IniFilename = nullptr;
 
-    setupFont();
     // ImGui::StyleColorsLight();
     
     ImGui_ImplSDL3_InitForSDLRenderer(window, renderer);
@@ -551,7 +451,9 @@ int main(int, char**) {
 
     UserDatabase::get().loadFile("../data/user/user.json");
     BookDatabase::get().loadFile("../data/book/book.json");
-    TextureCache::get().book_recache_all();
+    BorrowingService::get().loadBookStock("../data/book/book_stock.json");
+    BorrowingService::get().loadBorrowingHistory("../data/book/borrowing_history.json");
+    TextureCache::get().init(renderer);
     Application app (renderer);
 
     bool mainLoopDone = false;

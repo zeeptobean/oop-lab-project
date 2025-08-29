@@ -19,6 +19,11 @@ class Timestamp {
     }
 
     public:
+
+    static Timestamp now() {
+        return Timestamp();
+    }
+
     Timestamp() {
         const time_t tm = time(NULL);
         ctmtime = localtime(&tm);
@@ -61,6 +66,33 @@ class Timestamp {
             diff--;
         }
         return std::abs(diff);
+    }
+
+    uint64_t dayDiff(const Timestamp& rhs) const {
+        const int daysInMonth[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+        int totalDays1 = year * 365 + day;
+        for (int m = 0; m < month; ++m) {
+            totalDays1 += daysInMonth[m];
+        }
+        int totalDays2 = rhs.year * 365 + rhs.day;
+        for (int m = 0; m < rhs.month; ++m) {
+            totalDays2 += daysInMonth[m];
+        }
+        return std::abs(totalDays1 - totalDays2);
+    }
+
+    Timestamp advanceDay(int days) const {
+        tm t = {};
+        t.tm_year = year - 1900;
+        t.tm_mon = month;
+        t.tm_mday = day + days;
+        t.tm_hour = hour;
+        t.tm_min = minute;
+        mktime(&t);
+        char buf[201];
+        memset(buf, 0, sizeof buf);
+        snprintf(buf, 200, "%.4u-%.2u-%.2uT%.2u-%.2u", t.tm_year + 1900, t.tm_mon, t.tm_mday, t.tm_hour, t.tm_min);
+        return Timestamp(std::string(buf));
     }
 
     bool operator<(const Timestamp& rhs) const {

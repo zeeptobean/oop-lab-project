@@ -4,6 +4,9 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
+#include <string>
+#include <SDL3/SDL.h>
+#include <SDL3_image/SDL_image.h>
 
 inline void internal_safe_memset(void *dst, int val, size_t sz) {
     void* (*const volatile volatile_memset)(void*, int, size_t) = memset;
@@ -39,4 +42,12 @@ inline int internal_safe_free(void *ptr, size_t size_in_byte) {
         return 1;
     }
     return 0;
+}
+
+SDL_Surface* loadImage(const std::string& filename) {
+    SDL_Surface* surface = IMG_Load(filename.c_str());
+    if(!surface) {
+        return nullptr;
+    }
+    return surface;
 }

@@ -13,8 +13,8 @@
             "type": "premium",
             "favoriteBookId": [1, 2, 3],
             "recentBookId": [1],
-            "isSuspended": false,
-            "suspendUntil": null
+            "isSuspended": true,
+            "suspendEnd": "2025-12-03T00-00"
         },
         {
             "id": 2,
@@ -32,7 +32,7 @@
             "department": "Math",
             "workId": "GV001",
             "isSuspended": true,
-            "suspendUntil": "2025-08-03T00-00"
+            "suspendEnd": "2025-08-03T00-00"
         },
         {
             "id": 3,
@@ -48,7 +48,7 @@
             "favoriteBookId": [2, 3],
             "recentBookId": [1],
             "isSuspended": false,
-            "suspendUntil": null
+            "suspendEnd": ""
         }
     ]
 }

@@ -9,13 +9,13 @@ class IBorrowingPolicy {
     int maxLoanAllowed;
     double baseFine; // per day
     public:
-    int getLoanDuration() {
+    int getLoanDuration() const{
         return this->loanDuration;
     }
-    int getMaxLoanAllowed() {
+    int getMaxLoanAllowed() const {
         return this->maxLoanAllowed;
     }
-    virtual double calculateFine(int daysLate) = 0;
+    virtual double calculateFine(int daysLate) const = 0;
     virtual ~IBorrowingPolicy() {}
 };
 
@@ -26,7 +26,7 @@ class NormalBorrowingPolicy : public IBorrowingPolicy {
         this->maxLoanAllowed = 2;
         this->baseFine = 5.0f;
     }
-    double calculateFine(int daysLate) override {
+    double calculateFine(int daysLate) const override {
         return this->baseFine * std::pow(1.08, daysLate);
     }
 };
@@ -38,7 +38,7 @@ class UndergraduateBorrowingPolicy : public IBorrowingPolicy {
         this->maxLoanAllowed = 3;
         this->baseFine = 8.0f;
     }
-    double calculateFine(int daysLate) override {
+    double calculateFine(int daysLate) const override {
         return this->baseFine * daysLate;
     }
 };
@@ -50,7 +50,7 @@ class PostgraduateBorrowingPolicy : public IBorrowingPolicy {
         this->maxLoanAllowed = 5;
         this->baseFine = 7.0f;
     }
-    double calculateFine(int daysLate) override {
+    double calculateFine(int daysLate) const override {
         return this->baseFine * daysLate;
     }
 };
@@ -62,7 +62,7 @@ class PremiumBorrowingPolicy : public IBorrowingPolicy {
         this->maxLoanAllowed = 7;
         this->baseFine = 10.0f;
     }
-    double calculateFine(int daysLate) override {
+    double calculateFine(int daysLate) const override {
         return this->baseFine * std::pow(1.10, daysLate);
     }
 };

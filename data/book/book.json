@@ -25,6 +25,18 @@
             "departmentRestriction": []
         },
         {
+            "id": 8,
+            "imagePath": "notfound",
+            "title": "Windows Forensic Analysis Toolkit. Advanced Analysis Techniques for Windows 8-Syngress",
+            "authors": ["Harlan Carvey"],
+            "publicationYear": 2014,
+            "ageRating": 0,
+            "isbn": 1111,
+            "tags": ["forensic"],
+            "addedTimestamp": "2023-07-06T12-00",
+            "departmentRestriction": ["IT"]
+        },
+        {
             "id": 14,
             "imagePath": "data/book/book14.png",
             "title": "Tập tô số 1",
