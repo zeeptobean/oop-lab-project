@@ -4,6 +4,9 @@
 #include "imgui_stdlib.h"
 #include "../app_context.hpp"
 #include "../texture_cache.hpp"
+#include "../event_dispatcher.hpp"
+#include "../event_concrete.hpp"
+
 #include "gui_abstract.hpp"
 #include "gui_bookview.hpp"
 #include "imgui_custom_widget.hpp"
@@ -11,6 +14,8 @@
 #include "../core/book.hpp"
 #include "../core/borrowing_history.hpp"
 #include "../core/borrowing_service.hpp"
+
+#include <memory>
 
 struct SDL_Texture;
 
@@ -22,6 +27,8 @@ private:
     bool departmentRestrictionActivate = false;
     bool ageRestrictionActivate = false;
     bool borrowConfirmationTick = false;
+
+    std::unique_ptr<FavoriteBookRefreshEvent> refreshEvent = std::make_unique<FavoriteBookRefreshEvent>();
 
     void drawImpl();
 

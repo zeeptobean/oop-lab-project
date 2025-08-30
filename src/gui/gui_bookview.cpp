@@ -41,6 +41,13 @@ void UIBookView::drawImpl() {
         ImGui::EndDisabled();
         ImGui::SameLine();
         ImGui::TextColored(appContext.getColorRed(), "Your account is suspended");
+    } else if(BorrowingService::get().queryUserCurrentBorrowedCount(appContext.currentUser->getInternalId()) >= appContext.currentUser->getBorrowingPolicy()->getMaxLoanAllowed()) {
+        ImGui::BeginDisabled();
+        ImGui::Button("Borrow");
+        ImGui::EndDisabled();
+        ImGui::SameLine();
+        ImGui::TextColored(appContext.getColorRed(), "You have reached your borrowing limit");
+
     } else if(BorrowingService::get().queryBookCount(book.internalId) <= 0) {
         ImGui::BeginDisabled();
         ImGui::Button("Borrow");
@@ -55,6 +62,7 @@ void UIBookView::drawImpl() {
     if(appContext.currentUser->checkFavoriteBook(book.internalId)) {
         if(ImGui::Button("Remove from Favorites")) {
             appContext.currentUser->favoriteBookId.erase(book.internalId);
+            EventDispatcher::get().dispatchEvent(refreshEvent.get());
         }
     } else {
         if(ImGui::Button("Add to Favorites")) {
