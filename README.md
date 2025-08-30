@@ -1,0 +1,4 @@
+lorem ipsum
+
+compile: 
+xmake

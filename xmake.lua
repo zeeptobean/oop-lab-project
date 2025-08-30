@@ -28,22 +28,21 @@ target("toy")
 
 target("debug")
     add_deps("imgui-sdl3-staticlib")
-    add_syslinks("SDL3")
-    add_packages("sdl3")
-    add_links("sdl3")
-    -- add_files("src/*.cpp")
     add_files("include/main.cpp")
     add_includedirs("include")
     add_includedirs("imgui-sdl3/include")
+    add_includedirs("SDL3/include")
+    add_includedirs("SDL3_image/include")
+    add_linkdirs("SDL3/lib")
+    add_linkdirs("SDL3_image/lib")
     add_cxxflags("-Wall", "-Wextra", "-pedantic", "-g", "-march=native", {force = true})
+    add_ldflags("-static")
 
     set_kind("binary")
     if is_plat("windows") then
+        add_linkdirs("SDL3_image/lib")
+        add_linkdirs("SDL3/lib")
         add_syslinks("SDL3", "SDL3_image", "gdi32", "winmm", "imm32", "version", "ole32", "oleaut32", "setupapi", "uuid", "shell32")
-    elseif is_plat("linux") then
-        add_syslinks("SDL3", "SDL3_image", "dl", "pthread", "m")
-    elseif is_plat("macosx") then
-        add_syslinks("SDL3", "SDL3_image", "Cocoa", "IOKit", "CoreVideo")
     end
 
     set_toolchains("gcc")
@@ -52,10 +51,13 @@ target("debug")
 
 target("release")
     add_deps("imgui-sdl3-staticlib")
-    add_packages("sdl3")
-    add_links("sdl3")
-    add_files("src/*.cpp")
-    add_includedirs("include", "imgui-sdl3/include")
+    add_files("include/main.cpp")
+    add_includedirs("include")
+    add_includedirs("imgui-sdl3/include")
+    add_includedirs("SDL3/include")
+    add_includedirs("SDL3_image/include")
+    add_linkdirs("SDL3/lib")
+    add_linkdirs("SDL3_image/lib")
 
     if is_arch("x86_64", "i386") then
         add_cxxflags("-Wall", "-Wextra", "-pedantic", "-Os", "-march=nehalem",{force = true})
@@ -66,6 +68,8 @@ target("release")
 
     set_kind("binary")
     if is_plat("windows") then
+        add_linkdirs("SDL3_image/lib")
+        add_linkdirs("SDL3/lib")
         add_syslinks("SDL3", "SDL3_image", "gdi32", "winmm", "imm32", "version", "ole32", "oleaut32", "setupapi", "uuid", "shell32")
     elseif is_plat("linux") then
         add_syslinks("SDL3", "SDL3_image", "dl", "pthread", "m")
