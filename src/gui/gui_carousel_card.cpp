@@ -17,7 +17,7 @@ void UICarouselCard::draw() {
         ImVec2 cardBottomRight = ImVec2(cardTopLeft.x + cardSize.x, cardTopLeft.y + cardSize.y);
         ImU32 bgColor = appContext.darkMode ? ImColor(40, 40, 40) : ImColor(230, 230, 230);
         ImVec4 bgColorVec = ImGui::ColorConvertU32ToFloat4(bgColor);
-        ImU32 borderColor = isHovered ? (ImU32)ImColor(230, 100, 100) : bgColor;
+        ImU32 borderColor = isHovered ? (ImU32) (appContext.darkMode ? ImColor(230, 100, 100) : ImColor(40, 40, 180)) : bgColor;
         ImVec4 textColor = ImGui::GetStyle().Colors[ImGuiCol_Text];
         ImVec4 authorColor = ImVec4(
             bgColorVec.x + (textColor.x - bgColorVec.x) * 0.70f,
@@ -35,7 +35,7 @@ void UICarouselCard::draw() {
         const float imageWidth = cardSize.x - cardPadding * 2;
         float imageIndentX = (cardSize.x - imageWidth) / 2.0f;
         ImGui::SetCursorPos(ImVec2(imageIndentX, cardPadding));
-        ImGui::Image(imageTexture, ImVec2(imageWidth, imageHeight));
+        ImGui::ImageNonStretch(imageTexture, imageWidth, imageHeight);
         
         //Text area
         ImGui::Dummy(ImVec2(0.0f, 3.0f));

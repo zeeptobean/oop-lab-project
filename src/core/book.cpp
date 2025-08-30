@@ -19,5 +19,6 @@ std::string Book::getTagsString() const {
             result += ", ";
         }
     }
+    result += getAuthorsString();
     return result;
 }

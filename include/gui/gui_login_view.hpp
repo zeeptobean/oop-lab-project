@@ -9,6 +9,7 @@
 class UILoginView : public IUIAbstract {
     private:
     bool isLoginOpen = true;
+    bool forgotPassword = false;
     AppContext& appContext;
     std::string email, password;
     unsigned int wrongAttempts = 0;

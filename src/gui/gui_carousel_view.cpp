@@ -2,15 +2,8 @@
 
 using json = nlohmann::json;
 
-UICarouselView::UICarouselView(AppContext& ctx, const json& carouselConfigFilename) : appContext(ctx) {
+UICarouselView::UICarouselView(AppContext& ctx, const json& carouselConfig) : appContext(ctx) {
     try {
-        std::ifstream fileStream(carouselConfigFilename);
-        if (!fileStream) {
-            throw std::runtime_error("Could not open carousel configuration file.");
-        }
-        json carouselConfig;
-        fileStream >> carouselConfig;
-        carouselConfig = carouselConfig.at("carousel")[0];
         headerStr = carouselConfig.at("header");
         std::vector<uint64_t> bookIdList = carouselConfig.at("bookId").get<std::vector<uint64_t>>();
 
@@ -24,7 +17,6 @@ UICarouselView::UICarouselView(AppContext& ctx, const json& carouselConfigFilena
             }
         }
     } catch(const std::exception& e) {
-        // Handle parsing errors
         headerStr = "Error Loading Carousel";
     }
 }

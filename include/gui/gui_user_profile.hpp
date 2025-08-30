@@ -5,6 +5,8 @@
 #include <SDL3/SDL.h>
 #include "gui_abstract.hpp"
 #include "gui_borrowing_frame.hpp"
+#include "gui_favorite_frame.hpp"
+#include "imgui_custom_widget.hpp"
 #include "../app_context.hpp"
 #include "../internal_utilities.hpp"
 #include "../core/user.hpp"
@@ -18,6 +20,7 @@ class UIUserProfile : public IUIAbstract {
     AppContext& appContext;
     SDL_Texture *imageTexture = nullptr;
     std::unique_ptr<UIBorrowingStatusFrame> borrowingStatusFrame;
+    std::unique_ptr<UIFavoriteStatusFrame> favoriteStatusFrame;
 
     public:
     UIUserProfile(AppContext& context);

@@ -1,13 +1,13 @@
 #include "gui/gui_borrowing_frame.hpp"
 
-UIBorrowingStatusFrame::UIBorrowingStatusFrame(AppContext& context, uint64_t tuserId, const IBorrowingPolicy *tpolicy) : Observer(), appContext(context), policy(tpolicy), userId(tuserId) {
+UIBorrowingStatusFrame::UIBorrowingStatusFrame(AppContext& context, const IBorrowingPolicy *tpolicy) : Observer(), appContext(context), policy(tpolicy) {
     refreshData();
 }
 
 void UIBorrowingStatusFrame::refreshData() {
     incomingDataVec.clear();
     std::map<uint64_t, Timestamp> borrowTimeMap;
-    const auto& userBorrowingHistory = BorrowingService::get().queryUserBorrowingHistory(userId);
+    const auto& userBorrowingHistory = BorrowingService::get().queryUserBorrowingHistory(appContext.currentUser->getInternalId());
     for(auto ite=userBorrowingHistory.begin(); ite != userBorrowingHistory.end(); ite++) {
         const auto& history = *ite;
         if(history.action == "return" && borrowTimeMap.find(history.bookId) != borrowTimeMap.end()) {
@@ -75,12 +75,12 @@ void UIBorrowingStatusFrame::draw() {
                         ImGui::Text("Expected return date: %s", prepared.endExpected.toLangString().c_str());
                         if(prepared.isOverdue) {
                             ImGui::PushFont(appContext.boldfont);
-                            ImGui::TextColored(ImVec4(250, 0, 0, 1), "OVERDUE");
+                            ImGui::TextColored(appContext.getColorRed(), "OVERDUE");
                             ImGui::PopFont();
-                            ImGui::TextColored(ImVec4(250, 0, 0, 1), "Fine: $%.2f", prepared.fine);
+                            ImGui::TextColored(appContext.getColorRed(), "Fine: $%.2f", prepared.fine);
                         } else {
                             ImGui::PushFont(appContext.boldfont);
-                            ImGui::TextColored(ImVec4(250, 250, 0, 1), "BORROWING");
+                            ImGui::TextColored(appContext.getColorYellow(), "BORROWING");
                             ImGui::PopFont();
                         }
                     } else {
@@ -88,19 +88,19 @@ void UIBorrowingStatusFrame::draw() {
                         ImGui::Text("Return date: %s", prepared.endActual.toLangString().c_str());
                         if(prepared.isOverdue) {
                             ImGui::PushFont(appContext.boldfont);
-                            ImGui::TextColored(ImVec4(0, 0, 250, 1), "RETURNED (OVERDUE)");
+                            ImGui::TextColored(appContext.getColorRed(), "RETURNED (OVERDUE)");
                             ImGui::PopFont();
                             ImGui::Text("Fine paid: $%.2f", prepared.fine);
                         } else {
                             ImGui::PushFont(appContext.boldfont);
-                            ImGui::TextColored(ImVec4(0, 250, 0, 1), "RETURNED");
+                            ImGui::TextColored(appContext.getColorGreen(), "RETURNED");
                             ImGui::PopFont();
                         }
                     }
                     ImGui::TableNextColumn();
                     if(!prepared.isReturned) {
                         if(ImGui::Button("Return")) {
-                            if(BorrowingService::get().returnBook(userId, prepared.bookId)) {
+                            if(BorrowingService::get().returnBook(appContext.currentUser->getInternalId(), prepared.bookId)) {
                                 refreshData();
                             }
                         }

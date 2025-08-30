@@ -17,13 +17,9 @@
 #include "book.hpp"
 
 #include "../event_dispatcher.hpp"
+#include "../event_concrete.hpp" 
 
 #include "../nlohmann/json.hpp"
-
-class BorrowingHistoryRefreshEvent : public Event {
-    public:
-    BorrowingHistoryRefreshEvent() {}
-};
 
 class BorrowingService {
     private:

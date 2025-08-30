@@ -15,14 +15,15 @@ UIUserProfile::UIUserProfile(AppContext& context) : appContext(context), user(co
         }
 
         uuser = dynamic_cast<UniversityUser*>(user);
-        borrowingStatusFrame = std::make_unique<UIBorrowingStatusFrame>(appContext, user->getInternalId(), user->getBorrowingPolicy());
+        borrowingStatusFrame = std::make_unique<UIBorrowingStatusFrame>(appContext, user->getBorrowingPolicy());
+        favoriteStatusFrame = std::make_unique<UIFavoriteStatusFrame>(appContext);
     }
 }
 
 void UIUserProfile::draw() {
         ImGui::PushID(this);
         ImGui::BeginChild("UserProfile", ImVec2(-1, -1));
-        ImGui::Image((void*)imageTexture, ImVec2(100, 100));
+        ImGui::ImageNonStretch(imageTexture, 100, 100);
         ImGui::SameLine();
         ImGui::BeginGroup();
         if(ImGui::CollapsingHeader("User information", ImGuiTreeNodeFlags_DefaultOpen)) {
@@ -46,7 +47,12 @@ void UIUserProfile::draw() {
             }
         }
 
-        if(ImGui::CollapsingHeader("Borrowing", ImGuiTreeNodeFlags_DefaultOpen)) {
+        if(ImGui::CollapsingHeader("Favorite books listing")) {
+            ImGui::SeparatorText("Book list");
+            favoriteStatusFrame->draw();
+        }
+
+        if(ImGui::CollapsingHeader("Borrowing")) {
             ImGui::SeparatorText("Information");
             ImGui::Text("Loan duration: %d days", user->getBorrowingPolicy()->getLoanDuration());
             ImGui::Text("Max books allowed: %d", user->getBorrowingPolicy()->getMaxLoanAllowed());

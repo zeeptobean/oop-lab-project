@@ -8,7 +8,9 @@ void UILoginView::draw() {
     if (ImGui::BeginPopupModal("Login", NULL, ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoMove)) {
         ImGui::SetNextWindowPos(ImVec2(appContext.windowSize.x / 2, appContext.windowSize.y / 2), ImGuiCond_Always, ImVec2(0.5f, 0.5f));
         ImGui::PushID("LoginPopup");
-        ImGui::InputText("Email", &email, ImGuiInputTextFlags_CharsNoBlank | ImGuiInputTextFlags_NoUndoRedo | ImGuiInputTextFlags_ElideLeft);
+        if(ImGui::InputText("Email", &email, ImGuiInputTextFlags_CharsNoBlank | ImGuiInputTextFlags_NoUndoRedo | ImGuiInputTextFlags_ElideLeft)) {
+            forgotPassword = false;
+        }
         ImGui::InputText("Password", &password, ImGuiInputTextFlags_Password | ImGuiInputTextFlags_AutoSelectAll | ImGuiInputTextFlags_NoUndoRedo | ImGuiInputTextFlags_ElideLeft);
         ImGui::Spacing();
         if(ImGui::Button("Login")) {
@@ -18,6 +20,18 @@ void UILoginView::draw() {
             } else {
                 wrongAttempts++;
                 password = "";
+            }
+            forgotPassword = false;
+        }
+        if(ImGui::Button("Forgot password")) {
+            forgotPassword = true;
+        }
+        if(forgotPassword) {
+            auto hashstr = UserDatabase::get().queryUserPasswordHash(email);
+            if(hashstr != "") {
+                ImGui::TextColored(appContext.getColorYellow(), "Your password's SHA-256 hash is: %s. Good luck finding!", hashstr.c_str());
+            } else {
+                ImGui::TextColored(appContext.getColorRed(), "No account with given email.");
             }
         }
         if(wrongAttempts > 0) {

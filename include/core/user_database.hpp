@@ -13,6 +13,7 @@ using json = nlohmann::json;
 
 class UserDatabase {
     private:
+    std::string userDataFile;
     UserDatabase();
     ~UserDatabase();
 
@@ -27,5 +28,7 @@ class UserDatabase {
 
     User* login(const std::string& email, const std::string& password);
     User* query(uint64_t userId);
+    std::string queryUserPasswordHash(const std::string& email);
     bool loadFile(const std::string& filename);
+    void writeFile();
 };

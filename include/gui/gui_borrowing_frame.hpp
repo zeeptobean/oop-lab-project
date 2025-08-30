@@ -1,9 +1,12 @@
+#pragma once
+
 #include "imgui.h"
 #include "imgui_stdlib.h"
 #include <SDL3/SDL.h>
 #include "../app_context.hpp"
 #include "../texture_cache.hpp"
 #include "../event_dispatcher.hpp"
+#include "../event_concrete.hpp" 
 #include "../core/borrowing_service.hpp"
 #include "../core/borrowing_policy.hpp"
 #include "../core/book_database.hpp"
@@ -11,7 +14,6 @@
 class UIBorrowingStatusFrame : public IUIAbstract, Observer {
     private:
     AppContext& appContext;
-    uint64_t userId;
     const IBorrowingPolicy *policy;
 
     struct PreparedData {
@@ -29,7 +31,7 @@ class UIBorrowingStatusFrame : public IUIAbstract, Observer {
     void refreshData();
 
     public:
-    UIBorrowingStatusFrame(AppContext& context, uint64_t tuserId, const IBorrowingPolicy *tpolicy);
+    UIBorrowingStatusFrame(AppContext& context, const IBorrowingPolicy *tpolicy);
 
     virtual ~UIBorrowingStatusFrame() = default;
 

@@ -2,7 +2,9 @@
 
 UIBookCatalogue::UIBookCatalogue(AppContext& context, const std::vector<Book*>& tbooks) : appContext(context) {
     for(Book* book : tbooks) {
-        bookCards.emplace_back(std::make_unique<UIBookCard>(context, book));
+        if(appContext.currentUser->checkEligibleAge(book->ageRating)) {
+            bookCards.emplace_back(std::make_unique<UIBookCard>(context, book));
+        }
     }
 }
 void UIBookCatalogue::draw() {

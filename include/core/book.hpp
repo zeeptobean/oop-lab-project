@@ -14,10 +14,9 @@ class Book {
     std::vector<std::string> authors;
     uint32_t publicationYear;
     uint32_t ageRating;
-    uint64_t isbn;
+    std::string isbn;
     std::vector<std::string> tags;
     std::vector<std::string> departmentRestriction;
-    Timestamp addedTimestamp;
 
     std::string getAuthorsString() const;
 

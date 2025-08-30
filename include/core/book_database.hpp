@@ -6,6 +6,7 @@
 #include <iostream>
 #include <set>
 
+#include "../internal_utilities.hpp"
 #include "../nlohmann/json.hpp"
 
 class BookDatabase {
@@ -22,11 +23,11 @@ class BookDatabase {
 
     Book* query(uint64_t bookId);
 
+    std::vector<Book*> search(const std::vector<std::string>&);
+
     bool loadFile(const std::string& filename);
 
     const std::vector<Book>& getAllBooks();
-
-    std::vector<Book*> getLatestBooks(size_t count);
 
     std::vector<Book*> getBooksByAuthor(const std::string& author);
 

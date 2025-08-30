@@ -1,54 +1,59 @@
 {
     "users": [
         {
-            "id": 1,
-            "passwordHash": "a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3",
-            "name": "admin",
+            "address": "Choquan, HCMC",
             "dob": "1990-01-01T05-00",
-            "nid": "079206000001",
             "email": "admin@example.com",
-            "address": "Choquan, HCMC",
-            "phone": "0123456789",
+            "favoriteBookId": [
+                1,
+                2,
+                3
+            ],
+            "id": 1,
             "image": "data/user/admin.png",
-            "type": "premium",
-            "favoriteBookId": [1, 2, 3],
-            "recentBookId": [1],
             "isSuspended": true,
-            "suspendEnd": "2025-12-03T00-00"
+            "name": "admin",
+            "nid": "079206000001",
+            "passwordHash": "a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3",
+            "phone": "0123456789",
+            "suspendEnd": "2025-12-03T00-00",
+            "type": "premium"
         },
         {
-            "id": 2,
-            "passwordHash": "a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3",
-            "name": "NVT",
-            "dob": "1970-01-01T05-00",
-            "nid": "012070000001",
-            "email": "NVT@hcmus.edu.vn",
             "address": "Choquan, HCMC",
-            "phone": "0123456789",
-            "image": "data/user/NVT.png",
-            "type": "teacher",
-            "favoriteBookId": [2, 3],
-            "recentBookId": [1],
             "department": "Math",
-            "workId": "GV001",
+            "dob": "1970-01-01T05-00",
+            "email": "NVT@hcmus.edu.vn",
+            "favoriteBookId": [
+                2,
+                3
+            ],
+            "id": 2,
+            "image": "data/user/NVT.png",
             "isSuspended": false,
-            "suspendEnd": "2025-08-03T00-00"
+            "name": "NVT",
+            "nid": "012070000001",
+            "passwordHash": "a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3",
+            "phone": "0123456789",
+            "type": "teacher",
+            "workId": "GV001"
         },
         {
-            "id": 3,
-            "passwordHash": "a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3",
-            "name": "skibidi",
-            "dob": "2020-01-01T05-00",
-            "nid": "012070000001",
-            "email": "cum@cum.cn",
             "address": "Chongqing, China",
-            "phone": "0123456789",
+            "dob": "2020-01-01T05-00",
+            "email": "cum@cum.cn",
+            "favoriteBookId": [
+                2,
+                3
+            ],
+            "id": 3,
             "image": "data/user/cum.png",
-            "type": "regular",
-            "favoriteBookId": [2, 3],
-            "recentBookId": [1],
             "isSuspended": false,
-            "suspendEnd": ""
+            "name": "skibidi",
+            "nid": "012070000001",
+            "passwordHash": "a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3",
+            "phone": "0123456789",
+            "type": "regular"
         }
     ]
 }

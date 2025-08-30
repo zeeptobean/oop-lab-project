@@ -27,4 +27,17 @@ struct AppContext {
 
     AppContext(SDL_Renderer* trender, const ImVec2& initialSize, AddTabPageFunc tabFunc, LogoutFunc logoutFunc)
         : renderer(trender), windowSize(initialSize), requestNewTab(std::move(tabFunc)), requestLogout(std::move(logoutFunc)) {}
+
+    //bad way to color....
+    ImColor getColorRed() const {
+        return ImColor(200, 45, 65);
+    }
+
+    ImColor getColorGreen() const {
+        return ImColor(50, 150, 100);
+    }
+
+    ImColor getColorYellow() const {
+        return ImColor(255, 200, 40);
+    }
 };

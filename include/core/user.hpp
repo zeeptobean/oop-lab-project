@@ -6,6 +6,7 @@
 #include <cstdint>
 #include <map>
 #include <memory>
+#include <vector>
 
 #include "borrowing_policy.hpp"
 #include "timestamp.hpp"
@@ -17,7 +18,6 @@ class User {
     std::string passwordHash;
     public:
     std::set<uint64_t> favoriteBookId;
-    std::deque<uint64_t> recentBookId;
     std::string name;
     Timestamp dob;
     std::string nid;
@@ -36,6 +36,10 @@ class User {
 
     const IBorrowingPolicy* getBorrowingPolicy() const;
     uint64_t getInternalId() const;
+    bool checkEligibleAge(int) const;
+    bool checkDepartmentRestriction(const std::vector<std::string>&) const;
+
+    bool checkFavoriteBook(uint64_t bookId) const;
 
     virtual std::unique_ptr<User> clone() const;
     virtual ~User();

@@ -1,0 +1,20 @@
+{
+    "regular": [
+        {
+            "header": "Featured",
+            "bookId": [9001, 9002, 9003, 9004, 9005]
+        }
+    ],
+    "IT": [
+        {
+            "header": "IT department picks",
+            "bookId": [9001, 9002, 9003, 9004, 9005]
+        }
+    ],
+    "Math": [
+        {
+            "header": "Math department picks",
+            "bookId": [9001, 9002, 9003, 9004, 9005]
+        }
+    ]
+}

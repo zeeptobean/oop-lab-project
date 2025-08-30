@@ -3,16 +3,27 @@
 using json = nlohmann::json;
 
 void BookDatabase::updateBook(Book& book, const json& jsonData) {
-    book.internalId = jsonData.at("id");
-    book.imagePath = jsonData.at("imagePath");
-    book.title = jsonData.at("title");
-    book.authors = jsonData.at("authors");
-    book.publicationYear = jsonData.at("publicationYear");
-    book.ageRating = jsonData.at("ageRating");
-    book.isbn = jsonData.at("isbn");
-    book.tags = jsonData.at("tags");
-    book.departmentRestriction = jsonData.at("departmentRestriction");
-    book.addedTimestamp = Timestamp(jsonData.at("addedTimestamp"));
+    try {
+        book.internalId = jsonData.at("id");
+        book.imagePath = (jsonData.contains("imagePath")) ? jsonData.at("imagePath") : "";
+        book.title = jsonData.at("title");
+        book.authors = jsonData.at("authors");
+        book.publicationYear = jsonData.at("publicationYear");
+        book.ageRating = (jsonData.contains("ageRating")) ? (uint32_t) jsonData.at("ageRating") : 0;
+        book.isbn = jsonData.at("isbn");
+        if(jsonData.contains("tags")) {
+            book.tags = (std::vector<std::string>) jsonData.at("tags");
+        } else {
+            book.tags = std::vector<std::string>();
+        }
+        if(jsonData.contains("departmentRestriction")) {
+            book.departmentRestriction = (std::vector<std::string>) jsonData.at("departmentRestriction");
+        } else {
+            book.departmentRestriction = std::vector<std::string>();
+        }
+    } catch(std::exception& e) {
+        return;
+    }
 }
 
 Book* BookDatabase::query(uint64_t bookId) {
@@ -23,6 +34,37 @@ Book* BookDatabase::query(uint64_t bookId) {
         return &(*it);
     }
     return &bookVec[0]; //return default book
+}
+
+//query and search are different!
+std::vector<Book*> BookDatabase::search(const std::vector<std::string>& keywords) {
+    std::vector<Book*> result;
+    const auto& books = BookDatabase::get().getAllBooks();
+    for(const auto& book : books) {
+        bool match = false;
+        for(const auto& word : keywords) {
+            if(toLowerStr(book.getAuthorsString()).find(word) != std::string::npos) {
+                match = true;
+                break;
+            }
+            if(toLowerStr(book.getTagsString()).find(word) != std::string::npos) {
+                match = true;
+                break;
+            }
+            if(toLowerStr(book.title).find(word) != std::string::npos) {
+                match = true;
+                break;
+            }
+            if(book.isbn.find(word) != std::string::npos) {
+                match = true;
+                break;
+            }
+        }
+        if(match) {
+            result.push_back(this->query(book.internalId)); //inefficient but safest
+        }
+    }
+    return result;
 }
 
 bool BookDatabase::loadFile(const std::string& filename) {
@@ -56,19 +98,6 @@ bool BookDatabase::loadFile(const std::string& filename) {
 
 const std::vector<Book>& BookDatabase::getAllBooks() {
     return bookVec;
-}
-
-std::vector<Book*> BookDatabase::getLatestBooks(size_t count) {
-    size_t n = std::min(count, bookVec.size());
-    std::vector<Book*> result(bookVec.size(), nullptr);
-    for(int i=0; i < bookVec.size(); i++) {
-        result[i] = &bookVec[i];
-    }
-    std::sort(result.begin(), result.end(), [](Book* a, Book* b) {
-        return a->addedTimestamp > b->addedTimestamp;
-    });
-    result.resize(n);
-    return result;
 }
 
 std::vector<Book*> BookDatabase::getBooksByAuthor(const std::string& author) {

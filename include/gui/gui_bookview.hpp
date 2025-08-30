@@ -6,6 +6,8 @@
 #include "../texture_cache.hpp"
 #include "gui_abstract.hpp"
 #include "gui_bookview.hpp"
+#include "imgui_custom_widget.hpp"
+
 #include "../core/book.hpp"
 #include "../core/borrowing_history.hpp"
 #include "../core/borrowing_service.hpp"
@@ -17,10 +19,10 @@ private:
     SDL_Texture *imageTexture;
     Book book;
     AppContext& appContext;
+    bool departmentRestrictionActivate = false;
     bool ageRestrictionActivate = false;
     bool borrowConfirmationTick = false;
 
-    bool checkEligibleAge();
     void drawImpl();
 
 public:

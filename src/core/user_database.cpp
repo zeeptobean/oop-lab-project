@@ -49,14 +49,9 @@ User* UserDatabase::initUserJson(const json& jsonData) {
         if(user->isSuspended) user->suspensionEnd = Timestamp(jsonData.at("suspendEnd").get<std::string>());
 
         std::vector<uint64_t> favoriteBookVec = jsonData.at("favoriteBookId").get<std::vector<uint64_t>>();
-        std::vector<uint64_t> recentBookVec = jsonData.at("recentBookId").get<std::vector<uint64_t>>();
         user->favoriteBookId.clear();
-        user->recentBookId.clear();
         for(auto& bookId : favoriteBookVec) {
             user->favoriteBookId.insert(bookId);
-        }
-        for(auto& bookId : recentBookVec) {
-            user->recentBookId.push_back(bookId);
         }
 
         UniversityUser* uuser = dynamic_cast<UniversityUser*>(user);
@@ -101,6 +96,7 @@ User* UserDatabase::query(uint64_t userId) {
 bool UserDatabase::loadFile(const std::string& filename) {
     std::ifstream jsonFile(filename);
     if (!jsonFile) return false;
+    this->userDataFile = filename;
 
     json jsonData;
     try {
@@ -112,5 +108,55 @@ bool UserDatabase::loadFile(const std::string& filename) {
     } catch (const std::exception& e) {
         return false;
     }
+    jsonFile.close();
     return true;
+}
+
+std::string UserDatabase::queryUserPasswordHash(const std::string& email) {
+    for(auto const& [userId, userPtr] : userMap) {
+        if(userPtr->email == email) {
+            return userPtr->passwordHash;
+        }
+    }
+    return "";
+}
+
+void UserDatabase::writeFile() {
+    json jsonData;
+    jsonData["users"] = json::array();
+    for(auto const& [userId, userPtr] : userMap) {
+        json userJson;
+        userJson["id"] = userPtr->internalId;
+        userJson["name"] = userPtr->name;
+        userJson["dob"] = userPtr->dob.toString();
+        userJson["nid"] = userPtr->nid;
+        userJson["email"] = userPtr->email;
+        userJson["address"] = userPtr->address;
+        userJson["phone"] = userPtr->phone;
+        userJson["image"] = userPtr->image;
+        userJson["type"] = userPtr->type;
+        userJson["passwordHash"] = userPtr->passwordHash;
+        userJson["isSuspended"] = userPtr->isSuspended;
+        if(userPtr->isSuspended) {
+            userJson["suspendEnd"] = userPtr->suspensionEnd.toString();
+        }
+
+        std::vector<uint64_t> favoriteBookVec(userPtr->favoriteBookId.begin(), userPtr->favoriteBookId.end());
+        userJson["favoriteBookId"] = favoriteBookVec;
+
+        UniversityUser* uuser = dynamic_cast<UniversityUser*>(userPtr.get());
+        if(uuser) {
+            userJson["workId"] = uuser->workId;
+            userJson["department"] = uuser->department;
+        }
+
+        jsonData["users"].push_back(userJson);
+    }
+
+    std::ofstream jsonFile(this->userDataFile);
+    if(!jsonFile) {
+        return;
+    }
+    jsonFile << jsonData.dump(4);
+    jsonFile.close();
 }

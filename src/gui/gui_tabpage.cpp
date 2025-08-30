@@ -17,27 +17,27 @@ UITabPage::UITabPage(UITabPage&& other)
     }
 
 UITabPage& UITabPage::operator=(UITabPage&& other) noexcept {
-        if (this != &other) {
-            content = std::move(other.content);
-            title = std::move(other.title);
-            closable = other.closable;
-            active = other.active;
+    if (this != &other) {
+        content = std::move(other.content);
+        title = std::move(other.title);
+        closable = other.closable;
+        active = other.active;
 
-            // Steal the pointer from the other object
-            other.content = nullptr;
-        }
-        return *this;
+        // Steal the pointer from the other object
+        other.content = nullptr;
     }
+    return *this;
+}
 
 void UITabPage::draw() {
-    ImGui::PushID(this);
-    if(ImGui::BeginTabItem(title.c_str(), ptr)) {
+    if(ImGui::BeginTabItem(unique_title.c_str(), ptr)) {
+        ImGui::PushID(this);
         ImGui::BeginChild("TabPageContent", ImVec2(-1, -1) , false, ImGuiWindowFlags_HorizontalScrollbar);
         content->draw();
         ImGui::EndChild();  
         ImGui::EndTabItem();
+        ImGui::PopID();
     }
-    ImGui::PopID();
 }
 
 bool UITabPage::isActive() const {

@@ -1,4 +1,5 @@
 #include "core/timestamp.hpp"
+#include "virtual_calendar.hpp"
 
 int Timestamp::compare(const Timestamp& rhs) const {
     if (year != rhs.year) return year - rhs.year;
@@ -9,7 +10,7 @@ int Timestamp::compare(const Timestamp& rhs) const {
 }
 
 Timestamp Timestamp::now() {
-    return Timestamp();
+    return VirtualCalendar::get().currentTime;
 }
 
 Timestamp::Timestamp() {

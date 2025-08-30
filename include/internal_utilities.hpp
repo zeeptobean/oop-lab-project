@@ -5,6 +5,7 @@
 #include <string.h>
 #include <stdio.h>
 #include <string>
+#include <algorithm>
 #include <SDL3/SDL.h>
 #include <SDL3_image/SDL_image.h>
 
@@ -50,4 +51,10 @@ inline SDL_Surface* loadImage(const std::string& filename) {
         return nullptr;
     }
     return surface;
+}
+
+inline std::string toLowerStr(const std::string& str) {
+    std::string result = str;
+    std::transform(result.begin(), result.end(), result.begin(), [](unsigned char c){ return std::tolower(c); });
+    return result;
 }

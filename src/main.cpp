@@ -16,10 +16,13 @@
 #include "gui/gui_carousel_view.hpp"
 #include "gui/gui_bookview.hpp"
 #include "gui/gui_user_profile.hpp"
+#include "gui/gui_search.hpp"
+#include "gui/gui_composed_view.hpp"
 
 #include "app_context.hpp"
 #include "texture_cache.hpp"
 #include "event_dispatcher.hpp"
+#include "virtual_calendar.hpp"
 
 class Application : public IUIAbstract {
     private:
@@ -27,10 +30,34 @@ class Application : public IUIAbstract {
     std::vector<std::unique_ptr<UITabPage>> uiPages, incomingUiPages; 
     std::function<void(void)> currentDrawContext;
 
+    
+
     UILoginView loginView;
     std::string accessToken = "";
 
     bool doLogout = false;
+
+    void setupHomepage() {
+        std::unique_ptr<UIComposedView> frontPageView (new UIComposedView(appContext));
+        std::ifstream infile ("../data/carousel.json");
+        nlohmann::json masterCarouselConfig;
+        try {
+            infile >> masterCarouselConfig;
+
+            for (auto& [department, lists] : masterCarouselConfig.items()) {
+                if(department == "regular" || appContext.currentUser->checkDepartmentRestriction({department})) {
+                    for (const auto& list_item : lists) {
+                        frontPageView->addView(std::make_unique<UICarouselView>(appContext, list_item));
+                    }
+                }
+            }
+
+            infile.close();
+        } catch(...) {
+            assert(false && "homepage error");
+        }
+        uiPages.push_back(std::make_unique<UITabPage>(std::move(frontPageView), "Home", false));
+    }
 
     void setupFont() {
         const char* regularFontPath = "../data/font/NotoSansDisplay-Medium.ttf";
@@ -69,8 +96,8 @@ class Application : public IUIAbstract {
     void drawBrowser() {
         ImGui::SetNextWindowPos(ImVec2(0, 0), ImGuiCond_Always);
         ImGui::SetNextWindowSize(appContext.windowSize, ImGuiCond_Always);
-        ImGui::Begin("Hello, world!", nullptr, ImGuiWindowFlags_HorizontalScrollbar | ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoScrollWithMouse | ImGuiWindowFlags_NoMove);
-        ImGui::Text("This is some useful text.");
+        ImGui::Begin("Hello, world!", nullptr, ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_HorizontalScrollbar | ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoScrollWithMouse | ImGuiWindowFlags_NoMove);
+        drawMenuBar();
         if(ImGui::BeginTabBar("MyTabs", ImGuiTabBarFlags_TabListPopupButton | ImGuiTabBarFlags_Reorderable | ImGuiTabBarFlags_AutoSelectNewTabs | ImGuiTabBarFlags_FittingPolicyMask_ | ImGuiTabBarFlags_DrawSelectedOverline)) {
             for(size_t i = 0; i < uiPages.size(); ++i) {
                 ImGui::PushID(i);
@@ -107,14 +134,54 @@ class Application : public IUIAbstract {
     void drawLogin() {
         loginView.draw();
         if(appContext.currentUser) {
-            addDefaultPage();
+            addDefaultTabs();
             currentDrawContext = std::bind(&Application::drawBrowser, this);
         }
     }
 
-    void addDefaultPage() {
-        uiPages.push_back(std::make_unique<UITabPage>(std::make_unique<UICarouselView>(appContext, "../data/book/carousel.json"), "Homepage", false));
+    void drawRegister() {
+
+    }
+
+    void drawMenuBar() {
+        ImGui::BeginMenuBar();
+        if(ImGui::BeginMenu("Menu")) {
+            if(ImGui::BeginMenu("Theme")) {
+                if(ImGui::MenuItem("Light", nullptr, !appContext.darkMode)) {
+                    appContext.darkMode = false;
+                    ImGui::StyleColorsLight();
+                }
+                if(ImGui::MenuItem("Dark", nullptr, appContext.darkMode)) {
+                    appContext.darkMode = true;
+                    ImGui::StyleColorsDark();
+                }
+                ImGui::EndMenu();
+            }
+            ImGui::Separator();
+            if(ImGui::MenuItem("Logout")) {
+                appContext.requestLogout();
+            }
+            ImGui::EndMenu();
+        }
+        if(ImGui::BeginMenu("Virtual calendar")) {
+            ImGui::MenuItem("Current virtual date: ", nullptr, false, false);
+            ImGui::MenuItem(Timestamp::now().toLangString().c_str(), nullptr, false, false);
+            ImGui::Separator();
+            if(ImGui::MenuItem("Advance 1 day")) {
+                VirtualCalendar::get().advanceDay(1);
+            }
+            if(ImGui::MenuItem("Advance 7 days")) {
+                VirtualCalendar::get().advanceDay(7);
+            }
+            ImGui::EndMenu();
+        }
+        ImGui::EndMenuBar();
+    }
+
+    void addDefaultTabs() {
+        setupHomepage();
         uiPages.push_back(std::make_unique<UITabPage>(std::make_unique<UIUserProfile>(appContext), "Profile", false));
+        uiPages.push_back(std::make_unique<UITabPage>(std::make_unique<UISearch>(appContext), "Book Search", false));
     }
 
     public:
@@ -154,7 +221,7 @@ class Application : public IUIAbstract {
 
 
 int main(int, char**) {
-    if (!SDL_Init(SDL_INIT_VIDEO | SDL_INIT_GAMEPAD))
+    if (!SDL_Init(SDL_INIT_VIDEO))
     {
         printf("SDL_Init failed: %s\n", SDL_GetError());
         return -1;
@@ -182,8 +249,6 @@ int main(int, char**) {
     ImGui::CreateContext();
     ImGuiIO& io = ImGui::GetIO(); (void)io;
     io.IniFilename = nullptr;
-
-    // ImGui::StyleColorsLight();
     
     ImGui_ImplSDL3_InitForSDLRenderer(window, renderer);
     ImGui_ImplSDLRenderer3_Init(renderer);
@@ -250,6 +315,7 @@ int main(int, char**) {
     //write back data at the end for a successful exit, avoid data corruption
     BorrowingService::get().writeBorrowingHistory();
     BorrowingService::get().writeBookStock();
+    UserDatabase::get().writeFile();
 
     return 0;
 }
