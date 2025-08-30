@@ -66,25 +66,33 @@ target("release")
     add_includedirs("imgui-sdl3/include")
     add_includedirs("SDL3/include")
     add_includedirs("SDL3_image/include")
-    add_linkdirs("SDL3/lib")
-    add_linkdirs("SDL3_image/lib")
 
     if is_arch("x86_64", "i386") then
         add_cxxflags("-Wall", "-Wextra", "-pedantic", "-Os", "-march=nehalem",{force = true})
     else
         add_cxxflags("-Wall", "-Wextra", "-pedantic", "-Os", "-march=native", {force = true})
     end
-    add_ldflags("-static", "-static-libgcc", "-static-libstdc++", "-s", {force = true})
-
+    add_ldflags("-s", {force = true})
+    
     set_kind("binary")
     if is_plat("windows") then
         add_linkdirs("SDL3_image/lib")
         add_linkdirs("SDL3/lib")
         add_syslinks("SDL3", "SDL3_image", "gdi32", "winmm", "imm32", "version", "ole32", "oleaut32", "setupapi", "uuid", "shell32")
+        add_ldflags("-static", "-static-libgcc", "-static-libstdc++", {force = true})
     elseif is_plat("linux") then
         add_syslinks("SDL3", "SDL3_image", "dl", "pthread", "m")
+        --[[
+            by default Linux & MacOS target do not static on release build
+            uncomment for full static linking (require static build of SDL3 and SDL3_image)
+        ]]
+        -- add_ldflags("-static", "-static-libgcc", "-static-libstdc++", {force = true})
     elseif is_plat("macosx") then
         add_syslinks("SDL3", "SDL3_image", "Cocoa", "IOKit", "CoreVideo")
+        --[[
+            See above for note on static linking on MacOS
+        ]]
+        -- add_ldflags("-static", "-static-libgcc", "-static-libstdc++", {force = true})
     end
 
     set_toolchains("gcc")
