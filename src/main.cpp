@@ -33,11 +33,11 @@ class Application : public IUIAbstract {
     bool doLogout = false;
 
     void setupFont() {
-        const char* regularFontPath = "../data/font/bank/Noto_Sans_Display/static/NotoSansDisplay-Medium.ttf";
-        const char* boldFontPath = "../data/font/bank/Noto_Sans_Display/static/NotoSansDisplay-Bold.ttf";
-        const char* jpFontPath = "../data/font/bank/Noto_Sans_JP/static/NotoSansJP-Medium.ttf";
-        const char* jpBoldFontPath = "../data/font/bank/Noto_Sans_JP/static/NotoSansJP-Bold.ttf";
-        const char* emojiFontPath = "../data/font/bank/Noto_Emoji/static/NotoEmoji-Medium.ttf";
+        const char* regularFontPath = "../data/font/NotoSansDisplay-Medium.ttf";
+        const char* boldFontPath = "../data/font/NotoSansDisplay-Bold.ttf";
+        const char* jpFontPath = "../data/font/NotoSansJP-Medium.ttf";
+        const char* jpBoldFontPath = "../data/font/NotoSansJP-Bold.ttf";
+        const char* emojiFontPath = "../data/font/NotoEmoji-Medium.ttf";
 
         //manual emoji range as imgui 1.92+ can't autodetect properly
         const ImWchar emojiGlyphRange[9] = {
@@ -118,8 +118,8 @@ class Application : public IUIAbstract {
     }
 
     public:
-    Application(SDL_Renderer* mainRenderer) 
-        : appContext(mainRenderer, 
+    Application(SDL_Renderer* mainRenderer, const ImVec2& windowSize) 
+        : appContext(mainRenderer, windowSize,
             [this](std::unique_ptr<IUIAbstract> content, const std::string& title) {
                 this->incomingUiPages.emplace_back(std::make_unique<UITabPage>(std::move(content), title));
             },
@@ -195,7 +195,7 @@ int main(int, char**) {
     BorrowingService::get().loadBookStock("../data/book/book_stock.json");
     BorrowingService::get().loadBorrowingHistory("../data/borrowing_history.json");
     TextureCache::get().init(renderer);
-    Application app (renderer);
+    Application app (renderer, windowSize);
 
     bool mainLoopDone = false;
     while (!mainLoopDone) {

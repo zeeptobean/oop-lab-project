@@ -25,6 +25,6 @@ struct AppContext {
     using LogoutFunc = std::function<void()>;
     const LogoutFunc requestLogout;
 
-    AppContext(SDL_Renderer* trender, AddTabPageFunc tabFunc, LogoutFunc logoutFunc)
-        : renderer(trender), requestNewTab(std::move(tabFunc)), requestLogout(std::move(logoutFunc)) {}
+    AppContext(SDL_Renderer* trender, const ImVec2& initialSize, AddTabPageFunc tabFunc, LogoutFunc logoutFunc)
+        : renderer(trender), windowSize(initialSize), requestNewTab(std::move(tabFunc)), requestLogout(std::move(logoutFunc)) {}
 };
