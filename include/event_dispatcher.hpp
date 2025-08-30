@@ -1,4 +1,5 @@
 #pragma once
+
 #include <string>
 #include <vector>
 #include <algorithm>
@@ -10,8 +11,9 @@ class Event {
 
 class Observer {
     public:
+    Observer();
     virtual void onEvent(const Event *event) = 0;
-    virtual ~Observer() = default;
+    virtual ~Observer();
 };
 
 class EventDispatcher {
@@ -23,19 +25,12 @@ class EventDispatcher {
     EventDispatcher(const EventDispatcher&) = delete;
     EventDispatcher& operator=(const EventDispatcher&) = delete;
 
-    void registerObserver(Observer *observer) {
-        observers.push_back(observer);
-    }
+    void registerObserver(Observer *observer);
 
-    void unregisterObserver(Observer *observer) {
-        observers.erase(std::remove(observers.begin(), observers.end(), observer), observers.end());
-    }
+    void unregisterObserver(Observer *observer);
 
-    void dispatchEvent(const Event *event) {
-        for (Observer* observer : observers) {
-            observer->onEvent(event);
-        }
-    }
+    void dispatchEvent(const Event *event);
+    
     private:
     std::vector<Observer*> observers;
 

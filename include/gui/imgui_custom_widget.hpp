@@ -1,10 +1,11 @@
 #pragma once
 #include "imgui.h"
 #include "imgui_stdlib.h"
+#include <SDL3/SDL.h>
 #include <string>
 
 namespace ImGui {
-void TextEllipsisLines(const std::string& str, int maxLines = 2) {
+inline void TextEllipsisLines(const std::string& str, int maxLines = 2) {
     if (maxLines <= 0) return;
 
     const float lineHeight = ImGui::GetTextLineHeight();
@@ -42,4 +43,28 @@ void TextEllipsisLines(const std::string& str, int maxLines = 2) {
     std::string truncated = str.substr(0, bestFit) + ellipsis;
     ImGui::TextWrapped("%s", truncated.c_str());
 }
+
+inline void ImageNonStretch(SDL_Texture* texture, float contentWidth, float contentHeight) {
+    int image_width = texture->w, image_height = texture->h;
+
+    float aspect_ratio = (float)image_width / (float)image_height;
+
+    float new_width = contentWidth;
+    float new_height = new_width / aspect_ratio;
+
+    if (new_height > contentHeight) {
+        new_height = contentHeight;
+        new_width = new_height * aspect_ratio;
+    }
+
+    // Center the image
+    float cursor_x = (contentWidth - new_width) * 0.5f;
+    float cursor_y = (contentHeight - new_height) * 0.5f;
+    ImGui::SetCursorPos(ImVec2(ImGui::GetCursorPosX() + cursor_x, ImGui::GetCursorPosY() + cursor_y));
+
+    ImGui::Image((ImTextureID)texture, ImVec2(new_width, new_height));
+}
+
+
+
 }

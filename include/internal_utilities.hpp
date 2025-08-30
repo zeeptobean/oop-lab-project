@@ -44,7 +44,7 @@ inline int internal_safe_free(void *ptr, size_t size_in_byte) {
     return 0;
 }
 
-SDL_Surface* loadImage(const std::string& filename) {
+inline SDL_Surface* loadImage(const std::string& filename) {
     SDL_Surface* surface = IMG_Load(filename.c_str());
     if(!surface) {
         return nullptr;

@@ -3,6 +3,7 @@ set_languages("c++17")
 
 includes("imgui-sdl3/xmake.lua")
 
+--[[
 target("toy")
     add_deps("imgui-sdl3-staticlib")
     add_syslinks("SDL3")
@@ -25,10 +26,13 @@ target("toy")
     set_toolchains("gcc")
     set_targetdir("bin")
     set_filename("toy")
+]]
 
 target("debug")
     add_deps("imgui-sdl3-staticlib")
-    add_files("include/main.cpp")
+    add_files("src/*.cpp")
+    add_files("src/core/*.cpp")
+    add_files("src/gui/*.cpp")
     add_includedirs("include")
     add_includedirs("imgui-sdl3/include")
     add_includedirs("SDL3/include")
@@ -36,7 +40,11 @@ target("debug")
     add_linkdirs("SDL3/lib")
     add_linkdirs("SDL3_image/lib")
     add_cxxflags("-Wall", "-Wextra", "-pedantic", "-g", "-march=native", {force = true})
-    add_ldflags("-static")
+    --[[
+        by default debug build dynamic link with your existing SDL3 dll 
+        uncomment for full static linking (windows only)
+    ]]
+    -- add_ldflags("-static")       
 
     set_kind("binary")
     if is_plat("windows") then
@@ -51,7 +59,9 @@ target("debug")
 
 target("release")
     add_deps("imgui-sdl3-staticlib")
-    add_files("include/main.cpp")
+    add_files("src/*.cpp")
+    add_files("src/core/*.cpp")
+    add_files("src/gui/*.cpp")
     add_includedirs("include")
     add_includedirs("imgui-sdl3/include")
     add_includedirs("SDL3/include")

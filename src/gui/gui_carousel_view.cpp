@@ -1,24 +1,6 @@
-#pragma once
-#include "imgui.h"
-#include "imgui_stdlib.h"
-#include "gui_abstract.hpp"
-#include "gui_carousel_card.hpp"
-#include "book.hpp"
-#include "app_context.hpp"
-#include <vector>
-#include <nlohmann/json.hpp>
+#include "gui/gui_carousel_view.hpp"
 
-class UICarouselView : public IUIAbstract {
-private:
-    AppContext& appContext;
-    std::string headerStr;
-    std::vector<UICarouselCard> bookCards; // Owns the cards directly
-    const int cardHeight = 400;
-
-public:
-    explicit UICarouselView(AppContext&, const json& carouselConfig);
-    void draw() override;
-};
+using json = nlohmann::json;
 
 UICarouselView::UICarouselView(AppContext& ctx, const json& carouselConfigFilename) : appContext(ctx) {
     try {

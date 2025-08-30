@@ -1,5 +1,8 @@
 #pragma once
 
+#include <vector>
+#include <cstdint>
+
 class RecommendationService {
     private:
     RecommendationService() = default;

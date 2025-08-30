@@ -2,8 +2,8 @@
 .vscode
 bin
 build
-imgui-sdl3
 old
 *.exe
-*.txt
-*.ini
+/*.txt
+/*.ini
+playground
