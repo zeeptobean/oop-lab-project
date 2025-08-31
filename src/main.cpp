@@ -285,28 +285,56 @@ int main(int, char**) {
     SDL_SetRenderVSync(renderer, 1);
     if (renderer == nullptr)
     {
-        SDL_Log("Error: SDL_CreateRenderer(): %s\n", SDL_GetError());
+        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Error: SDL_CreateRenderer()", SDL_GetError(), window);
+        SDL_DestroyWindow(window);
+        SDL_Quit();
         return -1;
     }
-
-    // IMG_Init()
     
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
     ImGuiIO& io = ImGui::GetIO(); (void)io;
     io.IniFilename = nullptr;
+
+    bool checkLoadingResource = true;
+    std::string errorString = "";
+    if(!UserDatabase::get().loadFile("../data/user/user.json")) {
+        errorString = "Failed to load ../data/user/user.json";
+        checkLoadingResource = false;
+        goto label_handle_loading_resource;
+    }
+    if(!BookDatabase::get().loadFile("../data/book/book.json")) {
+        errorString = "Failed to load ../data/book/book.json";
+        checkLoadingResource = false;
+        goto label_handle_loading_resource;
+    }
+    if(!BorrowingService::get().loadBookStock("../data/book/book_stock.json")) {
+        errorString = "Failed to load ../data/book/book_stock.json";
+        checkLoadingResource = false;
+        goto label_handle_loading_resource;
+    }
+    if(!BorrowingService::get().loadBorrowingHistory("../data/borrowing_history.json")) {
+        errorString = "Failed to load ../data/borrowing_history.json";
+        checkLoadingResource = false;
+        goto label_handle_loading_resource;
+    }
+
+    label_handle_loading_resource:
+    if(!checkLoadingResource) {
+        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Error", errorString.c_str(), window);
+        SDL_DestroyRenderer(renderer);
+        SDL_DestroyWindow(window);
+        SDL_Quit();
+        return -1;
+    }
+    TextureCache::get().init(renderer);
+    Application app (renderer, windowSize);
     
     ImGui_ImplSDL3_InitForSDLRenderer(window, renderer);
     ImGui_ImplSDLRenderer3_Init(renderer);
     SDL_SetWindowPosition(window, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
     SDL_ShowWindow(window);
 
-    UserDatabase::get().loadFile("../data/user/user.json");
-    BookDatabase::get().loadFile("../data/book/book.json");
-    BorrowingService::get().loadBookStock("../data/book/book_stock.json");
-    BorrowingService::get().loadBorrowingHistory("../data/borrowing_history.json");
-    TextureCache::get().init(renderer);
-    Application app (renderer, windowSize);
 
     bool mainLoopDone = false;
     while (!mainLoopDone) {
