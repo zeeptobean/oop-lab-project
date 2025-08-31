@@ -7,6 +7,32 @@
 - Lê Trần Quang Huy - 24127396 
 - Tôn Thất Nhật Minh - 24127083
 
+## Source tree
+
+```
+<base-directory>/
+├── bin/                            # binary file (after building)
+├── data/                           # app data
+├── imgui-sdl3/                     # ImGui library
+├── include/                        # include directory
+    ├──core/                        # core app header files
+    ├──gui/                         # gui header files
+    ├──nlohmann/                    # nlohmann/json library
+    └──*.hpp                        # other header files
+├── SDL3                            # SDL3 library, Windows only
+├── SDL3_image                      # SDL3_image library, Windows only
+├── src/                            # include directory
+    ├──core/                        # core app source files
+    ├──gui/                         # gui source files
+    ├──event_dispatcher.cpp         # gui notify mechanism
+    ├──main.cpp                     # main class
+    ├──sha256.cpp                   # SHA256 hash function, self-implemented
+    └──texture_cache.cpp            # caching book images when drawing gui 
+├── xmake.lua                       # Xmake build script
+├── .gitignore
+└── README.md
+```
+
 ## Dependencies
 - [nlohmann/json](https://github.com/nlohmann/json) (included)
 - [Dear ImGui](https://github.com/ocornut/imgui) (included, using SDL3renderer backend)
@@ -21,27 +47,27 @@
 
 ### Step 0. Install Xmake & toolchain as in prerequisites
 
-### Step 1. Compilation
+### Step 1a. Compilation on Windows x86-64
 Simply running Xmake on base directory
 ```
 xmake build release
 ```
 
-Binaries reside in `bin` directory. Note that it must be in `bin` directory, with `data` directory located outside in order to load application data
+Binaries reside in `bin` directory. Note that it must be run in `bin` directory, with `data` directory located outside in order to load application data
 
-The source tree should be like this 
+You will need to install image processing libraries (libpng for PNG, libjpeg-turbo for jpeg, ...). Consult the [SDL3_image CMake tutorial](https://github.com/libsdl-org/SDL_image/blob/main/docs/INTRO-cmake.md) for more detail
 
-```
-<base-directory>/
-├── bin/    # binary file
-├── data/   # app data
-```
+Prebuilt binaries is available in [Release](https://github.com/zeeptobean/oop-lab-project/releases), with libpng and libjpeg-turbo included
+
+### Step 1b. Compilation on Windows x86 or arm64
+
+See Compiling on Linux, from step 1b
 
 ## Compiling on Linux
 
 ### Step 0. Install Xmake & toolchain as in prerequisites
 
-### Step 1a. Install SDL3 and SDL3_image using prebuilt binaries (on newer distros only):
+### Step 1a. Install SDL3 and SDL3_image using prebuilt packages (on newer distros only):
 #### Ubuntu 25.04/Debian 13 or later
 ```
 sudo apt install libsdl3-dev libsdl3-image-dev
@@ -64,12 +90,17 @@ xmake build release
 ```
 By default Linux & MacOS target do not static on release build (due to dependencies problems). This can be modified in `xmake.lua`
 
-Binaries reside in `bin` directory. Note that it must be in `bin` directory, with `data` directory located outside in order to load application data
+Binaries reside in `bin` directory. Note that it must be run in `bin` directory, with `data` directory located outside in order to load application data
 
-The source tree should be like this 
+### Step 3. Check for image libraries for SDL3_image
+SDL3_image in either static or dynamic build will dynamically detect image processing libraries like libpng, libibjpeg-turbo, libwebp, ...
 
-```
-<base-directory>/
-├── bin/    # binary file
-├── data/   # app data
-```
+If you built the library by youself, double check if these libraries present 
+
+If you installed prebuilt packages, these dependencies are included
+
+## Disclaimer and Licensing
+
+The binaries and source code are released for educational purposes
+
+The images of book covers used within this application are for demonstration and educational purposes only. These images are intended to provide a realistic visual representation of a library system's interface and are not intended for commercial use or distribution. The copyright for all book covers and related artwork belongs to their respective publishers, authors, and artists. No ownership of these images is claimed or implied by the creators of this project.
