@@ -275,7 +275,7 @@ int main(int, char**) {
     ImVec2 windowSize = ImVec2(1280 * main_scale, 720 * main_scale);
 
     SDL_WindowFlags window_flags = SDL_WINDOW_RESIZABLE | SDL_WINDOW_HIDDEN | SDL_WINDOW_HIGH_PIXEL_DENSITY;
-    SDL_Window* window = SDL_CreateWindow("oop-lab-project", (int)windowSize.x, (int)windowSize.y, window_flags);
+    SDL_Window* window = SDL_CreateWindow("Library Manager", (int)windowSize.x, (int)windowSize.y, window_flags);
     if (window == nullptr)
     {
         printf("Error: SDL_CreateWindow(): %s\n", SDL_GetError());

@@ -49,7 +49,6 @@ void UIBorrowingStatusFrame::refreshData() {
 
 void UIBorrowingStatusFrame::draw() {
         const float padding = 20.0f;
-        const float imageSize = 100.0f;
 
         if(incomingDataVec.size() > 0) {
             std::swap(dataVec, incomingDataVec);
@@ -60,12 +59,12 @@ void UIBorrowingStatusFrame::draw() {
         for(int i=0; i < (int) dataVec.size(); i++) {
             auto& prepared = dataVec[i];
             ImGui::PushID(i);
-            if(ImGui::BeginChild("BorrowingStatusCard", ImVec2(-1, 150), true, ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse)) {
+            if(ImGui::BeginChild("BorrowingStatusCard", ImVec2(-1, 135), true, ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse)) {
                 ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(padding, padding));
                 if (ImGui::BeginTable("##Alignment", 3)) {
                     ImGui::TableNextColumn();
                     ImGui::SetCursorPos(ImVec2(padding, padding));
-                    ImGui::ImageNonStretch(prepared.imageTexture, imageSize, imageSize, appContext.darkMode);
+                    ImGui::ImageNonStretch(prepared.imageTexture, 90, 90, appContext.darkMode);
                     ImGui::TableNextColumn();
                     ImGui::PushFont(appContext.boldfont);
                     ImGui::Text("%s", prepared.bookTitle.c_str());
