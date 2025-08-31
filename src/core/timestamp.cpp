@@ -24,7 +24,9 @@ Timestamp::Timestamp() {
 }
 
 Timestamp::Timestamp(const std::string& isoString) {
-    sscanf(isoString.c_str(), "%4u-%2u-%2uT%2u-%2u", &year, &month, &day, &hour, &minute);
+    if(sscanf(isoString.c_str(), "%4u-%2u-%2uT%2u-%2u", &year, &month, &day, &hour, &minute) == 0) {
+        *this = Timestamp::now();
+    }
 }
 
 std::string Timestamp::toString() const {

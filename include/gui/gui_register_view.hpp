@@ -11,8 +11,8 @@
 class UIRegisterView : public IUIAbstract {
     private:
     User user;
-    bool isOpen = true;
     std::string dobStr, passwordStr, passwordStr2;
+    bool checkValidInput();
     public:
 
     UIRegisterView() = default;
