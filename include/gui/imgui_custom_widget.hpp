@@ -44,13 +44,13 @@ inline void TextEllipsisLines(const std::string& str, int maxLines = 2) {
     ImGui::TextWrapped("%s", truncated.c_str());
 }
 
-inline void ImageNonStretch(SDL_Texture* texture, float contentWidth, float contentHeight) {
+inline void ImageNonStretch(SDL_Texture* texture, float contentWidth, float contentHeight, bool darkMode = true) {
     if(!texture) {
         //draw empty frame in case image failed to load
         ImDrawList* drawList = ImGui::GetWindowDrawList();
         ImVec2 childPos = ImGui::GetCursorScreenPos();
         ImVec2 childEndPos = ImVec2(childPos.x + contentWidth, childPos.y + contentHeight);
-        ImU32 borderColor = IM_COL32(20, 20, 20, 255);
+        ImU32 borderColor = darkMode ? IM_COL32(200, 200, 200, 255) : IM_COL32(20, 20, 20, 255);
         drawList->AddRect(childPos, childEndPos, borderColor, 12.0f, 0, 1.5f);
         ImGui::Dummy(ImVec2(contentWidth, contentHeight));
         return;

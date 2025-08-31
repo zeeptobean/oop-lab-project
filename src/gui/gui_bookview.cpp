@@ -12,7 +12,7 @@ UIBookView::UIBookView(AppContext& ctx, const Book& tbook) : book(tbook), appCon
 void UIBookView::drawImpl() {
     ImGui::PushID(this);
     ImGui::BeginGroup();
-    ImGui::ImageNonStretch(imageTexture, 480, 640);
+    ImGui::ImageNonStretch(imageTexture, 480, 640, appContext.darkMode);
     ImGui::EndGroup();
     ImGui::SameLine();
     ImGui::BeginGroup();

@@ -12,7 +12,7 @@ UIUserProfile::UIUserProfile(AppContext& context) : appContext(context), user(co
 void UIUserProfile::draw() {
         ImGui::PushID(this);
         ImGui::BeginChild("UserProfile", ImVec2(-1, -1));
-        ImGui::ImageNonStretch(imageTexture, 100, 100);
+        ImGui::ImageNonStretch(imageTexture, 100, 100, appContext.darkMode);
         ImGui::SameLine();
         ImGui::BeginGroup();
         if(ImGui::CollapsingHeader("User information", ImGuiTreeNodeFlags_DefaultOpen)) {

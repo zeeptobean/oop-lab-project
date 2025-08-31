@@ -35,7 +35,7 @@ void UICarouselCard::draw() {
         const float imageWidth = cardSize.x - cardPadding * 2;
         float imageIndentX = (cardSize.x - imageWidth) / 2.0f;
         ImGui::SetCursorPos(ImVec2(imageIndentX, cardPadding));
-        ImGui::ImageNonStretch(imageTexture, imageWidth, imageHeight);
+        ImGui::ImageNonStretch(imageTexture, imageWidth, imageHeight, appContext.darkMode);
         
         //Text area
         ImGui::Dummy(ImVec2(0.0f, 3.0f));

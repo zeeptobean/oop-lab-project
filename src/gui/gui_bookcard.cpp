@@ -8,7 +8,7 @@ void UIBookCard::draw() {
     if(!book) return;
     ImGui::PushID(this); 
     ImGui::BeginChild("BookCard", ImVec2(-1, 240.0f), true, ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse);
-    ImGui::ImageNonStretch(texture, 150.0f, 200.0f);
+    ImGui::ImageNonStretch(texture, 150.0f, 200.0f, appContext.darkMode);
     ImGui::SameLine();
     ImGui::BeginChild("BookCardText", ImVec2(-1, -1), false, ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse);
     ImGui::PushFont(appContext.boldfont, 20.0f);
