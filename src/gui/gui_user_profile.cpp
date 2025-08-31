@@ -23,16 +23,16 @@ void UIUserProfile::draw() {
             ImGui::Text("Address: %s", user->address.c_str());
             ImGui::Text("Phone: %s", user->phone.c_str());
             ImGui::Text("Email: %s", user->email.c_str());
-        }
-        if(uuser) {
-            ImGui::SeparatorText("University specific information");
-            ImGui::Text("%s ID: %s", user->type.c_str(), uuser->workId.c_str());
-            ImGui::Text("Department: %s", uuser->department.c_str());
-        } else {
-            if(user->type == "premium") {
-                ImGui::Text("User type: premium");
+            if(uuser) {
+                ImGui::SeparatorText("University specific information");
+                ImGui::Text("%s ID: %s", user->type.c_str(), uuser->workId.c_str());
+                ImGui::Text("Department: %s", uuser->department.c_str());
             } else {
-                ImGui::Text("User type: regular");
+                if(user->type == "premium") {
+                    ImGui::Text("User type: premium");
+                } else {
+                    ImGui::Text("User type: regular");
+                }
             }
         }
 
