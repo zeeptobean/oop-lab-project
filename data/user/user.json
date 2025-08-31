@@ -4,11 +4,7 @@
             "address": "Choquan, HCMC",
             "dob": "1990-01-01T05-00",
             "email": "admin@example.com",
-            "favoriteBookId": [
-                1,
-                2,
-                3
-            ],
+            "favoriteBookId": [],
             "id": 1,
             "image": "data/user/admin.png",
             "isSuspended": true,
@@ -21,17 +17,17 @@
         },
         {
             "address": "Choquan, HCMC",
-            "department": "Math",
+            "department": "IT",
             "dob": "1970-01-01T05-00",
-            "email": "NVT@hcmus.edu.vn",
+            "email": "fit@hcmus.edu.vn",
             "favoriteBookId": [
-                2,
-                3
+                9001,
+                9003
             ],
             "id": 2,
-            "image": "data/user/NVT.png",
+            "image": "",
             "isSuspended": false,
-            "name": "NVT",
+            "name": "IT salary man",
             "nid": "012070000001",
             "passwordHash": "a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3",
             "phone": "0123456789",
@@ -42,10 +38,7 @@
             "address": "Chongqing, China",
             "dob": "2020-01-01T05-00",
             "email": "cum@cum.cn",
-            "favoriteBookId": [
-                2,
-                3
-            ],
+            "favoriteBookId": [],
             "id": 3,
             "image": "data/user/cum.png",
             "isSuspended": false,

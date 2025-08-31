@@ -1,11 +1,2411 @@
 {
-    "books": [
-        {
+  "books": [
+    {
+      "isbn": "9786320101672",
+      "title": "Mẹ Việt - Dạy con bằng trái tim hiểu biết",
+      "authors": [
+        "Trương Thị Mai Hương"
+      ],
+      "publicationYear": "2025",
+      "ageRating": 14,
+      "id": 1
+    },
+    {
+      "isbn": "9786046674849",
+      "title": "Vắc xin viêm não Nhật Bản từ quá khứ đến hiện tại",
+      "authors": [
+        "Lajo"
+      ],
+      "publicationYear": "2025",
+      "ageRating": 18,
+      "id": 2
+    },
+    {
+      "isbn": "9786040227898",
+      "title": "Vở bài tập Tiếng Việt 1, Tập một (Vì sự bình đẳng và dân chủ trong giáo dục)",
+      "authors": [
+        "Đỗ Việt Hùng (Tổng Chủ biên)",
+        "Lê Phương Nga (Chủ biên)",
+        "Thạch Thị Lan Anh"
+      ],
+      "publicationYear": "2025",
+      "ageRating": 6,
+      "id": 3
+    },
+    {
+      "isbn": "9786326183337",
+      "title": "Không thành kế",
+      "authors": [
+        "Hô Diên Vân"
+      ],
+      "publicationYear": "2025",
+      "ageRating": 12,
+      "id": 4
+    },
+    {
+      "isbn": "9786049201530",
+      "title": "Practical Guides to English Learning",
+      "authors": [
+        "TS. Trần Kiều Mỹ An (chủ biên)",
+        "Ths. Nguyễn Thị Thu Hằng",
+        "Ths. Hồ Thị Hiền",
+        "Ths. Đoàn Minh Huệ",
+        "Ths. Ngô Thị Thùy Như"
+      ],
+      "publicationYear": "2025",
+      "ageRating": 12,
+      "id": 5
+    },
+    {
+      "isbn": "9786049203015",
+      "title": "Thực hành tính toán Kết cấu bê tông cốt thép công trình giao thông",
+      "authors": [
+        "Nguyễn Nhật Minh Trị (chủ biên)",
+        "Đỗ Cao Phan (Đồng chủ biên)",
+        "Nguyễn Thị Phương Linh",
+        "Nguyễn Đăng Điềm"
+      ],
+      "publicationYear": "2025",
+      "ageRating": 18,
+      "id": 6
+    },
+    {
+      "isbn": "9786049202261",
+      "title": "Essential Practice in Social Research Writing",
+      "authors": [
+        "TS. Trần Kiều Mỹ An (chủ biên)",
+        "Ths. Đoàn Minh Huệ",
+        "Ths. Nguyễn Thị Thúy Loan",
+        "Ths. Lê Phạm Thiên Thư",
+        "Ths. Lê Thị Thúy"
+      ],
+      "publicationYear": "2025",
+      "ageRating": 18,
+      "id": 7
+    },
+    {
+      "isbn": null,
+      "title": "Catalogue lịch 2026",
+      "authors": [
+        "Hương Trang"
+      ],
+      "publicationYear": "2025",
+      "ageRating": 4,
+      "id": 8
+    },
+    {
+      "isbn": "9786048485023",
+      "title": "Địa chí A Xan -2025",
+      "authors": [
+        "Quanh Lê (Briu Liếc)"
+      ],
+      "publicationYear": "2025",
+      "ageRating": 12,
+      "id": 9
+    },
+    {
+      "isbn": "9786048485214",
+      "title": "Được mất hay khúc ru dâu bể",
+      "authors": [
+        "Thái Bảo Dương Đỳnh"
+      ],
+      "publicationYear": "2025",
+      "ageRating": 14,
+      "id": 10
+    },
+    {
+      "isbn": "9786047043194",
+      "title": "Tuyển tập ca khúc 80 năm - Vinh quang Công an nhân dân - Chào mừng 80 năm Ngày truyền thống Công an nhân dân (19/08/1945 - 19/08/2025) và 20 năm Ngày hội toàn dân bảo vệ an ninh Tổ quốc (19/08/2005 - 19/08/2025)",
+      "authors": [
+        "Bộ Công an"
+      ],
+      "publicationYear": "2025",
+      "ageRating": 8,
+      "id": 11
+    },
+    {
+      "isbn": null,
+      "title": "Lịch bloc siêu đại - Sức khỏe từ thiên nhiên",
+      "authors": [],
+      "publicationYear": "2025",
+      "ageRating": 6,
+      "id": 12
+    },
+    {
+      "isbn": "9786049203039",
+      "title": "Thí nghiệm máy điện",
+      "authors": [
+        "Văn Thị Kiều Nhi (chủ biên)",
+        "Bạch Thanh Quý (Đồng chủ biên)",
+        "Đào Văn Dương",
+        "Phạm Hoàng Đạt"
+      ],
+      "publicationYear": "2025",
+      "ageRating": 18,
+      "id": 13
+    },
+    {
+      "isbn": "9786048485580",
+      "title": "Huyệt vị phối dụng tập yếu - Quyển hạ Học thuật Quang Minh Đỉnh",
+      "authors": [
+        "Thướng Vân Tử Ths.BS Nguyễn Tiên"
+      ],
+      "publicationYear": "2025",
+      "ageRating": 18,
+      "id": 14
+    },
+    {
+      "isbn": "9786048485573",
+      "title": "Huyệt vị phối dụng tập yếu - Quyển thượng Học thuật Quang Minh Đỉnh",
+      "authors": [
+        "Thướng Vân Tử Ths.BS Nguyễn Tiên"
+      ],
+      "publicationYear": "2025",
+      "ageRating": 18,
+      "id": 15
+    },
+    {
+      "isbn": null,
+      "title": "Lịch Tờ 2026 - CẢNH VIỆT NAM (TMT INSURANCE)",
+      "authors": [
+        "Hương Trang"
+      ],
+      "publicationYear": "2025",
+      "ageRating": 4,
+      "id": 16
+    },
+    {
+      "isbn": "9786326176247",
+      "title": "Mạch nguồn Kiến Giang",
+      "authors": [
+        "Đỗ Đức Thuần"
+      ],
+      "publicationYear": "2025",
+      "ageRating": 12,
+      "id": 17
+    },
+    {
+      "isbn": "9786326178913",
+      "title": "Nghệ thuật sống tuổi già hạnh phúc",
+      "authors": [
+        "Bác sĩ Hoàng Đình Hải"
+      ],
+      "publicationYear": "2025",
+      "ageRating": 16,
+      "id": 18
+    },
+    {
+      "isbn": "9786045731598",
+      "title": "Tấm lòng với đất nước",
+      "authors": [
+        "Nguyễn Thị Bình"
+      ],
+      "publicationYear": "2025",
+      "ageRating": 10,
+      "id": 19
+    },
+    {
+      "isbn": "9786044604503",
+      "title": "Nội các Trần Trọng Kim - Bản chất, vai trò và vị trí lịch sử (Xuất bản lần thứ tư, có chỉnh sửa, bổ sung)",
+      "authors": [
+        "Phạm Hồng Tung"
+      ],
+      "publicationYear": "2025",
+      "ageRating": 16,
+      "id": 20
+    },
+    {
+      "isbn": "9786048485160",
+      "title": "Câu Chuyện Khởi Nghiệp: Tư Duy – Hành Động – Bứt Phá",
+      "authors": [
+        "Nguyễn Thành Nam"
+      ],
+      "publicationYear": "2025",
+      "ageRating": 14,
+      "id": 21
+    },
+    {
+      "isbn": "9786048485412",
+      "title": "\"Đoàn kết - Kỷ cương - Đột phá - Phát triển\" Kỷ yếu Đại hội đại biểu Đảng bộ phường Hòa Cường lần thứ nhất, nhiệm kỳ 2025-2030",
+      "authors": [
+        "UBND phường Hòa Cường"
+      ],
+      "publicationYear": "2025",
+      "ageRating": 16,
+      "id": 22
+    },
+    {
+      "isbn": "9786047281473",
+      "title": "Công an Thủ đô vì bình yên cuộc sống - Tuyển tập 80 tác phẩm - kỷ niệm 80 năm Ngày truyền thống Công an nhân dân Việt Nam (19/8/1945-19/8/2025); 20 năm Ngày hội Toàn dân bảo vệ an ninh Tổ quốc (19/8/2005-19/8/2025)",
+      "authors": [
+        "Ủy ban nhân dân Thành phố Hà Nội",
+        "Sở Văn hóa và thể thao Hà Nội"
+      ],
+      "publicationYear": "2025",
+      "ageRating": 12,
+      "id": 23
+    },
+    {
+      "isbn": "9786047281190",
+      "title": "Người chiến sĩ \"Sống anh dũng, chết vẻ vang\"",
+      "authors": [
+        "La Nguyễn Hữu Sơn",
+        "Nguyễn Xuân Tuấn"
+      ],
+      "publicationYear": "2025",
+      "ageRating": 14,
+      "id": 24
+    },
+    {
+      "isbn": "9786047280742",
+      "title": "Những ngày đầu đọ sức",
+      "authors": [
+        "Nhiều tác giả"
+      ],
+      "publicationYear": "2025",
+      "ageRating": 12,
+      "id": 25
+    },
+    {
+      "isbn": "9786047280704",
+      "title": "Bên kia cổng trời",
+      "authors": [
+        "Ngôn Vĩnh"
+      ],
+      "publicationYear": "2025",
+      "ageRating": 14,
+      "id": 26
+    },
+    {
+      "isbn": "9786047278275",
+      "title": "Người vào tâm bão",
+      "authors": [
+        "Lê Duy Nghĩa"
+      ],
+      "publicationYear": "2025",
+      "ageRating": 16,
+      "id": 27
+    },
+    {
+      "isbn": "9786326185492",
+      "title": "Hứng giọt sương mai - Trải nghiệm cùng thơ Haiku",
+      "authors": [
+        "Đức Sơn Thái Trọng"
+      ],
+      "publicationYear": "2025",
+      "ageRating": 12,
+      "id": 28
+    },
+    {
+      "isbn": "9786326182880",
+      "title": "Niềm vui của em",
+      "authors": [
+        "Bùi Minh Vũ"
+      ],
+      "publicationYear": "2025",
+      "ageRating": 6,
+      "id": 29
+    },
+    {
+      "isbn": "9786326184037",
+      "title": "Về miền nhớ - Kỷ niệm 80 năm thành lập trường THPT Chuyên Lê Khiết, Quảng Ngãi (1945-2025)",
+      "authors": [
+        "Nhiều tác giả"
+      ],
+      "publicationYear": "2025",
+      "ageRating": 14,
+      "id": 30
+    },
+    {
+      "isbn": "9786047279548",
+      "title": "Tội sử dụng người dưới 16 tuổi vào mục đích khiêu dâm trong Luật Hình sự Việt Nam",
+      "authors": [
+        "TS. Nguyễn Thị Ngọc Linh (Chủ biên)"
+      ],
+      "publicationYear": "2025",
+      "ageRating": 18,
+      "id": 31
+    },
+    {
+      "isbn": "9786047281046",
+      "title": "Công tác phòng, chống tội phạm về tham nhũng, kinh tế, buôn lậu trong tình hình mới (SM)",
+      "authors": [
+        "Bộ Công an",
+        "Cục Cảnh sát điều tra tội phạm về tham nhũng, kinh tế, buôn lậu",
+        "Học viện Cảnh sát nhân dân"
+      ],
+      "publicationYear": "2025",
+      "ageRating": 18,
+      "id": 32
+    },
+    {
+      "isbn": "9786047280797",
+      "title": "Tiếng nổ trên chiến hạm Amyot D’invlle",
+      "authors": [
+        "Văn Phan"
+      ],
+      "publicationYear": "2025",
+      "ageRating": 0,
+      "id": 33
+    },
+    {
+      "isbn": null,
+      "title": "Lịch Bloc 2026 Siêu đại",
+      "authors": [
+        "Công ty TNHH Văn hóa Trí Đức Thái Thịnh"
+      ],
+      "publicationYear": "2025",
+      "ageRating": 0,
+      "id": 34
+    },
+    {
+      "isbn": "9786047280636",
+      "title": "Đoàn Hồng Kỳ - Cuộc đời và sự nghiệp (1913-1990)",
+      "authors": [
+        "PGS. TS. Trần Quang Tám (Biên soạn)"
+      ],
+      "publicationYear": "2025",
+      "ageRating": 0,
+      "id": 35
+    },
+    {
+      "isbn": "9786047280575",
+      "title": "Giáo trình quản trị ngân hàng",
+      "authors": [
+        "Học viện Ngân hàng",
+        "PGS.TS. Đỗ Thị Kim Hảo (Đồng chủ biên)",
+        "PGS.TS. Nguyễn Thùy Dương (Đồng chủ biên)",
+        "Nhiều tác giả"
+      ],
+      "publicationYear": "2025",
+      "ageRating": 18,
+      "id": 36
+    },
+    {
+      "isbn": "9786047280605",
+      "title": "Giáo trình phân tích tài chính doanh nghiệp",
+      "authors": [
+        "Học viện Ngân hàng",
+        "TS. Lê Thị Xuân (Chủ biên)",
+        "Nhiều tác giả"
+      ],
+      "publicationYear": "2025",
+      "ageRating": 18,
+      "id": 37
+    },
+    {
+      "isbn": "9786326183504",
+      "title": "Vì sao yêu",
+      "authors": [
+        "Nguyễn Hòa Văn"
+      ],
+      "publicationYear": "2025",
+      "ageRating": 14,
+      "id": 38
+    },
+    {
+      "isbn": "9786326185645",
+      "title": "Thanh xuân 18",
+      "authors": [
+        "Trần Khánh Phương"
+      ],
+      "publicationYear": "2025",
+      "ageRating": 16,
+      "id": 39
+    },
+    {
+      "isbn": "9786045382356",
+      "title": "Bạch dạ hành",
+      "authors": [
+        "Keigo Higashino"
+      ],
+      "publicationYear": "2025",
+      "ageRating": 16,
+      "id": 40
+    },
+    {
+      "isbn": "9786045353820",
+      "title": "Nha sĩ yêu quái",
+      "authors": [
+        "David Walliams"
+      ],
+      "publicationYear": "2025",
+      "ageRating": 8,
+      "id": 41
+    },
+    {
+      "isbn": "9786044979960",
+      "title": "Kể chuyện vua quan nhà Nguyễn",
+      "authors": [
+        "Phạm Khắc Hoè"
+      ],
+      "publicationYear": "2025",
+      "ageRating": 12,
+      "id": 42
+    },
+    {
+      "isbn": "9786047281206",
+      "title": "Những tri thức về nước theo Bác Hồ đi kháng chiến",
+      "authors": [
+        "Hồng Thái",
+        "Kiều Khải"
+      ],
+      "publicationYear": "2025",
+      "ageRating": 14,
+      "id": 43
+    },
+    {
+      "isbn": "9786047280612",
+      "title": "Giáo trình Luật Thương mại - Tập 2",
+      "authors": [
+        "Học viện Ngân hàng",
+        "PGS. TS. Bùi Hữu Toàn (Chủ biên)",
+        "TS. Đỗ Mạnh Phương (Chủ biên)",
+        "Nhiều tác giả"
+      ],
+      "publicationYear": "2025",
+      "ageRating": 18,
+      "id": 44
+    },
+    {
+      "isbn": "9786047280933",
+      "title": "Công an tỉnh Hà Tĩnh - 80 năm xây dựng, chiến đấu và trưởng thành (19/8/1945 - 19/8/2025)",
+      "authors": [
+        "Công an tỉnh Hà Tĩnh"
+      ],
+      "publicationYear": "2025",
+      "ageRating": 0,
+      "id": 45
+    },
+    {
+      "isbn": "9786326186994",
+      "title": "Bộ ảnh bưu thiếp Một dải non sông Chào mừng 80 năm Quốc khánh nước CHXHCN Việt Nam (02/9/1945 - 02/9/2025)",
+      "authors": [
+        "Lê Việt Khánh",
+        "Võ Việt",
+        "Trần Thành",
+        "Lữ Mai"
+      ],
+      "publicationYear": "2025",
+      "ageRating": 6,
+      "id": 46
+    },
+    {
+      "isbn": "9786326184037",
+      "title": "Về miền nhớ - Kỷ niệm 80 năm thành lập trường THPT Chuyên Lê Khiết, Quảng Ngãi (1945-2025)",
+      "authors": [
+        "Nhiều tác giả"
+      ],
+      "publicationYear": "2025",
+      "ageRating": 0,
+      "id": 47
+    },
+    {
+      "isbn": "9786326186413",
+      "title": "Kiếp mưa",
+      "authors": [
+        "Y Mùi"
+      ],
+      "publicationYear": "2025",
+      "ageRating": 14,
+      "id": 48
+    },
+    {
+      "isbn": "9786326185157",
+      "title": "Vang âm Thánh Linh",
+      "authors": [
+        "Trịnh Thắng"
+      ],
+      "publicationYear": "2025",
+      "ageRating": 12,
+      "id": 49
+    },
+    {
+      "isbn": "9786045377031",
+      "title": "Bắt trẻ đồng xanh",
+      "authors": [
+        "Jerome David Salinger"
+      ],
+      "publicationYear": "2025",
+      "ageRating": 16,
+      "id": 50
+    },
+    {
+      "isbn": "9786326184655",
+      "title": "Dần sáng",
+      "authors": [
+        "Nguyễn Thị Kim Nhung"
+      ],
+      "publicationYear": "2025",
+      "ageRating": 14,
+      "id": 51
+    },
+    {
+      "isbn": "9786326185461",
+      "title": "Đồng - Tuyển tập xứ 2",
+      "authors": [
+        "Trần Lê Khánh"
+      ],
+      "publicationYear": "2025",
+      "ageRating": 12,
+      "id": 52
+    },
+    {
+      "isbn": "9786326187250",
+      "title": "BỐN MÙA CỜ BAY",
+      "authors": [
+        "Huỳnh Mai Liên",
+        "Mai Khuê (minh họa)"
+      ],
+      "publicationYear": "2025",
+      "ageRating": 6,
+      "id": 53
+    },
+    {
+      "isbn": "9786047280803",
+      "title": "Điệp viên nhảy dù thành Giám đốc Công an Trung Bộ (Tự truyện của người tù cộng sản được quân Anh huấn luyện tình báo)",
+      "authors": [
+        "Nguyễn Văn Ngọc"
+      ],
+      "publicationYear": "2025",
+      "ageRating": 0,
+      "id": 54
+    },
+    {
+      "isbn": "9786047280735",
+      "title": "Như những vì sao",
+      "authors": [
+        "Nguyễn Khắc Đức"
+      ],
+      "publicationYear": "2025",
+      "ageRating": 0,
+      "id": 55
+    },
+    {
+      "isbn": "9786047280346",
+      "title": "Hồ Chí Minh - đường đến Ba Đình lịch sử",
+      "authors": [
+        "Đỗ Hoàng Linh (Biên soạn)"
+      ],
+      "publicationYear": "2025",
+      "ageRating": 0,
+      "id": 56
+    },
+    {
+      "isbn": "9786047280933",
+      "title": "Công an tỉnh Hà Tĩnh - 80 năm xây dựng, chiến đấu và trưởng thành (19/8/1945 - 19/8/2025)",
+      "authors": [
+        "Công an tỉnh Hà Tĩnh"
+      ],
+      "publicationYear": "2025",
+      "ageRating": 0,
+      "id": 57
+    },
+    {
+      "isbn": "9786047280599",
+      "title": "Giáo trình Marketing dịch vụ tài chính - ngân hàng",
+      "authors": [
+        "Học viện Ngân hàng",
+        "TS. Phạm Thu Thủy (Chủ biên)",
+        "Nhiều tác giả"
+      ],
+      "publicationYear": "2025",
+      "ageRating": 18,
+      "id": 58
+    },
+    {
+      "isbn": "9786047280582",
+      "title": "Giáo trình tín dụng ngân hàng",
+      "authors": [
+        "Học viện Ngân hàng",
+        "NGND.PGS.TS. Tô Ngọc Hưng (Chủ biên)",
+        "Nhiều tác giả"
+      ],
+      "publicationYear": "2025",
+      "ageRating": 18,
+      "id": 59
+    },
+    {
+      "isbn": "9786047280827",
+      "title": "Theo dấu chân Người",
+      "authors": [
+        "Trình Quang Phú"
+      ],
+      "publicationYear": "2025",
+      "ageRating": 12,
+      "id": 60
+    },
+    {
+      "isbn": null,
+      "title": "Lịch Bloc 2026 Siêu đại",
+      "authors": [
+        "Công ty TNHH Văn hóa Trí Đức Thái Thịnh"
+      ],
+      "publicationYear": "2025",
+      "ageRating": 0,
+      "id": 61
+    },
+    {
+      "isbn": null,
+      "title": "Lịch Bloc 2026 Siêu cực đại",
+      "authors": [
+        "Công ty TNHH Văn hóa Trí Đức Thái Thịnh"
+      ],
+      "publicationYear": "2025",
+      "ageRating": 4,
+      "id": 62
+    },
+    {
+      "isbn": null,
+      "title": "Lịch Bloc 2026 Đại",
+      "authors": [
+        "Công ty TNHH Văn hóa Trí Đức Thái Thịnh"
+      ],
+      "publicationYear": "2025",
+      "ageRating": 4,
+      "id": 63
+    },
+    {
+      "isbn": null,
+      "title": "Bloc đại 2026 - Phong thuỷ tài lộc - Lời hay ý đẹp",
+      "authors": [
+        "Cty TNHH MTV Văn hóa Đại Việt Á"
+      ],
+      "publicationYear": "2025",
+      "ageRating": 8,
+      "id": 64
+    },
+    {
+      "isbn": "9786326186154",
+      "title": "Bản tình ca giữa vô thường",
+      "authors": [
+        "Phạm Hồng Điệp"
+      ],
+      "publicationYear": "2025",
+      "ageRating": 16,
+      "id": 65
+    },
+    {
+      "isbn": "9786326186505",
+      "title": "Hồi ức về Ba",
+      "authors": [
+        "Phạm Nam Yến"
+      ],
+      "publicationYear": "2025",
+      "ageRating": 12,
+      "id": 66
+    },
+    {
+      "isbn": "9786326185560",
+      "title": "Chuyện làng",
+      "authors": [
+        "Phan Xuân Luật"
+      ],
+      "publicationYear": "2025",
+      "ageRating": 10,
+      "id": 67
+    },
+    {
+      "isbn": "9786049959325",
+      "title": "THƯ CHO EM Tít phụ: Chuyện tình tướng Hoàng Đan và vợ qua lời kể con trai",
+      "authors": [
+        "Hoàng Nam Tiến"
+      ],
+      "publicationYear": "2025",
+      "ageRating": 14,
+      "id": 68
+    },
+    {
+      "isbn": "9786326186000",
+      "title": "Giữa trời và đất",
+      "authors": [
+        "CONSTANTIN LUPEANU",
+        "Phạm Viết Đào (dịch)"
+      ],
+      "publicationYear": "2025",
+      "ageRating": 0,
+      "id": 69
+    },
+    {
+      "isbn": "9786326186949",
+      "title": "Tôi \"làm\" than thổ phỉ",
+      "authors": [
+        "Nguyễn Hào"
+      ],
+      "publicationYear": "2025",
+      "ageRating": 0,
+      "id": 70
+    },
+    {
+      "isbn": "9786326186178",
+      "title": "Giao cảm 8 Mùa Thu",
+      "authors": [
+        "Nhiều tác giả (Cựu Sinh viên Đại học Sư phạm Huế)"
+      ],
+      "publicationYear": "2025",
+      "ageRating": 0,
+      "id": 71
+    },
+    {
+      "isbn": "9786326212389",
+      "title": "Chiếc bách giữa dòng",
+      "authors": [
+        "Trần Đức Trí"
+      ],
+      "publicationYear": "2025",
+      "ageRating": 0,
+      "id": 72
+    },
+    {
+      "isbn": "9786326212693",
+      "title": "100++ bí ẩn về tự nhiên - Những động vật kỳ diệu nực cười nhất Tủ sách Bách khoa tri thức",
+      "authors": [
+        "Philip Bunting"
+      ],
+      "publicationYear": "2025",
+      "ageRating": 8,
+      "id": 73
+    },
+    {
+      "isbn": "9786326213874",
+      "title": "Chinh phục mọi cô gái, nghệ thuật tán gái thực tế",
+      "authors": [
+        "Nhiều tác giả"
+      ],
+      "publicationYear": "2025",
+      "ageRating": 18,
+      "id": 74
+    },
+    {
+      "isbn": "9786326212686",
+      "title": "100++ bí ẩn về tự nhiên - Những động vật đáng kinh ngạc vô dụng nhất Tủ sách Bách khoa tri thức",
+      "authors": [
+        "Philip Bunting"
+      ],
+      "publicationYear": "2025",
+      "ageRating": 8,
+      "id": 75
+    },
+    {
+      "isbn": "9786326214550",
+      "title": "Thuật chinh phục mọi cô gái",
+      "authors": [
+        "Nhiều tác giả"
+      ],
+      "publicationYear": "2025",
+      "ageRating": 18,
+      "id": 76
+    },
+    {
+      "isbn": "9786326214055",
+      "title": "Bác Hồ và Hà Nội trong ca khúc",
+      "authors": [
+        "Đoàn Bổng"
+      ],
+      "publicationYear": "2025",
+      "ageRating": 0,
+      "id": 77
+    },
+    {
+      "isbn": "9786046041108",
+      "title": "Tài liệu hướng dẫn thực hành công nghệ sản xuất đồ hộp",
+      "authors": [
+        "PGS.TS. Mai Thị Tuyết Nga (Chủ biên)",
+        "TS. Lê Thị Tưởng",
+        "TS. Phan Thị Khánh Vinh"
+      ],
+      "publicationYear": "2025",
+      "ageRating": 18,
+      "id": 78
+    },
+    {
+      "isbn": "9786046041115",
+      "title": "Kỷ yếu hội thảo khoa học Tận dụng phụ phẩm nông thủy sản. Lần thứ II.",
+      "authors": [
+        "Bộ Giáo dục và Đào tạo - Trường Đại học Nha Trang (Logo)"
+      ],
+      "publicationYear": "2025",
+      "ageRating": 18,
+      "id": 79
+    },
+    {
+      "isbn": "9786046041023",
+      "title": "Cách phòng trị hiệu quả các bệnh ở gà",
+      "authors": [
+        "Chương trình \"1001 cách làm ăn\"",
+        "Nguyễn Lân Hùng (Chủ nhiệm chương trình)",
+        "PGS.TS. Lê Văn Năm"
+      ],
+      "publicationYear": "2025",
+      "ageRating": 16,
+      "id": 80
+    },
+    {
+      "isbn": "9786049201059",
+      "title": "Giáo trình Quản trị điều hành",
+      "authors": [
+        "TS. Bùi Văn Danh (chủ biên)",
+        "ThS. Nguyễn Thị Ngọc Hoa",
+        "TS. Nguyễn Thành Long"
+      ],
+      "publicationYear": "2025",
+      "ageRating": 18,
+      "id": 81
+    },
+    {
+      "isbn": "9786043664904",
+      "title": "Những mô hình đổi mới sáng tạo vì học viên (tái bản lần thứ hai, có sửa chữa, bổ sung)",
+      "authors": [
+        "Trường Chính trị tỉnh Thanh Hóa"
+      ],
+      "publicationYear": "2025",
+      "ageRating": 0,
+      "id": 82
+    },
+    {
+      "isbn": "9786043648621",
+      "title": "Amazing Mongolia",
+      "authors": [
+        "Ministry of Foreign Affairs of Mongolia"
+      ],
+      "publicationYear": "2025",
+      "ageRating": 0,
+      "id": 83
+    },
+    {
+      "isbn": null,
+      "title": "Lịch năm 2026, Bloc cực đại: Sắc màu thế giới - Hạnh phúc",
+      "authors": [
+        "Cty TNHH MTV Văn hóa Đại Việt Á"
+      ],
+      "publicationYear": "2025",
+      "ageRating": 0,
+      "id": 84
+    },
+    {
+      "isbn": "9786043769012",
+      "title": "Lịch sử Đảng bộ phường Kỳ Thịnh (1945-2025)",
+      "authors": [
+        "Ban Chấp hành Đảng bộ phường Kỳ Thịnh"
+      ],
+      "publicationYear": "2025",
+      "ageRating": 0,
+      "id": 85
+    },
+    {
+      "isbn": "9786043768534",
+      "title": "Lịch sử Đảng bộ xã Thuận Lộc (1930 - 2025)",
+      "authors": [
+        "Ban Chấp hành Đảng bộ xã Thuận Lộc"
+      ],
+      "publicationYear": "2025",
+      "ageRating": 0,
+      "id": 86
+    },
+    {
+      "isbn": "9786043769166",
+      "title": "Nâng cao năng lực quản lý của Chủ tịch Uỷ ban nhân dân cấp xã (Nghiên cứu, khảo sát thực tiễn tại Kỳ Sơn, tỉnh Nghệ An) Sách Chuyên khảo",
+      "authors": [
+        "Nguyễn Khánh Ly",
+        "Hoàng Thị Thu Hoài (Đồng chủ biên)",
+        "Phạm Thị Thuý Hồng",
+        "Nguyễn Thị Lê Vinh",
+        "Nguyễn Thị Thuỳ Dung",
+        "Nguyễn Thị Hải Hậu"
+      ],
+      "publicationYear": "2025",
+      "ageRating": 0,
+      "id": 87
+    },
+    {
+      "isbn": "9786046041368",
+      "title": "Giáo trình thực hành phương pháp phân tích thành phần hóa lý thực phẩm.",
+      "authors": [
+        "Bộ giáo dục và đào tạo",
+        "Trường Đại học Nông Lâm thành phố Hồ Chí Minh",
+        "PGS.TS Mai Huỳnh Cang (chủ biên)",
+        "TS. Phùng Võ Cẩm Hồng",
+        "TS. Nguyễn Thị Ngọc Lan",
+        "ThS. Trần Đỗ Đạt"
+      ],
+      "publicationYear": "2025",
+      "ageRating": 0,
+      "id": 88
+    },
+    {
+      "isbn": "9786046041252",
+      "title": "Sản xuất tuần hoàn trong chăn nuôi lợn Ứng dụng thực tiễn tại Tập đoàn Dabaco Việt Nam",
+      "authors": [
+        "Nguyễn Văn Tuế",
+        "Vũ Đăng Đồng (Đồng chủ biên)",
+        "Đặng Hữu Anh",
+        "Dương Anh Điệp",
+        "Nguyễn Bá Hiên",
+        "Đinh Duy Kháng"
+      ],
+      "publicationYear": "2025",
+      "ageRating": 0,
+      "id": 89
+    },
+    {
+      "isbn": "9786046041016",
+      "title": "Cách trồng cà chua trái vụ bằng cây giống cà chua ghép",
+      "authors": [
+        "Chương trình \"1001 cách làm ăn\"",
+        "Nguyễn Lân Hùng (Chủ nhiệm chương trình)",
+        "Viện nghiên cứu Rau quả",
+        "Dương Kim Thoa"
+      ],
+      "publicationYear": "2025",
+      "ageRating": 0,
+      "id": 90
+    },
+    {
+      "isbn": "9786046162490",
+      "title": "Tìm hiểu về ung thư - Learning about cancer",
+      "authors": [
+        "Thích Chân Quang"
+      ],
+      "publicationYear": "2009",
+      "ageRating": 0,
+      "id": 91
+    },
+    {
+      "isbn": "9786046162704",
+      "title": "Quan điểm Phật giáo về cách mạng công nghiệp 4.0 và môi trường bền vững",
+      "authors": [
+        "Thích Nhật Từ (chủ biên)"
+      ],
+      "publicationYear": "2009",
+      "ageRating": 0,
+      "id": 92
+    },
+    {
+      "isbn": null,
+      "title": "Tủ sách kiến thức thế hệ mới: Bò sát",
+      "authors": [
+        "Colin Mc Carthy"
+      ],
+      "publicationYear": "2007",
+      "ageRating": 0,
+      "id": 93
+    },
+    {
+      "isbn": "9786047042616",
+      "title": "Chỉ có trời biết",
+      "authors": [
+        "Đỗ Đức"
+      ],
+      "publicationYear": "2005",
+      "ageRating": 0,
+      "id": 94
+    },
+    {
+      "isbn": "9786041085237",
+      "title": "Dạy con làm giàu 02",
+      "authors": [
+        "Robert T. Kiyosaki"
+      ],
+      "publicationYear": "2017",
+      "ageRating": 16,
+      "id": 95
+    },
+    {
+      "isbn": "9786041045569",
+      "title": "Đời ngắn đừng ngủ dài",
+      "authors": [
+        "Robin Sharma"
+      ],
+      "publicationYear": "2017",
+      "ageRating": 14,
+      "id": 96
+    },
+    {
+      "isbn": "9786041107939",
+      "title": "Ngũ quái Gài Gòn tập 5 - Bí mật thung lũng tử thần",
+      "authors": [
+        "Bùi Chí Vinh"
+      ],
+      "publicationYear": "2017",
+      "ageRating": 12,
+      "id": 97
+    },
+    {
+      "isbn": "9786042073851",
+      "title": "Sailor Moon - Pretty Guardian Tập 6",
+      "authors": [
+        "Naoko Takeuchi"
+      ],
+      "publicationYear": "2017",
+      "ageRating": 12,
+      "id": 98
+    },
+    {
+      "isbn": "9786040043023",
+      "title": "Tài liệu chuyên Toán - Đại số 10",
+      "authors": [
+        "Đoàn Quỳnh (Chủ biên)",
+        "Doãn Minh Cường",
+        "Trần Nam Dũng",
+        "Đặng Hùng Thắng"
+      ],
+      "publicationYear": "2017",
+      "ageRating": 16,
+      "id": 99
+    },
+    {
+      "isbn": "9786040110015",
+      "title": "Sống đẹp- Những câu chuyện bổ ích, tập 3",
+      "authors": [
+        "Lê Thị Luận",
+        "Vũ Thị Lan Anh (tuyển chọn và biên soạn)"
+      ],
+      "publicationYear": "2017",
+      "ageRating": 8,
+      "id": 100
+    },
+    {
+      "isbn": "9786040041524",
+      "title": "Sống đẹp- Những câu chuyện bổ ích, tập 2",
+      "authors": [
+        "Lê Thị Luận (tuyển chọn và biên soạn)"
+      ],
+      "publicationYear": "2017",
+      "ageRating": 8,
+      "id": 101
+    },
+    {
+      "isbn": "9786040110022",
+      "title": "Người thầy của tôi- Tập 3",
+      "authors": [
+        "Trần Văn Thắng (tuyển chọn và biên soạn)"
+      ],
+      "publicationYear": "2017",
+      "ageRating": 0,
+      "id": 102
+    },
+    {
+      "isbn": "9786040042941",
+      "title": "Tài liệu chuyên Vật lí. Vật lí 10 - Tập 2",
+      "authors": [
+        "Phạm Quý Tư",
+        "Nguyễn Đình Noãn"
+      ],
+      "publicationYear": "2017",
+      "ageRating": 0,
+      "id": 103
+    },
+    {
+      "isbn": "9786040041678",
+      "title": "Tài liệu chuyên Sinh học THPT - Sinh lí học động vật",
+      "authors": [
+        "Lê Đình Tuấn (Chủ biên)",
+        "Đặng Trần Phú"
+      ],
+      "publicationYear": "2017",
+      "ageRating": 0,
+      "id": 104
+    },
+    {
+      "isbn": "9786040055576",
+      "title": "Hướng dẫn học Tiếng Việt 5, TẬP 1A (Sách thử nghiệm)",
+      "authors": [
+        "Bộ GD & ĐT",
+        "Vụ GD tiểu học - Dự án mô hình Trường học mới Việt Nam"
+      ],
+      "publicationYear": "2016",
+      "ageRating": 0,
+      "id": 105
+    },
+    {
+      "isbn": "9786040055569",
+      "title": "Hướng dẫn học Lịch sử và Địa lí 5 - Tập 2 (Sách thử nghiệm)",
+      "authors": [
+        "Bộ GD & ĐT",
+        "Vụ GD tiểu học - Dự án mô hình Trường học mới Việt Nam"
+      ],
+      "publicationYear": "2016",
+      "ageRating": 0,
+      "id": 106
+    },
+    {
+      "isbn": "9786040055552",
+      "title": "Hướng dẫn học Lịch sử và Địa lí 5 - Tập 1 (Sách thử nghiệm)",
+      "authors": [
+        "Bộ Giáo dục và Đào tạo",
+        "Vụ Giáo dục Tiểu học - Dự án mô hình Trường học mới Việt Nam"
+      ],
+      "publicationYear": "2016",
+      "ageRating": 0,
+      "id": 107
+    },
+    {
+      "isbn": "9786040045133",
+      "title": "Hướng dẫn học Toán 4 - tập 2B (Sách thử nghiệm)",
+      "authors": [
+        "Bộ GD & ĐT",
+        "Vụ GD tiểu học - Dự án mô hình Trường học mới Việt Nam"
+      ],
+      "publicationYear": "2016",
+      "ageRating": 0,
+      "id": 108
+    },
+    {
+      "isbn": "9786040013323",
+      "title": "Vở bài tập Toán 5, tập 1",
+      "authors": [
+        "Đỗ Đình Hoan (Chủ biên)",
+        "Nguyễn Áng",
+        "Đặng Tự Ân",
+        "Đỗ Tiến Đạt",
+        "Đỗ Trung Hiệu",
+        "Đào Thái Lai",
+        "Phạm Thanh Tâm",
+        "Vũ Dương Thụy"
+      ],
+      "publicationYear": "2016",
+      "ageRating": 10,
+      "id": 109
+    },
+    {
+      "isbn": "9786040013309",
+      "title": "Vở bài tập Tiếng Việt 5, tập 1",
+      "authors": [
+        "Nguyễn Minh Thuyết (Chủ biên)",
+        "Hoàng Hòa Bình",
+        "Trần Mạnh Hưởng",
+        "Trần Thị Hiền Lương",
+        "Nguyễn Trí"
+      ],
+      "publicationYear": "2016",
+      "ageRating": 10,
+      "id": 110
+    },
+    {
+      "isbn": "9786040013248",
+      "title": "Vở Tập vẽ 4",
+      "authors": [
+        "Lưu Thu Thủy (Chủ biên)",
+        "Nguyễn Thị Việt Hà",
+        "Ngô Quang Quế"
+      ],
+      "publicationYear": "2016",
+      "ageRating": 8,
+      "id": 111
+    },
+    {
+      "isbn": "9786040013248",
+      "title": "Vở bài tập Đạo đức 4",
+      "authors": [
+        "Lưu Thu Thủy (Chủ biên)",
+        "Nguyễn Thị Việt Hà",
+        "Ngô Quang Quế"
+      ],
+      "publicationYear": "2016",
+      "ageRating": 8,
+      "id": 112
+    },
+    {
+      "isbn": "9786040013194",
+      "title": "Vở bài tập Tiếng Việt 4, tập 2",
+      "authors": [
+        "Nguyễn Minh Thuyết (Chủ biên)",
+        "Đỗ Lê Chuẩn",
+        "Hoàng Cao Cương",
+        "Đỗ Việt Hùng",
+        "Trần Thị Minh Phương",
+        "Lê Hữu Tỉnh"
+      ],
+      "publicationYear": "2016",
+      "ageRating": 0,
+      "id": 113
+    },
+    {
+      "isbn": "9786040013187",
+      "title": "Vở bài tập Tiếng Việt 4, tập 1",
+      "authors": [
+        "Nguyễn Minh Thuyết (Chủ biên)",
+        "Nguyễn Thị Hạnh",
+        "Đỗ Việt Hùng",
+        "Bùi Minh Toán",
+        "Nguyễn Trại"
+      ],
+      "publicationYear": "2016",
+      "ageRating": 0,
+      "id": 114
+    },
+    {
+      "isbn": "9786045266434",
+      "title": "Trạng Quỷnh (Tập 361: Cân người đóng thuế)",
+      "authors": [
+        "Kim Khánh"
+      ],
+      "publicationYear": "2019",
+      "ageRating": 8,
+      "id": 115
+    },
+    {
+      "isbn": "9786045262061",
+      "title": "Trạng Quỷnh (tập 371: Cái lư phép)",
+      "authors": [
+        "Kim Khánh"
+      ],
+      "publicationYear": "2019",
+      "ageRating": 8,
+      "id": 116
+    },
+    {
+      "isbn": "9786045261651",
+      "title": "Trạng Quỷnh (tập 367: Trăm lẻ một đêm)",
+      "authors": [
+        "Kim Khánh"
+      ],
+      "publicationYear": "2019",
+      "ageRating": 8,
+      "id": 117
+    },
+    {
+      "isbn": "9786046157564",
+      "title": "Quê hương mến yêu - Lớp 1 - Bài 3",
+      "authors": [
+        "Chương trình hàm thụ Phúc âm"
+      ],
+      "publicationYear": "2019",
+      "ageRating": 6,
+      "id": 118
+    },
+    {
+      "isbn": "9786049813344",
+      "title": "April Atelier - Practice Book - Seed 2/A1 (Apax English)",
+      "authors": [
+        "Chungdahm Learning Incorporation"
+      ],
+      "publicationYear": "2019",
+      "ageRating": 8,
+      "id": 119
+    },
+    {
+      "isbn": "9786046157557",
+      "title": "Quê hương mến yêu - Lớp 1 - Bài 2",
+      "authors": [
+        "Chương trình hàm thụ Phúc âm"
+      ],
+      "publicationYear": "2019",
+      "ageRating": 6,
+      "id": 120
+    },
+    {
+      "isbn": "9786049813290",
+      "title": "April Atelier - Practice Book - Seedbed 2/A1 (Apax English)",
+      "authors": [
+        "Chungdahm Learning Incorporation"
+      ],
+      "publicationYear": "2019",
+      "ageRating": 8,
+      "id": 121
+    },
+    {
+      "isbn": "9786046157540",
+      "title": "Quê hương mến yêu - Lớp 1 - Bài 1",
+      "authors": [
+        "Chương trình hàm thụ Phúc âm"
+      ],
+      "publicationYear": "2019",
+      "ageRating": 6,
+      "id": 122
+    },
+    {
+      "isbn": "9786049813429",
+      "title": "April Atelier - Practice Book - Seedbed 1/B1 (Apax English)",
+      "authors": [
+        "Chungdahm Learning Incorporation"
+      ],
+      "publicationYear": "2019",
+      "ageRating": 10,
+      "id": 123
+    },
+    {
+      "isbn": "9786049813405",
+      "title": "April Atelier - Practice Book - Sprout 3/A1 (Apax English)",
+      "authors": [
+        "Chungdahm Learning Incorporation"
+      ],
+      "publicationYear": "2019",
+      "ageRating": 8,
+      "id": 124
+    },
+    {
+      "isbn": "9786040118479",
+      "title": "Luyện tập Tin học 3 - Tập 2 (cùng IC3 spark)",
+      "authors": [
+        "Nguyễn Minh Thiên Hoàng",
+        "Đỗ Minh Hoàng Đức",
+        "Lê Tấn Hồng Hải"
+      ],
+      "publicationYear": "2018",
+      "ageRating": 8,
+      "id": 125
+    },
+    {
+      "isbn": "9786040118462",
+      "title": "Luyện tập Tin học 3 - Tập 1 (cùng IC3 spark)",
+      "authors": [
+        "Nguyễn Minh Thiên Hoàng",
+        "Đỗ Minh Hoàng Đức",
+        "Lê Tấn Hồng Hải"
+      ],
+      "publicationYear": "2018",
+      "ageRating": 8,
+      "id": 126
+    },
+    {
+      "isbn": "9786040118394",
+      "title": "Luyện tập Tin học 2 - Tập hai",
+      "authors": [
+        "Nguyễn Minh Thiên Hoàng",
+        "Đỗ Minh Hoàng Đức",
+        "Lê Tấn Hồng Hải"
+      ],
+      "publicationYear": "2018",
+      "ageRating": 7,
+      "id": 127
+    },
+    {
+      "isbn": "9786040118387",
+      "title": "Luyện tập Tin học 2 - Tập một",
+      "authors": [
+        "Nguyễn Minh Thiên Hoàng",
+        "Đỗ Minh Hoàng Đức",
+        "Lê Tấn Hồng Hải"
+      ],
+      "publicationYear": "2018",
+      "ageRating": 7,
+      "id": 128
+    },
+    {
+      "isbn": "9786040118325",
+      "title": "Luyện tập Tin học 1",
+      "authors": [
+        "Nguyễn Minh Thiên Hoàng",
+        "Đỗ Minh Hoàng Đức",
+        "Lê Tấn Hồng Hải"
+      ],
+      "publicationYear": "2018",
+      "ageRating": 6,
+      "id": 129
+    },
+    {
+      "isbn": "9786040042446",
+      "title": "Luyện tập Toán 5 - Tập hai (Trình bày trên giấy ô li)",
+      "authors": [
+        "Huỳnh Thị Kim Trang (chủ biên)",
+        "Nguyễn Kính Đức",
+        "Nguyễn Nghĩa Dũng",
+        "Khúc Thành Chính",
+        "Bùi Văn Ngà"
+      ],
+      "publicationYear": "2018",
+      "ageRating": 10,
+      "id": 130
+    },
+    {
+      "isbn": "9786040042439",
+      "title": "Luyện tập Toán 5 - Tập một (Trình bày trên giấy ô li)",
+      "authors": [
+        "Huỳnh Thị Kim Trang (chủ biên)",
+        "Nguyễn Kính Đức",
+        "Nguyễn Nghĩa Dũng",
+        "Khúc Thành Chính",
+        "Bùi Văn Ngà"
+      ],
+      "publicationYear": "2018",
+      "ageRating": 10,
+      "id": 131
+    },
+    {
+      "isbn": "9786040042323",
+      "title": "Luyện tập Toán 4 - Tập hai (Trình bày trên giấy ô li)",
+      "authors": [
+        "Huỳnh Thị Kim Trang (chủ biên)",
+        "Nguyễn Kính Đức",
+        "Nguyễn Nghĩa Dũng",
+        "Khúc Thành Chính",
+        "Bùi Văn Ngà"
+      ],
+      "publicationYear": "2018",
+      "ageRating": 9,
+      "id": 132
+    },
+    {
+      "isbn": "9786040035394",
+      "title": "Luyện tập Toán lớp 4, tập 2 (Dành cho buổi học thứ hai,lớp học 2 buổi/ngày)",
+      "authors": [
+        "PGS.TS. Đỗ Trung Hiệu (Chủ biên)",
+        "Vũ Văn Dương",
+        "Vũ Mai Hương",
+        "Kiều Tuấn"
+      ],
+      "publicationYear": "2018",
+      "ageRating": 9,
+      "id": 133
+    },
+    {
+      "isbn": "9786040035387",
+      "title": "Luyện tập Toán lớp 4, tập 1 (Dành cho buổi học thứ hai, lớp học 2 buổi/ ngày)",
+      "authors": [
+        "PGS.TS. Đỗ Trung Hiệu (Chủ biên)",
+        "Vũ Văn Dương",
+        "Vũ Mai Hương",
+        "Kiều Tuấn"
+      ],
+      "publicationYear": "2018",
+      "ageRating": 9,
+      "id": 134
+    },
+    {
+      "isbn": null,
+      "title": "Lịch bàn 2019 Hoa xuân như ý",
+      "authors": [],
+      "publicationYear": "2018",
+      "ageRating": 4,
+      "id": 135
+    },
+    {
+      "isbn": null,
+      "title": "Lịch Tờ 2019 Biển đảo quê hương",
+      "authors": [],
+      "publicationYear": "2018",
+      "ageRating": 4,
+      "id": 136
+    },
+    {
+      "isbn": null,
+      "title": "Block Siêu đại 2019",
+      "authors": [],
+      "publicationYear": "2018",
+      "ageRating": 4,
+      "id": 137
+    },
+    {
+      "isbn": null,
+      "title": "Lịch Bloc đại lỡ",
+      "authors": [
+        "Văn Lang"
+      ],
+      "publicationYear": "2018",
+      "ageRating": 4,
+      "id": 138
+    },
+    {
+      "isbn": "9786047617203",
+      "title": "Cẩm nang an toàn giao thông nông thôn",
+      "authors": [
+        "Ủy ban An toàn giao thông Quốc gia"
+      ],
+      "publicationYear": "2018",
+      "ageRating": 8,
+      "id": 139
+    },
+    {
+      "isbn": "9786042074575",
+      "title": "Yu-Gi-Oh! Tập 10",
+      "authors": [
+        "Kazuki Takahashi"
+      ],
+      "publicationYear": "2018",
+      "ageRating": 12,
+      "id": 140
+    },
+    {
+      "isbn": "9786042074551",
+      "title": "Yu-Gi-Oh! Tập 8",
+      "authors": [
+        "Kazuki Takahashi"
+      ],
+      "publicationYear": "2018",
+      "ageRating": 12,
+      "id": 141
+    },
+    {
+      "isbn": "9786042074513",
+      "title": "Yu-Gi-Oh! Tập 4",
+      "authors": [
+        "Kazuki Takahashi"
+      ],
+      "publicationYear": "2018",
+      "ageRating": 12,
+      "id": 142
+    },
+    {
+      "isbn": "9786042074483",
+      "title": "Yu-Gi-Oh! Tập 1",
+      "authors": [
+        "Kazuki Takahashi"
+      ],
+      "publicationYear": "2018",
+      "ageRating": 12,
+      "id": 143
+    },
+    {
+      "isbn": "9786042118606",
+      "title": "Tranh truyện Ehon Nhật Bản: Cửa hàng bánh mì Quạ",
+      "authors": [
+        "Satoshi Kako"
+      ],
+      "publicationYear": "2018",
+      "ageRating": 5,
+      "id": 144
+    },
+    {
+      "isbn": "9786042162852",
+      "title": "Shin - Cậu bé bút chì Tập 4",
+      "authors": [
+        "Yoshito Usui"
+      ],
+      "publicationYear": "2020",
+      "ageRating": 10,
+      "id": 145
+    },
+    {
+      "isbn": "9786045875957",
+      "title": "Võ Thị Sáu - Con người và huyền thoại",
+      "authors": [
+        "Nguyễn Đình Thống"
+      ],
+      "publicationYear": "2020",
+      "ageRating": 14,
+      "id": 146
+    },
+    {
+      "isbn": "9786045467626",
+      "title": "Tài liệu tập huấn đổi mới sinh hoạt chuyên môn (Dùng cho cán bộ quản lí, giáo viên Tiểu học)",
+      "authors": [
+        "Cục Nhà giáo và cán bộ quản lí giáo dục"
+      ],
+      "publicationYear": "2020",
+      "ageRating": 18,
+      "id": 147
+    },
+    {
+      "isbn": "9786045872536",
+      "title": "Essential words for the Toeic® - 6th edition - Barron's The Leader in Test Preparation - Students' #1 Choice - Book; Audio - 50 vocabulary-building lessons that focus on American English as it is used in business, industry, communications, and cultural activities - One full-length practice test that mirrors the most current TOEIC format - Each lesson presents 12 target words with definitions, sample sentences, and practice exercises designed to reinforce, understanding in several contexts - All practice questions are in the format found on the actual TOEIC",
+      "authors": [
+        "Dr. Lin Lougheed"
+      ],
+      "publicationYear": "2020",
+      "ageRating": 16,
+      "id": 148
+    },
+    {
+      "isbn": "9786045872512",
+      "title": "Nghệ Thuật Bán Hàng Bậc Cao - Secrets of closing the Sale! Bí quyết chốt deal mọi thời đại! One Million Copies in Print World Wide - All time best-selling book",
+      "authors": [
+        "Zig Ziglar"
+      ],
+      "publicationYear": "2020",
+      "ageRating": 16,
+      "id": 149
+    },
+    {
+      "isbn": "9786045857120",
+      "title": "Niên giám thống kê Khánh Hòa 2019 - Statistical Yearbook of Khanh Hoa 2019",
+      "authors": [
+        "Cục Thống kê tỉnh Khánh Hòa - Khanh Hoa Statistical Office"
+      ],
+      "publicationYear": "2020",
+      "ageRating": 18,
+      "id": 150
+    },
+    {
+      "isbn": "9786045873830",
+      "title": "Microsoft Office Power Point 2013 (Microsoft office Specialist)",
+      "authors": [
+        "IIG (IIG VIET NAM)"
+      ],
+      "publicationYear": "2020",
+      "ageRating": 14,
+      "id": 151
+    },
+    {
+      "isbn": "9786045883396",
+      "title": "Lịch sử Đảng bộ Phường 12 (1975 - 2015)",
+      "authors": [
+        "Đảng Cộng sản Việt Nam - Ban Chấp hành Đảng bộ Phường 12, Quận 3 - Thành phố Hồ Chí Minh"
+      ],
+      "publicationYear": "2020",
+      "ageRating": 16,
+      "id": 152
+    },
+    {
+      "isbn": "9786045288863",
+      "title": "Học tốt Tiếng Việt 3 (tập 1)",
+      "authors": [
+        "Trần Công Tùng"
+      ],
+      "publicationYear": "2020",
+      "ageRating": 8,
+      "id": 153
+    },
+    {
+      "isbn": "9786042189088",
+      "title": "Grimgar - Ảo ảnh và tro tàn Level.1 - Thì thầm, niệm chú, cầu nguyện và thức tỉnh",
+      "authors": [
+        "Ao Jyumonji",
+        "Eiri Shirai (minh hoạ)"
+      ],
+      "publicationYear": "2020",
+      "ageRating": 14,
+      "id": 154
+    },
+    {
+      "isbn": "9786043054835",
+      "title": "Bé tập tô nét cơ bản - Dành cho bé 4-5 tuổi",
+      "authors": [
+        "Lê Tuệ Minh",
+        "Lê Thu Ngọc"
+      ],
+      "publicationYear": "2021",
+      "ageRating": 4,
+      "id": 155
+    },
+    {
+      "isbn": "9786043054910",
+      "title": "Bé tô màu - Công chúa đáng yêu",
+      "authors": [
+        "Hải Nam"
+      ],
+      "publicationYear": "2021",
+      "ageRating": 4,
+      "id": 156
+    },
+    {
+      "isbn": "9786043152302",
+      "title": "Nhân học - Ngành khoa học về con người",
+      "authors": [
+        "Nguyễn Văn Sửu (chủ biên)"
+      ],
+      "publicationYear": "2021",
+      "ageRating": 18,
+      "id": 157
+    },
+    {
+      "isbn": "9786046293866",
+      "title": "Vở tập viết có mẫu chữ (Chuẩn bị tâm thế cho bé vào lớp 1- Quyển 2)",
+      "authors": [
+        "Trần Diệu Linh"
+      ],
+      "publicationYear": "2021",
+      "ageRating": 5,
+      "id": 158
+    },
+    {
+      "isbn": "9786046293941",
+      "title": "Vở tập viết có mẫu chữ (Chuẩn bị tâm thế cho bé vào lớp 1- Quyển 1)",
+      "authors": [
+        "Trần Diệu Linh"
+      ],
+      "publicationYear": "2021",
+      "ageRating": 5,
+      "id": 159
+    },
+    {
+      "isbn": "9786043003352",
+      "title": "Vocab Go Học nhanh toàn diện từ vựng tiếng Anh 4",
+      "authors": [
+        "Trần Anh Tuấn"
+      ],
+      "publicationYear": "2021",
+      "ageRating": 9,
+      "id": 160
+    },
+    {
+      "isbn": "9786043002720",
+      "title": "Grammar Go Ôn luyện trọng tâm ngữ pháp tiếng Anh lớp 5",
+      "authors": [
+        "Dương Quỳnh Mai"
+      ],
+      "publicationYear": "2021",
+      "ageRating": 10,
+      "id": 161
+    },
+    {
+      "isbn": "9786043003369",
+      "title": "Vocab Go Học nhanh toàn diện từ vựng tiếng Anh 5",
+      "authors": [
+        "Trần Anh Tuấn"
+      ],
+      "publicationYear": "2021",
+      "ageRating": 10,
+      "id": 162
+    },
+    {
+      "isbn": "9786043152401",
+      "title": "Phân loại và giải chi tiết các dạng bài tập Đại số 10 (Có hướng dẫn - Nhận xét - ghi chú)",
+      "authors": [
+        "TS. Trần Xuân Tiếp",
+        "TS. Phạm Hoàng",
+        "TS. Phạm Toàn",
+        "Phan hoàng Ngân"
+      ],
+      "publicationYear": "2021",
+      "ageRating": 16,
+      "id": 163
+    },
+    {
+      "isbn": "9786043152777",
+      "title": "Xấp xỉ nghiệm cho bất đẳng thức biến phân với họ vô hạn các ánh xạ không giãn",
+      "authors": [
+        "Nguyễn Song Hà"
+      ],
+      "publicationYear": "2021",
+      "ageRating": 18,
+      "id": 164
+    },
+    {
+      "isbn": "9786043492804",
+      "title": "Thời thơ ấu (bìa mềm)",
+      "authors": [
+        "Maxim Gorky"
+      ],
+      "publicationYear": "2022",
+      "ageRating": 14,
+      "id": 165
+    },
+    {
+      "isbn": "9786043393170",
+      "title": "Xa lạ trong tôi",
+      "authors": [
+        "Orhan Pamuk"
+      ],
+      "publicationYear": "2022",
+      "ageRating": 16,
+      "id": 166
+    },
+    {
+      "isbn": "9786043396706",
+      "title": "Mình ngồi xuống kể tổn thương trong lòng",
+      "authors": [
+        "Minh Dự"
+      ],
+      "publicationYear": "2022",
+      "ageRating": 14,
+      "id": 167
+    },
+    {
+      "isbn": "9786043550931",
+      "title": "Here U Are - tập 1, (18+)",
+      "authors": [
+        "Djun"
+      ],
+      "publicationYear": "2022",
+      "ageRating": 18,
+      "id": 168
+    },
+    {
+      "isbn": "9786043396546",
+      "title": "Sherlock - Trò chơi lớn",
+      "authors": [
+        "Steven Moffat",
+        "Mark Gatiss",
+        "Jay (Minh họa)"
+      ],
+      "publicationYear": "2022",
+      "ageRating": 12,
+      "id": 169
+    },
+    {
+      "isbn": "9786043396539",
+      "title": "Sherlock - Dấu hiệu chết",
+      "authors": [
+        "Steven Moffat",
+        "Mark Gatiss",
+        "Jay (Minh họa)"
+      ],
+      "publicationYear": "2022",
+      "ageRating": 12,
+      "id": 170
+    },
+    {
+      "isbn": "9786043396522",
+      "title": "Sherlock - Cuộc điều tra màu hồng",
+      "authors": [
+        "Steven Moffat",
+        "Mark Gatiss",
+        "Jay (Minh họa)"
+      ],
+      "publicationYear": "2022",
+      "ageRating": 12,
+      "id": 171
+    },
+    {
+      "isbn": "9786043237818",
+      "title": "Đàm đạo với Khổng Tử",
+      "authors": [
+        "Hồ Văn Phi"
+      ],
+      "publicationYear": "2022",
+      "ageRating": 14,
+      "id": 172
+    },
+    {
+      "isbn": "9786043237832",
+      "title": "Đàm đạo với Phật Đà",
+      "authors": [
+        "Lý Giác Minh",
+        "Lâm Thấm"
+      ],
+      "publicationYear": "2022",
+      "ageRating": 14,
+      "id": 173
+    },
+    {
+      "isbn": "9786043237825",
+      "title": "Đàm đạo với Lão Tử",
+      "authors": [
+        "Lưu Ngôn"
+      ],
+      "publicationYear": "2022",
+      "ageRating": 14,
+      "id": 174
+    },
+    {
+      "isbn": "9786043478464",
+      "title": "ĐIỂM ĐẾN CỦA CUỘC ĐỜI - Đồng hành với người cận tử và những bài học cho cuộc sống",
+      "authors": [
+        "Đặng Hoàng Giang"
+      ],
+      "publicationYear": "2022",
+      "ageRating": 16,
+      "id": 175
+    },
+    {
+      "isbn": "9786043835304",
+      "title": "Qua miền đất cổ Tràng An",
+      "authors": [
+        "Tạ Ngọc Hùng"
+      ],
+      "publicationYear": "2022",
+      "ageRating": 12,
+      "id": 176
+    },
+    {
+      "isbn": "9786043686258",
+      "title": "Người con",
+      "authors": [
+        "Georges Simenon"
+      ],
+      "publicationYear": "2022",
+      "ageRating": 14,
+      "id": 177
+    },
+    {
+      "isbn": "9786043836981",
+      "title": "Lịch sử thú vị hơn em tưởng tập 1",
+      "authors": [
+        "Đỗ Cao Sang"
+      ],
+      "publicationYear": "2022",
+      "ageRating": 10,
+      "id": 178
+    },
+    {
+      "isbn": "9786043478389",
+      "title": "Cây cam ngọt của tôi - Chuyện về một cậu bé trên hành trình khám phá nỗi đau và tình yêu thương",
+      "authors": [
+        "José Mauro de Vasconcelos"
+      ],
+      "publicationYear": "2022",
+      "ageRating": 10,
+      "id": 179
+    },
+    {
+      "isbn": "9786043478532",
+      "title": "Totto-Chan bên cửa sổ",
+      "authors": [
+        "Kuroyanagi Tetsuko"
+      ],
+      "publicationYear": "2022",
+      "ageRating": 8,
+      "id": 180
+    },
+    {
+      "isbn": "9786043757279",
+      "title": "Bé tô màu và dán hình Tập 2 (Dành cho bé 2-6 tuổi)",
+      "authors": [
+        "Susaeta"
+      ],
+      "publicationYear": "2022",
+      "ageRating": 2,
+      "id": 181
+    },
+    {
+      "isbn": "9786048071899",
+      "title": "Hội đồng hương Quảng Nam - Đà Nẵng tại Bình Phước - Kỷ yếu \"Người Quảng trên quê hương mới Bình Phước\"",
+      "authors": [
+        "Trần Công Cảnh"
+      ],
+      "publicationYear": "2022",
+      "ageRating": 12,
+      "id": 182
+    },
+    {
+      "isbn": "9786043756418",
+      "title": "DÂN DU MỤC – Tập 3: Hãn Kene",
+      "authors": [
+        "Ilyas Yesenberlin"
+      ],
+      "publicationYear": "2022",
+      "ageRating": 14,
+      "id": 183
+    },
+    {
+      "isbn": "9786043658408",
+      "title": "Sống hạnh phúc - (Cẩm nang cho cuộc sống)",
+      "authors": [
+        "Đạt Lai Lạt Ma",
+        "Howard C. Cutler"
+      ],
+      "publicationYear": "2022",
+      "ageRating": 14,
+      "id": 184
+    },
+    {
+      "isbn": "9786043920048",
+      "title": "VIETNAM VISUAL ARTS IN HISTORY, RELIGION & CULTURE",
+      "authors": [
+        "Kerry Nguyễn-Long"
+      ],
+      "publicationYear": "2023",
+      "ageRating": 16,
+      "id": 185
+    },
+    {
+      "isbn": "9786043924909",
+      "title": "Amazon – Cuộc chinh phạt của Jeff Bezos",
+      "authors": [
+        "Brad Stone"
+      ],
+      "publicationYear": "2023",
+      "ageRating": 16,
+      "id": 186
+    },
+    {
+      "isbn": "9786043925975",
+      "title": "EASY TO COOK - 40 DELICIOUS VIETNAMESE DISHES AS LISTED BY CNN",
+      "authors": [
+        "Ngoc Tran"
+      ],
+      "publicationYear": "2023",
+      "ageRating": 10,
+      "id": 187
+    },
+    {
+      "isbn": "9786043659870",
+      "title": "Nóng giận là bản năng, tĩnh lặng là bản lĩnh",
+      "authors": [
+        "Tống Mặc"
+      ],
+      "publicationYear": "2023",
+      "ageRating": 14,
+      "id": 188
+    },
+    {
+      "isbn": "9786043926408",
+      "title": "QUYỀN LỰC ĐÍCH THỰC",
+      "authors": [
+        "Thích Nhất Hạnh"
+      ],
+      "publicationYear": "2023",
+      "ageRating": 14,
+      "id": 189
+    },
+    {
+      "isbn": "9786043928204",
+      "title": "Tranh dân gian kính Việt Nam",
+      "authors": [
+        "Nguyễn Thị Thu Hòa"
+      ],
+      "publicationYear": "2023",
+      "ageRating": 12,
+      "id": 190
+    },
+    {
+      "isbn": "9786043981483",
+      "title": "Tư tưởng Tịnh độ của Đại sư Thiện Đạo",
+      "authors": [
+        "Pháp sư Tịnh Tông"
+      ],
+      "publicationYear": "2023",
+      "ageRating": 16,
+      "id": 191
+    },
+    {
+      "isbn": "9786043902662",
+      "title": "Vĩnh biệt, cảm ơn vì đã cho ăn cá",
+      "authors": [
+        "Douglas Adams"
+      ],
+      "publicationYear": "2023",
+      "ageRating": 12,
+      "id": 192
+    },
+    {
+      "isbn": "9786043901191",
+      "title": "Trái cây đại chiến Zombie - Thế giới khủng long: Tập 2: Công viên khủng long",
+      "authors": [
+        "Tiếu Giang Nam"
+      ],
+      "publicationYear": "2023",
+      "ageRating": 8,
+      "id": 193
+    },
+    {
+      "isbn": "9786043900750",
+      "title": "Trái cây đại chiến Zombie - Thế giới Robot - Tập 2: Mê cung Robot",
+      "authors": [
+        "Tiếu Giang Nam"
+      ],
+      "publicationYear": "2023",
+      "ageRating": 8,
+      "id": 194
+    },
+    {
+      "isbn": "9786045181843",
+      "title": "Bí mật hai người đàn bà",
+      "authors": [
+        "Đặng Toán"
+      ],
+      "publicationYear": "2023",
+      "ageRating": 16,
+      "id": 195
+    },
+    {
+      "isbn": "9786045183199",
+      "title": "Tình yêu thời chiến",
+      "authors": [
+        "Nguyễn Xuân Nhĩ"
+      ],
+      "publicationYear": "2023",
+      "ageRating": 16,
+      "id": 196
+    },
+    {
+      "isbn": "9786045186794",
+      "title": "Phương tiện bay không người lái và vai trò của tác chiến điện tử",
+      "authors": [
+        "Nguyễn Huy Hoàng"
+      ],
+      "publicationYear": "2023",
+      "ageRating": 18,
+      "id": 197
+    },
+    {
+      "isbn": "9786045184103",
+      "title": "Xây dựng phong cách lãnh đạo của chính trị viên trong Quân đội hiện nay theo phong cách Hồ Chí Minh",
+      "authors": [
+        "Phùng Thanh"
+      ],
+      "publicationYear": "2023",
+      "ageRating": 18,
+      "id": 198
+    },
+    {
+      "isbn": "9786045183403",
+      "title": "Giáo trình phương pháp dạy học môn chủ nghĩa xã hội khoa học (Dùng cho đào tạo giảng viên chuyên ngành chủ nghĩa xã hội khoa học trình độ đại học)",
+      "authors": [
+        "Quân đội nhân dân Việt Nam - Tổng cục Chính trị"
+      ],
+      "publicationYear": "2023",
+      "ageRating": 18,
+      "id": 199
+    },
+    {
+      "isbn": "9786045185896",
+      "title": "Lịch sử công ty thương mại và xuất nhập khẩu Viettel (1997-2022)",
+      "authors": [
+        "Tập đoàn công nghiệp - viễn thông Quân đội - Công ty thương mại và xuất nhập khẩu Viettel"
+      ],
+      "publicationYear": "2023",
+      "ageRating": 16,
+      "id": 200
+    },
+    {
+      "isbn": "9786045181256",
+      "title": "Thế giới đương đại những thập niên đầu thế kỷ XXI - tập 1 - Chính trị, kinh tế",
+      "authors": [
+        "Bùi Đình Bôn"
+      ],
+      "publicationYear": "2023",
+      "ageRating": 18,
+      "id": 201
+    },
+    {
+      "isbn": "9786045186800",
+      "title": "Đổi mới quy trình, chương trình đào tạo chính ủy trung, sư đoàn ở Học viện Chính trị hiện nay",
+      "authors": [
+        "Đoàn Đức Khánh"
+      ],
+      "publicationYear": "2023",
+      "ageRating": 18,
+      "id": 202
+    },
+    {
+      "isbn": "9786045184165",
+      "title": "Nâng cao năng lực lãnh đạo thực hiện nhiệm vụ giáo dục và đào tạo của các đảng ủy học viện, trường sĩ quan quân đội hiện nay",
+      "authors": [
+        "Nguyễn Quang Chung"
+      ],
+      "publicationYear": "2023",
+      "ageRating": 18,
+      "id": 203
+    },
+    {
+      "isbn": "9786045184172",
+      "title": "Mùa chim làm tổ",
+      "authors": [
+        "Chung Tiến Lực"
+      ],
+      "publicationYear": "2023",
+      "ageRating": 12,
+      "id": 204
+    },
+    {
+      "isbn": "9786040416247",
+      "title": "Điều hay em học mỗi ngày: Không kén chọn đồ ăn",
+      "authors": [
+        "Betsy Parkinson",
+        "Shane Clester"
+      ],
+      "publicationYear": "2024",
+      "ageRating": 4,
+      "id": 205
+    },
+    {
+      "isbn": "9786040419903",
+      "title": "Điều hay em học mỗi ngày: Đừng nói chuyện ồn ào",
+      "authors": [
+        "Christianne Jones",
+        "Elina Ellis"
+      ],
+      "publicationYear": "2024",
+      "ageRating": 4,
+      "id": 206
+    },
+    {
+      "isbn": "9786040416254",
+      "title": "Điều hay em học mỗi ngày: Dọn gọn gàng, ngăn nắp",
+      "authors": [
+        "Christianne Jones",
+        "Juana Martinez-Neal"
+      ],
+      "publicationYear": "2024",
+      "ageRating": 4,
+      "id": 207
+    },
+    {
+      "isbn": "9786040420008",
+      "title": "Storytime – Truyện hay nuôi dưỡng tâm hồn: Rái cá nhỏ sợ ở một mình",
+      "authors": [
+        "Heidi Howardth",
+        "Daniel Howardth"
+      ],
+      "publicationYear": "2024",
+      "ageRating": 4,
+      "id": 208
+    },
+    {
+      "isbn": "9786040420015",
+      "title": "Storytime – Truyện hay nuôi dưỡng tâm hồn: Quả trứng không muốn nở",
+      "authors": [
+        "David Bedford",
+        "Karen Sapp"
+      ],
+      "publicationYear": "2024",
+      "ageRating": 4,
+      "id": 209
+    },
+    {
+      "isbn": "9786040416414",
+      "title": "Storytime – Truyện hay nuôi dưỡng tâm hồn: Sóc nhỏ bận rộn",
+      "authors": [
+        "Lucy Barnard"
+      ],
+      "publicationYear": "2024",
+      "ageRating": 4,
+      "id": 210
+    },
+    {
+      "isbn": "9786040416230",
+      "title": "Điều hay em học mỗi ngày: Giữ khoảng cách an toàn",
+      "authors": [
+        "Christianne Jones",
+        "Cale Atkinson"
+      ],
+      "publicationYear": "2024",
+      "ageRating": 6,
+      "id": 211
+    },
+    {
+      "isbn": "9786040421180",
+      "title": "Vở thực hành Tiếng Anh 9 (Kết nối tri thức với cuộc sống)",
+      "authors": [
+        "Nguyễn Hoàng Lan"
+      ],
+      "publicationYear": "2024",
+      "ageRating": 14,
+      "id": 212
+    },
+    {
+      "isbn": "9786040420947",
+      "title": "Vở thực hành Tiếng Anh 5 (Kết nối tri thức với cuộc sống)",
+      "authors": [
+        "Trần Thị Bảo Ngọc",
+        "Nguyễn Thị Thanh Hà",
+        "Dương Thị Hương Thúy",
+        "Đặng Thu Trang"
+      ],
+      "publicationYear": "2024",
+      "ageRating": 10,
+      "id": 213
+    },
+    {
+      "isbn": "9786040412775",
+      "title": "Vở thực hành Khoa học tự nhiên 7, tập hai (Kết nối tri thức với cuộc sống)",
+      "authors": [
+        "Vũ Văn Hùng",
+        "Nguyễn Thị Nga",
+        "Trần Thị Thanh Huyền",
+        "Nguyễn Thùy Linh"
+      ],
+      "publicationYear": "2024",
+      "ageRating": 12,
+      "id": 214
+    },
+    {
+      "isbn": "9786044779508",
+      "title": "Trường ca trăng Lăng Già",
+      "authors": [
+        "Thích Viên Thanh"
+      ],
+      "publicationYear": "2024",
+      "ageRating": 14,
+      "id": 215
+    },
+    {
+      "isbn": "9786043231939",
+      "title": "Câu đố Việt Nam",
+      "authors": [
+        "Ngọc Hà"
+      ],
+      "publicationYear": "2024",
+      "ageRating": 6,
+      "id": 216
+    },
+    {
+      "isbn": "9786044779805",
+      "title": "Diễn ngôn về giới trên truyền thông sau đổi mới",
+      "authors": [
+        "TS. Hồ Thị Giang"
+      ],
+      "publicationYear": "2024",
+      "ageRating": 18,
+      "id": 217
+    },
+    {
+      "isbn": "9786044779621",
+      "title": "Lịch sử chữ Quốc ngữ (1615 - 1919)",
+      "authors": [
+        "Phạm Thị Kiều Ly"
+      ],
+      "publicationYear": "2024",
+      "ageRating": 16,
+      "id": 218
+    },
+    {
+      "isbn": "9786044910338",
+      "title": "Sherlock Holmes toàn tập (1) - (Trọn bộ 4 tiểu thuyết và 56 truyện ngắn)",
+      "authors": [
+        "Sir Arthur Conan Doyle"
+      ],
+      "publicationYear": "2024",
+      "ageRating": 12,
+      "id": 219
+    },
+    {
+      "isbn": "9786043572636",
+      "title": "Vật liệu polysaccharide: Tổng hợp và tiềm năng ứng dụng trong y dược - nông nghiệp",
+      "authors": [
+        "Trần Ngọc Quyển",
+        "Lê Thị Phương",
+        "Đặng Thị Lệ Hằng",
+        "Lê Nghiêm Anh Tuấn",
+        "Nguyễn Đình Trung"
+      ],
+      "publicationYear": "2024",
+      "ageRating": 18,
+      "id": 220
+    },
+    {
+      "isbn": "9786044863108",
+      "title": "Vật lí 12 (thuộc bộ sách Cánh Diều)",
+      "authors": [
+        "Nguyễn Văn Khánh",
+        "Phạm Thuỳ Giang",
+        "Đoàn Thị Hải Quỳnh",
+        "Trần Bá Trình",
+        "Trương Anh Tuấn"
+      ],
+      "publicationYear": "2024",
+      "ageRating": 16,
+      "id": 221
+    },
+    {
+      "isbn": "9786045499368",
+      "title": "Chuyên đề học tập Vật lí 12 (thuộc bộ sách Cánh Diều)",
+      "authors": [
+        "Nguyễn Văn Khánh",
+        "Cao Tiến Khoa",
+        "Trương Anh Tuấn",
+        "Nguyễn Anh Vinh"
+      ],
+      "publicationYear": "2024",
+      "ageRating": 16,
+      "id": 222
+    },
+    {
+      "isbn": "9786044863122",
+      "title": "Sinh học 12 (thuộc bộ sách Cánh Diều)",
+      "authors": [
+        "Đinh Quang Báo",
+        "Cao Phi Bằng",
+        "Nguyễn Văn Quyền",
+        "Đoàn Văn Thược",
+        "Nguyễn Thị Hồng Vân"
+      ],
+      "publicationYear": "2024",
+      "ageRating": 16,
+      "id": 223
+    },
+    {
+      "isbn": "9786044863122",
+      "title": "Sinh học 12 (thuộc bộ sách Cánh Diều)",
+      "authors": [
+        "Đinh Quang Báo",
+        "Cao Phi Bằng",
+        "Nguyễn Văn Quyền",
+        "Đoàn Văn Thược",
+        "Nguyễn Thị Hồng Vân"
+      ],
+      "publicationYear": "2024",
+      "ageRating": 16,
+      "id": 224
+    },
+    {
             "id": 9001,
             "imagePath": "data/book/book1.png",
             "title": "C++ Concurrency In Action, Practical Multithreading",
             "authors": ["Anthony Williams"],
-            "publicationYear": 2012,
+            "publicationYear": "2012",
             "ageRating": 0,
             "isbn": "9781933988771",
             "tags": ["c++", "concurrency", "thread", "mutex", "lock", "parallel", "atomic", "synchronizing", "intermediate level"],
@@ -16,7 +2416,7 @@
             "imagePath": "data/book/book7.png",
             "title": "Computer Systems: A Programmer's Perspective",
             "authors": ["Randal E. Bryant", "David R. O'Hallaron"],
-            "publicationYear": 2016,
+            "publicationYear": "2016",
             "ageRating": 0,
             "isbn": "9780134092669",
             "tags": ["computer systems", "programming", "hardware architecture", "operating system", "systems software", "x86-64", "C", "C++", "intermediate level"],
@@ -27,7 +2427,7 @@
             "imagePath": "notfound",
             "title": "Windows Forensic Analysis Toolkit. Advanced Analysis Techniques for Windows 8-Syngress",
             "authors": ["Harlan Carvey"],
-            "publicationYear": 2014,
+            "publicationYear": "2014",
             "ageRating": 0,
             "isbn": "0",
             "tags": ["forensic"],
@@ -38,7 +2438,7 @@
             "imagePath": "data/book/book14.png",
             "title": "Tập tô số 1",
             "authors": ["Thiện Lộc", "Minh Nguyệt"],
-            "publicationYear": 2016,
+            "publicationYear": "2016",
             "ageRating": 3,
             "isbn": "8936036307764",
             "tags": ["tập viết", "viết số", "tiểu học", "lớp 1", "mẫu giáo", "tô số", "đồ số"],
@@ -49,11 +2449,11 @@
             "imagePath": "data/book/book20.png",
             "title": "デート・ア・ライブ１０ 鳶一エンジェル",
             "authors": ["橘公司"],
-            "publicationYear": 2014,
+            "publicationYear": "2014",
             "ageRating": 18,
             "isbn": "9784040700663",
             "tags": ["datealive", "date-a-live"],
             "departmentRestriction": []
         }
-    ]
+  ]
 }
