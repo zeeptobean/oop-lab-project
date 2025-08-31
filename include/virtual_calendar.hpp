@@ -22,6 +22,11 @@ class VirtualCalendar {
         EventDispatcher::get().dispatchEvent(refreshEvent.get());
     }
     
+    void setDate(const Timestamp& newTime) {
+        currentTime = newTime;
+        EventDispatcher::get().dispatchEvent(refreshEvent.get());
+    }
+
     private:
     std::unique_ptr<BorrowingHistoryRefreshEvent> refreshEvent = std::make_unique<BorrowingHistoryRefreshEvent>();
     VirtualCalendar() = default;

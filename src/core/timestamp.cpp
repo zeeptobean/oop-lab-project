@@ -27,12 +27,18 @@ Timestamp::Timestamp(const std::string& isoString) {
     if(sscanf(isoString.c_str(), "%4u-%2u-%2uT%2u-%2u", &year, &month, &day, &hour, &minute) == 0) {
         *this = Timestamp::now();
     }
+    month--;
+    if(month < 0 || month > 11 || day < 1 || day > 31 || hour < 0 || hour > 23 || minute < 0 || minute > 59) {
+        *this = Timestamp::now();
+        return;
+    }
 }
 
 std::string Timestamp::toString() const {
     char buf[201];
     memset(buf, 0, sizeof buf);
-    snprintf(buf, 200, "%.4u-%.2u-%.2uT%.2u-%.2u", year, month, day, hour, minute);
+    //internally month is 0-11, but printing would make it 1-12
+    snprintf(buf, 200, "%.4u-%.2u-%.2uT%.2u-%.2u", year, month+1, day, hour, minute);
     return std::string(buf);
 }
 
@@ -84,6 +90,6 @@ Timestamp Timestamp::advanceDay(int days) const {
     mktime(&t);
     char buf[201];
     memset(buf, 0, sizeof buf);
-    snprintf(buf, 200, "%.4u-%.2u-%.2uT%.2u-%.2u", t.tm_year + 1900, t.tm_mon, t.tm_mday, t.tm_hour, t.tm_min);
+    snprintf(buf, 200, "%.4u-%.2u-%.2uT%.2u-%.2u", t.tm_year + 1900, t.tm_mon+1, t.tm_mday, t.tm_hour, t.tm_min);
     return Timestamp(std::string(buf));
 }

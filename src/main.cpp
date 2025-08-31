@@ -169,6 +169,9 @@ class Application : public IUIAbstract {
             if(ImGui::MenuItem("Advance 7 days")) {
                 VirtualCalendar::get().advanceDay(7);
             }
+            if(ImGui::MenuItem("Set current time")) {
+                VirtualCalendar::get().setDate(Timestamp());
+            }
             ImGui::EndMenu();
         }
         ImGui::EndMenuBar();
@@ -193,15 +196,58 @@ class Application : public IUIAbstract {
         , loginView(appContext)
     {
         setupFont();
-        if(SDL_GetSystemTheme() == SDL_SYSTEM_THEME_DARK) {     //require sdl 3.2.0
-            appContext.darkMode = true;
-            ImGui::StyleColorsDark();
-        } else {
-            appContext.darkMode = false;
-            ImGui::StyleColorsLight();
-        }
+        loadSetting();
         currentDrawContext = std::bind(&Application::drawLogin, this);
         
+    }
+
+    void loadSetting() {
+        std::ifstream infile("../data/setting.json");
+        nlohmann::json j;
+        try {
+            infile >> j;
+
+            if(j.contains("dark_mode")) {
+                appContext.darkMode = j["dark_mode"].get<bool>();
+                if(appContext.darkMode) {
+                    ImGui::StyleColorsDark();
+                } else {
+                    ImGui::StyleColorsLight();
+                }
+            } else {
+                if(SDL_GetSystemTheme() == SDL_SYSTEM_THEME_DARK) {     //require sdl 3.2.0
+                    appContext.darkMode = true;
+                    ImGui::StyleColorsDark();
+                } else {
+                    appContext.darkMode = false;
+                    ImGui::StyleColorsLight();
+                }
+            }
+
+            if(j.contains("virtual_date")) {
+                //if Timestamp constructor fails, it will automatically set to current date
+                VirtualCalendar::get().setDate(Timestamp(j["virtual_date"].get<std::string>()));
+            } else {
+                //by default, VirtualCalendar use default Timestamp constructor which is current date
+            }
+            infile.close();
+        } catch(...) {
+            return;
+        }
+    }
+
+    void saveSetting() {
+        nlohmann::json j;
+        j["dark_mode"] = appContext.darkMode;
+        j["virtual_date"] = VirtualCalendar::get().currentTime.toString();
+
+        std::ofstream outfile("../data/setting.json");
+        try {
+            outfile << j.dump(4);
+            outfile.close();
+        } catch(...) {
+            return;
+        }
     }
 
     void draw() override {
@@ -212,7 +258,9 @@ class Application : public IUIAbstract {
         appContext.windowSize = newSize;
     }
 
-    ~Application() override = default;
+    ~Application() {
+        saveSetting();
+    };
 };
 
 
