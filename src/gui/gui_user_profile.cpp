@@ -2,18 +2,7 @@
 
 UIUserProfile::UIUserProfile(AppContext& context) : appContext(context), user(context.currentUser) {
     if(user) {
-        SDL_Surface* surface = loadImage("../" + user->image);
-        if(surface) {
-            imageTexture = SDL_CreateTextureFromSurface(appContext.renderer, surface);
-            SDL_DestroySurface(surface);
-        } else {
-            surface = loadImage("../data/user/default.png");
-            if(surface) {
-                imageTexture = SDL_CreateTextureFromSurface(appContext.renderer, surface);
-                SDL_DestroySurface(surface);
-            }
-        }
-
+        imageTexture = IMG_LoadTexture(appContext.renderer, std::string("../" + user->image).c_str());
         uuser = dynamic_cast<UniversityUser*>(user);
         borrowingStatusFrame = std::make_unique<UIBorrowingStatusFrame>(appContext, user->getBorrowingPolicy());
         favoriteStatusFrame = std::make_unique<UIFavoriteStatusFrame>(appContext);

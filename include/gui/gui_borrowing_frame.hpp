@@ -10,6 +10,7 @@
 #include "../core/borrowing_service.hpp"
 #include "../core/borrowing_policy.hpp"
 #include "../core/book_database.hpp"
+#include "imgui_custom_widget.hpp"
 
 class UIBorrowingStatusFrame : public IUIAbstract, Observer {
     private:

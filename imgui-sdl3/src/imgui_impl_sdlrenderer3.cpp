@@ -37,7 +37,7 @@
 #include "imgui_impl_sdlrenderer3.h"
 #include <stdint.h>     // intptr_t
 
-// Clang warnings with -Weverything
+// Clang warnings with -Weverysthing
 #if defined(__clang__)
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wsign-conversion"    // warning: implicit conversion changes signedness

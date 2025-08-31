@@ -65,7 +65,7 @@ void UIBorrowingStatusFrame::draw() {
                 if (ImGui::BeginTable("##Alignment", 3)) {
                     ImGui::TableNextColumn();
                     ImGui::SetCursorPos(ImVec2(padding, padding));
-                    ImGui::Image((void*) prepared.imageTexture, ImVec2(imageSize, imageSize));
+                    ImGui::ImageNonStretch(prepared.imageTexture, imageSize, imageSize);
                     ImGui::TableNextColumn();
                     ImGui::PushFont(appContext.boldfont);
                     ImGui::Text("%s", prepared.bookTitle.c_str());

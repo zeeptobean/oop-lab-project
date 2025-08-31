@@ -240,6 +240,8 @@ int main(int, char**) {
         SDL_Log("Error: SDL_CreateRenderer(): %s\n", SDL_GetError());
         return -1;
     }
+
+    // IMG_Init()
     
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
