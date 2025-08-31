@@ -2,32 +2,14 @@
     "users": [
         {
             "address": "Choquan, HCMC",
-            "dob": "1990-01-01T05-00",
-            "email": "admin@example.com",
-            "favoriteBookId": [],
-            "id": 1,
-            "image": "data/user/admin.png",
-            "isSuspended": true,
-            "name": "admin",
-            "nid": "079206000001",
-            "passwordHash": "a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3",
-            "phone": "0123456789",
-            "suspendEnd": "2025-12-03T00-00",
-            "type": "premium"
-        },
-        {
-            "address": "Choquan, HCMC",
             "department": "IT",
             "dob": "1970-01-01T05-00",
             "email": "fit@hcmus.edu.vn",
-            "favoriteBookId": [
-                9001,
-                9003
-            ],
-            "id": 2,
-            "image": "",
+            "favoriteBookId": [],
+            "id": 1,
+            "image": "data/user/olive.png",
             "isSuspended": false,
-            "name": "IT salary man",
+            "name": "FIT@HCMUS salary man",
             "nid": "012070000001",
             "passwordHash": "a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3",
             "phone": "0123456789",
@@ -35,18 +17,83 @@
             "workId": "GV001"
         },
         {
-            "address": "Chongqing, China",
-            "dob": "2020-01-01T05-00",
-            "email": "cum@cum.cn",
+            "address": "Thuduc, HCMC",
+            "dob": "2015-01-01T05-00",
+            "email": "minh777@gmail.com",
+            "favoriteBookId": [],
+            "id": 2,
+            "image": "",
+            "isSuspended": false,
+            "name": "Minh 10 tuổi",
+            "nid": "0792150000077",
+            "passwordHash": "a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3",
+            "phone": "0",
+            "type": "regular"
+        },
+        {
+            "address": "Kawasaki, Japan",
+            "dob": "1999-05-12T07-00",
+            "email": "huyxyz@gmail.com",
             "favoriteBookId": [],
             "id": 3,
-            "image": "data/user/cum.png",
+            "image": "data/user/purple.png",
+            "isSuspended": true,
+            "name": "Huy",
+            "nid": "0792150000077",
+            "passwordHash": "a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3",
+            "phone": "0",
+            "suspendEnd": "2025-12-03T00-00",
+            "type": "regular"
+        },
+        {
+            "address": "Anlao, Jarai",
+            "department": "IT",
+            "dob": "2006-09-23T05-00",
+            "email": "24127326@hcmus.edu.vn",
+            "favoriteBookId": [
+                9011
+            ],
+            "id": 4,
+            "image": "data/user/green.png",
             "isSuspended": false,
-            "name": "skibidi",
-            "nid": "012070000001",
+            "name": "Đoàn Quốc Bảo",
+            "nid": "052206004444",
             "passwordHash": "a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3",
             "phone": "0123456789",
-            "type": "regular"
+            "type": "undergraduate",
+            "workId": "24127326"
+        },
+        {
+            "address": "Cholon, HCMC",
+            "department": "IT",
+            "dob": "2003-01-01T05-00",
+            "email": "23125001@hcmus.edu.vn",
+            "favoriteBookId": [],
+            "id": 5,
+            "image": "data/user/pink.png",
+            "isSuspended": false,
+            "name": "Yang T.A.",
+            "nid": "079203004321",
+            "passwordHash": "a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3",
+            "phone": "0123456789",
+            "type": "postgraduate",
+            "workId": "23125001"
+        },
+        {
+            "address": "Haiphong",
+            "department": "Math",
+            "dob": "1979-01-01T05-00",
+            "email": "math@hcmus.edu.vn",
+            "favoriteBookId": [],
+            "id": 6,
+            "image": "data/user/pink.png",
+            "isSuspended": false,
+            "name": "Math HCMUS staff",
+            "nid": "0",
+            "passwordHash": "a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3",
+            "phone": "0123456789",
+            "type": "staff",
+            "workId": "MTHSTAFF222"
         }
     ]
 }

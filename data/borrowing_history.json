@@ -1,3 +1,34 @@
 {
-    "borrowing_history": []
+    "borrowing_history": [
+        {
+            "action": "borrow",
+            "book_id": 9012,
+            "timestamp": "2025-08-31T18-53",
+            "user_id": 4
+        },
+        {
+            "action": "borrow",
+            "book_id": 9014,
+            "timestamp": "2025-08-31T18-53",
+            "user_id": 4
+        },
+        {
+            "action": "return",
+            "book_id": 9012,
+            "timestamp": "2025-08-31T18-53",
+            "user_id": 4
+        },
+        {
+            "action": "return",
+            "book_id": 9014,
+            "timestamp": "2025-09-15T18-53",
+            "user_id": 4
+        },
+        {
+            "action": "borrow",
+            "book_id": 9020,
+            "timestamp": "2025-09-15T18-53",
+            "user_id": 4
+        }
+    ]
 }
