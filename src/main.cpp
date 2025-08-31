@@ -112,7 +112,7 @@ class Application : public IUIAbstract {
             doLogout = false;
             appContext.currentUser = nullptr;
             uiPages.clear();
-            loginView.reset();
+            loginView.resetLogin();
             currentDrawContext = std::bind(&Application::drawLogin, this);
             return;
         }
@@ -137,10 +137,6 @@ class Application : public IUIAbstract {
             addDefaultTabs();
             currentDrawContext = std::bind(&Application::drawBrowser, this);
         }
-    }
-
-    void drawRegister() {
-
     }
 
     void drawMenuBar() {

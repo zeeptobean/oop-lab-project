@@ -1,6 +1,7 @@
 #include "gui/gui_favorite_frame.hpp"
 
 void UIFavoriteStatusFrame::refreshData() {
+    refreshSignal = true;
     incomingBookVec.clear();
     std::set<uint64_t> tset = appContext.currentUser->favoriteBookId;
     for(auto it = tset.begin(); it != tset.end(); it++) {
@@ -12,10 +13,11 @@ void UIFavoriteStatusFrame::refreshData() {
 }
 
 void UIFavoriteStatusFrame::draw() {
-    if(incomingBookVec.size() > 0) {
+    if(refreshSignal) {
         std::swap(bookVec, incomingBookVec);
         incomingBookVec.clear();
         bookCatalogue = std::make_unique<UIBookCatalogue>(appContext, bookVec);
+        refreshSignal = false;
     }
 
     if(bookCatalogue) {

@@ -16,7 +16,7 @@ private:
     AppContext& appContext;
     std::string headerStr;
     std::vector<UICarouselCard> bookCards; // Owns the cards directly
-    const int cardHeight = 400;
+    const int cardHeight = 350;
 
 public:
     explicit UICarouselView(AppContext&, const nlohmann::json& carouselConfig);

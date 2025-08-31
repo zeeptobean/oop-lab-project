@@ -22,7 +22,7 @@ void UIBookView::drawImpl() {
     ImGui::PopFont();
     ImGui::Text("ISBN: %s", book.isbn.c_str());
     ImGui::Text("Author(s): %s", book.getAuthorsString().c_str());
-    ImGui::Text("Publication year: %u", book.publicationYear);
+    ImGui::Text("Publication year: %s", book.publicationYear.c_str());
     if(book.ageRating == 0) {
         ImGui::Text("Age rating: EVERYONE");
     } else {
@@ -67,6 +67,7 @@ void UIBookView::drawImpl() {
     } else {
         if(ImGui::Button("Add to Favorites")) {
             appContext.currentUser->favoriteBookId.insert(book.internalId);
+            EventDispatcher::get().dispatchEvent(refreshEvent.get());
         }
     }
 

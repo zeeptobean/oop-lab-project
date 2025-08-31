@@ -11,6 +11,7 @@ class UIFavoriteStatusFrame : public IUIAbstract, Observer {
     AppContext& appContext;
     std::unique_ptr<UIBookCatalogue> bookCatalogue = nullptr;
     std::vector<Book*> incomingBookVec, bookVec;
+    bool refreshSignal = false;
 
     void refreshData();
 

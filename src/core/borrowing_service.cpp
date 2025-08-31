@@ -53,6 +53,7 @@ int BorrowingService::borrowBook(uint64_t userId, uint64_t bookId) {
 bool BorrowingService::returnBook(uint64_t userId, uint64_t bookId) {
     if(!queryUserBorrowingBook(userId, bookId)) return false;
     bookCountMap[bookId]++;
+    userCurrentBorrowedCountMap[userId]--;
     userBorrowingHistoryMap[userId].emplace_back("return", bookId, userId, Timestamp::now());
     EventDispatcher::get().dispatchEvent(refreshEvent.get());
     return true;

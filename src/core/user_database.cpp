@@ -160,3 +160,10 @@ void UserDatabase::writeFile() {
     jsonFile << jsonData.dump(4);
     jsonFile.close();
 }
+
+void UserDatabase::addUser(User tmpUser, std::string password) {
+    tmpUser.internalId = this->userMap.rbegin()->first + 1;
+    tmpUser.borrowingPolicy = BorrowingPolicyFactory::getNormalPolicy();
+    tmpUser.passwordHash = sha256(password);
+    this->userMap[tmpUser.internalId] = std::unique_ptr<User>(tmpUser.clone());
+}

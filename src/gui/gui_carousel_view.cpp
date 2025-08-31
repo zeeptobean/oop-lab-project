@@ -29,9 +29,9 @@ void UICarouselView::draw() {
     const float cardSpacing = 10.0f;
 
     ImGui::PushID(this);
-    if(ImGui::BeginChild("##CarouselView", ImVec2(-1, 0), false, ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse | ImGuiWindowFlags_HorizontalScrollbar)) {
-        ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(10, 10));
-        if (ImGui::BeginTable("CarouselGrid", (int) bookCards.size(), ImGuiTableFlags_ScrollX)) {
+    if(ImGui::BeginChild("##CarouselView", ImVec2(-1, cardHeight+40), false, ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse | ImGuiWindowFlags_HorizontalScrollbar)) {
+        ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(8, 8));
+        if (ImGui::BeginTable("CarouselGrid", std::min((int) bookCards.size(), 480), ImGuiTableFlags_ScrollX)) {
             ImGui::PushStyleVar(ImGuiStyleVar_CellPadding, ImVec2(0, cardSpacing));
             for (auto& card : bookCards) {
                 ImGui::TableNextColumn();

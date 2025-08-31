@@ -12,7 +12,7 @@ class Book {
     std::string imagePath;
     std::string title;
     std::vector<std::string> authors;
-    uint32_t publicationYear;
+    std::string publicationYear;
     uint32_t ageRating;
     std::string isbn;
     std::vector<std::string> tags;

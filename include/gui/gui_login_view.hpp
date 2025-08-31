@@ -5,6 +5,7 @@
 #include "gui_abstract.hpp"
 #include "../app_context.hpp"
 #include "../core/user_database.hpp"
+#include "memory"
 
 class UILoginView : public IUIAbstract {
     private:
@@ -13,17 +14,19 @@ class UILoginView : public IUIAbstract {
     AppContext& appContext;
     std::string email, password;
     unsigned int wrongAttempts = 0;
+
+    User r_user;
+    std::string dobStr, passwordStr, passwordStr2;
+    bool isRegisterOpen = false;
+
+    void resetRegister();
+    
     public:
 
     UILoginView() = default;
     UILoginView(AppContext& ctx) : appContext(ctx) {  }
 
-    void reset() {
-        email = "";
-        password = "";
-        wrongAttempts = 0;
-        isLoginOpen = true;
-    }
+    void resetLogin();
 
     void draw() override;
 };

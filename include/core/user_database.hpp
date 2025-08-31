@@ -31,4 +31,5 @@ class UserDatabase {
     std::string queryUserPasswordHash(const std::string& email);
     bool loadFile(const std::string& filename);
     void writeFile();
+    void addUser(User tmpUser, std::string password);
 };

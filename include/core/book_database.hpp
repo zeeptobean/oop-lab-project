@@ -37,4 +37,5 @@ class BookDatabase {
 
     std::vector<Book> bookVec;
     std::set<uint64_t> uniqueIdSet;
+    Book defaultBook;
 };

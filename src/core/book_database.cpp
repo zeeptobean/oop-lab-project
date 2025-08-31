@@ -33,7 +33,7 @@ Book* BookDatabase::query(uint64_t bookId) {
     if (it != bookVec.end()) {
         return &(*it);
     }
-    return &bookVec[0]; //return default book
+    return &defaultBook;
 }
 
 //query and search are different!
@@ -111,7 +111,6 @@ std::vector<Book*> BookDatabase::getBooksByAuthor(const std::string& author) {
 }
 
 BookDatabase::BookDatabase() {
-    Book defaultBook;
     defaultBook.internalId = 0;
     uniqueIdSet.insert(0);
     bookVec.emplace_back(defaultBook);
