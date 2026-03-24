@@ -104,3 +104,6 @@ If you installed prebuilt packages, these dependencies are included
 The binaries and source code are released for educational purposes
 
 The images of book covers used within this application are for demonstration and educational purposes only. These images are intended to provide a realistic visual representation of a library system's interface and are not intended for commercial use or distribution. The copyright for all book covers and related artwork belongs to their respective publishers, authors, and artists. No ownership of these images is claimed or implied by the creators of this project.
+
+## Demo video
+[Link](https://youtu.be/3sbKmt1Hr_Q)
